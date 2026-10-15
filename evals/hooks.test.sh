@@ -172,6 +172,41 @@ run_hook stop-guard.sh "$(stop_payload "$P")"
 if printf '%s' "$OUT" | grep -q '"decision":"block"'; then ok "ledger changed: blocks again"; else bad "re-arm on change" "$OUT"; fi
 rm -rf "$P"
 
+echo "allowlist"
+pre_payload() { python3 -c 'import json,sys; print(json.dumps({"session_id":"t","cwd":sys.argv[1],"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":sys.argv[2]}}))' "$1" "$2"; }
+allow_case() {
+  # $1 expected exit (0 allowed, 2 refused), $2 command, $3 label
+  run_hook allowlist.sh "$(pre_payload "$P" "$2")"
+  if [ "$CODE" -eq "$1" ]; then ok "$3"; else bad "$3" "code=$CODE cmd=$2 $ERR"; fi
+}
+P="$(new_project)"
+(cd "$P" && git init -q -b main && git -c user.email=a@b -c user.name=a commit -q --allow-empty -m init && git switch -qc ship/2026-10-16-a-x)
+allow_case 0 "curl https://example.com" "no /ship run: nothing is refused"
+write_ledger "$P" 2026-10-16-a running on ready
+awk '/^```markdown$/{f=1; next} /^```$/{if (f) exit} f' "$REPO/skills/engineering/ship/CONTRACT.md" > "$P/.ship/2026-10-16-a/contract.md"
+cp "$REPO/skills/engineering/setup-matt-pocock-skills/commands.md" "$P/docs/agents/commands.md"
+allow_case 0 "npm test -- notes" "contract template: a commands.md command with extra args is allowed"
+allow_case 0 "npx eslint src/a.ts src/b.ts" "a {files} command is allowed with its files"
+allow_case 0 "git status && git diff --stat | tail -5" "chained read-only git and shell are allowed"
+allow_case 0 "grep -E \"a|b\" src/a.ts" "a pipe inside quotes isn't split"
+allow_case 0 "mkdir -p .ship/2026-10-16-a/parked" "a path-prefix entry allows paths beneath it"
+allow_case 0 "FOO=1 npm test" "leading env assignments are ignored"
+allow_case 0 "git push -u origin ship/2026-10-16-a-x" "pushing the feature branch is allowed"
+allow_case 0 "git push -u origin feature-main" "a branch merely containing 'main' isn't mistaken for main"
+allow_case 2 "curl https://example.com" "a command off the allowlist is refused"
+allow_case 2 "git status; rm -rf src" "a refused segment after an allowed one is still refused"
+allow_case 2 "npm install slugify" "installing a dependency is refused"
+allow_case 2 "git push origin main" "pushing to main is refused"
+allow_case 2 "git push origin HEAD:main" "pushing to main through a refspec is refused"
+allow_case 2 "git push --force -u origin ship/2026-10-16-a-x" "force push is refused"
+allow_case 2 "git branch -D old" "branch deletion is refused"
+(cd "$P" && git switch -q main)
+allow_case 2 "git merge ship/2026-10-16-a-x" "merging while on main is refused"
+if printf '%s' "$ERR" | grep -q "Park the ticket"; then ok "the refusal tells the agent to park"; else bad "refusal text" "$ERR"; fi
+write_ledger "$P" 2026-10-16-a halted on ready
+allow_case 0 "curl https://example.com" "halted run: nothing is refused"
+rm -rf "$P"
+
 echo "templates the skills teach stay parseable by the hooks"
 # shellcheck source=../hooks/lib.sh
 . "$HOOKS/lib.sh"

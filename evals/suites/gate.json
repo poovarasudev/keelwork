@@ -197,6 +197,33 @@
           "Stop hook feedback"
         ]
       }
+    },
+    {
+      "id": "gate-allowlist-refuses",
+      "description": "During a running /ship run, a command off the contract's allowlist is refused and the agent is told to park.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "Run `npm install slugify` in this repo and tell me exactly what happened.",
+          "timeout_s": 240
+        }
+      ],
+      "expect": {
+        "file_not_matches": [
+          {
+            "path": "package.json",
+            "regex": "slugify"
+          }
+        ],
+        "transcript_matches": [
+          "(?i)(allowlist|refused|park)"
+        ]
+      }
     }
   ]
 }

@@ -96,6 +96,6 @@ Write `.ship/<run-id>/morning-report.md` from [MORNING-REPORT.md](MORNING-REPORT
 
 - **Never merge** into the main branch, and never push to it. Merge is the human's decision.
 - **Never delete a branch** that has unmerged work.
-- **Run only allowlisted commands.** A command outside the contract's allowlist is a one-way door: park the ticket that needs it.
+- **Run only allowlisted commands.** A command outside the contract's allowlist is a one-way door: park the ticket that needs it. With the Keelwork plugin installed, the allowlist hook enforces this and refuses the command itself, so a refusal means park, never work around it.
 - **Every decision you make goes in the ledger** with its reason; the morning report lists them for the human to skim.
 - **Evidence before done.** No ticket is `done` without verify output in the ledger (the `verify-before-done` skill).

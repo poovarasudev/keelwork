@@ -43,6 +43,8 @@ It writes its run state to `.ship/<run-id>/` (the ledger, the contract, the desi
 
 The contract is the run's standing orders, agreed at step 5. **Two-way doors** (private names, internal structure, test layout, a reviewer finding that's wrong for this codebase) the agent decides and logs with a reason. **One-way doors** always park: schema changes and migrations, public API changes, new dependencies, anything touching auth or payments, data deletion, and any command outside the allowlist. Your team adds its own entries in `docs/agents/autonomy-contract.md`, and each morning report suggests more.
 
+The allowlist isn't just advice. With the plugin installed, a hook checks every shell command during a running `/ship` run against the contract's allowlist, refuses anything else (and always refuses pushing to or merging into the main branch, force pushes and branch deletion), and tells the agent to park the ticket instead.
+
 The contract also fixes the budget (tickets per run, fix rounds per ticket, a time limit) and the **finish action**: push the branch, or open a PR.
 
 ## The ledger

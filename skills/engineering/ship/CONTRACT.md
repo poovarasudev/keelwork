@@ -41,6 +41,7 @@ Project-specific entries live in `docs/agents/autonomy-contract.md` in the targe
 
 ## Command allowlist
 - The commands in `docs/agents/commands.md`
+- Read-only shell: `ls`, `cat`, `head`, `tail`, `grep`, `rg`, `find`, `wc`, `sed -n`, `diff`, `pwd`, `cd`, `echo`, `test`, `date`, `sort`, `uniq`, `mkdir -p .ship/`
 - Read-only git: `git status`, `git diff`, `git log`, `git show`, `git rev-parse`, `git merge-base`
 - Branch work on the feature branch only: `git add`, `git commit`, `git restore` (on files the current ticket lists), `git stash`
 - <per-run additions agreed with the user, e.g. a code generator or a local database reset script>
@@ -58,6 +59,7 @@ Project-specific entries live in `docs/agents/autonomy-contract.md` in the targe
 
 ## Notes on the defaults
 
+- The allowlist is enforced, not advisory: during a running `/ship` run the plugin's allowlist hook refuses any shell command whose start doesn't match a backticked entry (an entry allows itself plus any arguments after it; `<placeholders>` end the match), and always refuses pushing to or merging into the main branch, force pushes and branch deletion. Name each extra command the run needs at preflight, or the ticket that needs it will park.
 - The one-way list is the floor: a team can add entries, never remove these. Removing one would let an unattended run make a decision nobody can take back.
 - A two-way decision that turns out wrong costs rework the human sees in the morning and can undo. A parked ticket costs a day. When unsure which kind a decision is, it is a one-way door.
 - The budget defaults are a starting point for the pilot. Raise or lower them per run; the ledger records what each run used, so the numbers can be tuned from evidence.

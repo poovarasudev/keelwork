@@ -23,7 +23,7 @@ Every upstream command still works exactly as before. Keelwork adds:
 | **Keel** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) |
 | **Sails** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
 | **Hull** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
-| **Ballast** | [Claude Code hooks](./hooks/README.md): a session reminder, post-edit lint and typecheck, and the `/ship` stop guard |
+| **Ballast** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
 | **Compass** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
 
 Every edit Keelwork makes to an upstream skill is logged in [`FORK-CHANGES.md`](./FORK-CHANGES.md), so the monthly upstream merge stays routine.

@@ -27,8 +27,10 @@ None.
 
 ## Command allowlist
 - `npm test`, `node --test <file>`, `node --check <files>`
+- Read-only shell: `ls`, `cat`, `head`, `tail`, `grep`, `rg`, `find`, `wc`, `sed -n`, `diff`, `pwd`, `cd`, `echo`, `test`, `date`, `sort`, `uniq`, `mkdir -p .ship/`
 - Read-only git: `git status`, `git diff`, `git log`, `git show`, `git rev-parse`, `git merge-base`
 - Branch work on the feature branch only: `git add`, `git commit`, `git restore` (on files the current ticket lists), `git stash`
+- At the finish only: `git push -u origin <feature branch>`
 
 ## Finish action
 push-branch

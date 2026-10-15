@@ -5,6 +5,7 @@ Keelwork's **ballast** (Layer 4): the few rules that must hold whether or not th
 | Hook | Event | What it does |
 | --- | --- | --- |
 | [`session-start.sh`](session-start.sh) | `SessionStart` (startup, resume, clear, compact) | Prints a reminder under ten lines: build requests start with grilling, unattended work goes through `/ship`, "done" needs verify output. If a `/ship` run is in progress it names the ledger, and after compaction tells the agent to re-read it. |
+| [`allowlist.sh`](allowlist.sh) | `PreToolUse` on `Bash` | While a `/ship` ledger says `Status: running`, refuses any shell command that doesn't match the run contract's **Command allowlist** (SRD N6), and always refuses pushing to or merging into the main branch, force pushes and branch deletion. A refusal exits 2 with the reason, telling the agent to park the ticket. Outside a running `/ship` run it never blocks. |
 | [`post-edit.sh`](post-edit.sh) | `PostToolUse` on `Edit`, `Write`, `MultiEdit`, `NotebookEdit` | Runs the repo's **lint** command on the edited file and its **typecheck** command, both from `docs/agents/commands.md`. A failure exits 2, so the output reaches the agent in the same turn. A repo without that file is left alone. |
 | [`stop-guard.sh`](stop-guard.sh) | `Stop` | While a `/ship` ledger says `Status: running` and `Stop guard: on` and still has a `ready` or `in-progress` ticket, blocks the session from ending. It never blocks outside a running `/ship` run, and lets a stuck session go after three blocks with an unchanged ledger. |
 
@@ -13,6 +14,7 @@ Keelwork's **ballast** (Layer 4): the few rules that must hold whether or not th
 ## Turning them off
 
 - `KEELWORK_POST_EDIT=off` disables the post-edit checks; `KEELWORK_POST_EDIT_TYPECHECK=off` keeps lint but skips the typecheck (useful on a repo whose typecheck is slow).
+- The allowlist can't be switched off during a running `/ship` run; that is the point of it. Widen it instead, by adding the command to the run's contract at preflight.
 - The stop guard is opt-in per run: `/ship` asks at preflight and records `Stop guard: on` or `off` in the ledger.
 - The session reminder has no switch; it is a few lines of context.
 
@@ -25,6 +27,9 @@ The Claude Code plugin loads [`hooks.json`](hooks.json) automatically. If you in
   "hooks": {
     "SessionStart": [
       { "matcher": "startup|resume|clear|compact", "hooks": [{ "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/keelwork-hooks/session-start.sh\"", "timeout": 10 }] }
+    ],
+    "PreToolUse": [
+      { "matcher": "Bash", "hooks": [{ "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/keelwork-hooks/allowlist.sh\"", "timeout": 10 }] }
     ],
     "PostToolUse": [
       { "matcher": "Edit|Write|MultiEdit|NotebookEdit", "hooks": [{ "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/keelwork-hooks/post-edit.sh\"", "timeout": 300 }] }
