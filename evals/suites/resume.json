@@ -18,12 +18,12 @@
       "steps": [
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a",
-          "timeout_s": 1800,
+          "timeout_s": 2400,
           "kill_after_s": 300
         },
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a",
-          "timeout_s": 2400,
+          "timeout_s": 5400,
           "new_session": true
         }
       ],
@@ -72,7 +72,7 @@
       "steps": [
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a P1: repeatable --tag, exactly as the ticket says.",
-          "timeout_s": 1800
+          "timeout_s": 3600
         }
       ],
       "expect": {

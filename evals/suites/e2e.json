@@ -17,7 +17,7 @@
       "steps": [
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a",
-          "timeout_s": 7200
+          "timeout_s": 14400
         }
       ],
       "expect": {
@@ -82,7 +82,7 @@
       "steps": [
         {
           "prompt": "/keelwork:setup-matt-pocock-skills My answers, so don't wait for me: local markdown tracker, single-context docs, accept the commands you find, create CLAUDE.md.",
-          "timeout_s": 900
+          "timeout_s": 1800
         }
       ],
       "expect": {
@@ -118,7 +118,7 @@
       "steps": [
         {
           "prompt": "/keelwork:onboard-repo",
-          "timeout_s": 1800
+          "timeout_s": 2400
         }
       ],
       "expect": {

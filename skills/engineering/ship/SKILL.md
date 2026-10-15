@@ -99,7 +99,7 @@ Read [MORNING-REPORT.md](MORNING-REPORT.md) and write `.ship/<run-id>/morning-re
 
 `/ship resume` takes the run id, or the newest `.ship/*/ledger.md` whose status isn't `finished`. Re-read the ledger, the contract and `git log` on the run's branch; trust them over your memory. Read [LEDGER.md](LEDGER.md) and [RUN-LOOP.md](RUN-LOOP.md) in full before touching any ticket: a resumed run follows the same per-ticket loop and finish as a fresh one. Then:
 
-- Tickets marked `done` stay done. A ticket marked `in-progress` restarts its loop from the last step the ledger records for it, after checking its working-tree changes still exist.
+- Tickets marked `done` stay done. A ticket marked `in-progress` whose commit (`<ticket id>: ...`) already exists on the run's branch was finished but not recorded: mark it `done` with that commit. Any other `in-progress` ticket restarts its loop from the last step the ledger records for it, after checking its working-tree changes still exist.
 - A `halted` run resumes only after the user has answered what halted it. Record each answer in *Decisions*, unpark the tickets it unblocks, and set `Status: running`.
 - A run still in `preflight` (it died during steps 1-7) resumes, with the user, at the first step whose output is missing.
 
@@ -109,4 +109,5 @@ Read [MORNING-REPORT.md](MORNING-REPORT.md) and write `.ship/<run-id>/morning-re
 - **Never delete a branch** that has unmerged work.
 - **Run only allowlisted commands.** A command outside the contract's allowlist is a one-way door: park the ticket that needs it. With the Keelwork plugin installed, the allowlist hook enforces this and refuses the command itself, so a refusal means park, never work around it.
 - **Every decision you make goes in the ledger** with its reason; the morning report lists them for the human to skim.
+- **Never end a turn waiting** on a background subagent or notification: nobody is there to resume you. Run subagents in the foreground and keep going until the run finishes or halts.
 - **Evidence before done.** No ticket is `done` without verify output in the ledger (the `verify-before-done` skill).

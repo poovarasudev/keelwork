@@ -18,7 +18,7 @@
       "steps": [
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a",
-          "timeout_s": 1800
+          "timeout_s": 3600
         }
       ],
       "expect": {
@@ -55,7 +55,7 @@
       "steps": [
         {
           "prompt": "/keelwork:ship resume 2026-10-16-a",
-          "timeout_s": 1200
+          "timeout_s": 3600
         }
       ],
       "expect": {

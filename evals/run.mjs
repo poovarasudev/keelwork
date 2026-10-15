@@ -36,6 +36,8 @@ const DRY = flag("dry-run");
 const KEEP = flag("keep");
 const STAMP = new Date().toISOString().replace(/[:.]/g, "-");
 const RESULTS = join(EVALS, "results", STAMP);
+const STALL_S = Number(opt("stall", "480"));
+const MAX_STALL_RETRIES = 2;
 
 // --- Workspaces ---------------------------------------------------------------------
 
@@ -92,7 +94,7 @@ function makeWorkspace(fixture) {
 
 // --- Running claude -------------------------------------------------------------------
 
-function runClaude({ prompt, cwd, extraArgs = [], timeoutS = 600, killAfterS = null, stopOn = null, logPath }) {
+function runClaude({ prompt, cwd, extraArgs = [], timeoutS = 600, killAfterS = null, stallS = null, stopOn = null, logPath }) {
   return new Promise((resolve) => {
     const args = [
       "-p", prompt,
@@ -117,7 +119,16 @@ function runClaude({ prompt, cwd, extraArgs = [], timeoutS = 600, killAfterS = n
     };
     const timer = setTimeout(() => kill("timeout"), timeoutS * 1000);
     const killTimer = killAfterS ? setTimeout(() => kill("kill_after"), killAfterS * 1000) : null;
+    // A stream that goes silent for stallS seconds is stalled, not working.
+    let stallTimer = null;
+    const armStall = () => {
+      if (!stallS) return;
+      if (stallTimer) clearTimeout(stallTimer);
+      stallTimer = setTimeout(() => kill("stall"), stallS * 1000);
+    };
+    armStall();
     child.stdout.on("data", (chunk) => {
+      armStall();
       buf += chunk;
       let nl;
       while ((nl = buf.indexOf("\n")) >= 0) {
@@ -136,6 +147,7 @@ function runClaude({ prompt, cwd, extraArgs = [], timeoutS = 600, killAfterS = n
     child.on("close", (code) => {
       clearTimeout(timer);
       if (killTimer) clearTimeout(killTimer);
+      if (stallTimer) clearTimeout(stallTimer);
       if (buf.trim()) lines.push(buf);
       if (logPath) writeFileSync(logPath, lines.join("\n") + "\n");
       resolve({ code, killedBy, events: lines.map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean), raw: lines.join("\n") });
@@ -339,25 +351,37 @@ async function runCase(suiteName, c) {
   const all = { skills: [], writes: [], bash: [], text: [], injected: [] };
   let raw = "";
   let sessionId = null;
+  const stalls = [];
   for (const [i, step] of c.steps.entries()) {
-    const extraArgs = ["--permission-mode", "bypassPermissions"];
-    if (sessionId && !step.new_session) extraArgs.push("--resume", sessionId);
-    const res = await runClaude({
-      prompt: step.prompt,
-      cwd,
-      timeoutS: step.timeout_s ?? 600,
-      killAfterS: step.kill_after_s ?? null,
-      extraArgs,
-      logPath: join(caseDir, `step-${i + 1}.jsonl`),
-    });
-    const a = analyse(res.events, cwd);
-    sessionId = a.sessionId ?? sessionId;
-    for (const k of Object.keys(all)) all[k].push(...a[k]);
-    raw += res.raw + "\n";
-    if (res.killedBy === "timeout") all.text.push(`[step ${i + 1} timed out]`);
+    // A stalled stream (no event for STALL_S) is the harness, not the skill:
+    // resume the same session and ask it to carry on, up to MAX_STALL_RETRIES times.
+    let prompt = step.prompt;
+    let resumeId = step.new_session ? null : sessionId;
+    for (let attempt = 0; ; attempt++) {
+      const extraArgs = ["--permission-mode", "bypassPermissions"];
+      if (resumeId) extraArgs.push("--resume", resumeId);
+      const res = await runClaude({
+        prompt,
+        cwd,
+        timeoutS: step.timeout_s ?? 600,
+        killAfterS: attempt === 0 ? step.kill_after_s ?? null : null,
+        stallS: STALL_S,
+        extraArgs,
+        logPath: join(caseDir, `step-${i + 1}${attempt ? `-retry${attempt}` : ""}.jsonl`),
+      });
+      const a = analyse(res.events, cwd);
+      sessionId = a.sessionId ?? sessionId;
+      for (const k of Object.keys(all)) all[k].push(...a[k]);
+      raw += res.raw + "\n";
+      if (res.killedBy === "timeout") all.text.push(`[step ${i + 1} timed out]`);
+      if (res.killedBy !== "stall" || attempt >= MAX_STALL_RETRIES || !sessionId) break;
+      stalls.push(`step ${i + 1} stalled; resumed`);
+      resumeId = sessionId;
+      prompt = "Your previous response stalled. Continue exactly where you stopped.";
+    }
   }
   const fails = check(c.expect, { a: all, cwd, raw, before });
-  const result = { id: c.id, pass: fails.length === 0, detail: fails.join("; ") || "ok", workspace: KEEP ? cwd : undefined };
+  const result = { id: c.id, pass: fails.length === 0, detail: [...fails, ...stalls].join("; ") || "ok", workspace: KEEP ? cwd : undefined };
   writeFileSync(join(caseDir, "result.json"), JSON.stringify({ ...result, skills: all.skills, writes: all.writes }, null, 2));
   return result;
 }

@@ -35,6 +35,8 @@ node evals/run.mjs gate --case gate-one-way-door-parks --keep   # keep the works
 node evals/run.mjs all --model opus
 ```
 
+Long runs need the machine awake: on macOS the runner wraps every session in `caffeinate -i`. A session whose event stream goes silent for 8 minutes (`--stall <seconds>` to change) is treated as stalled, not slow: the runner resumes the same session with "continue", up to twice, and notes the stall in the result.
+
 Each run writes the transcripts (`*.jsonl`) and a `summary.json` to `evals/results/<timestamp>/`, which git ignores. A case fails with the reason it failed; `--keep` prints the workspace path so you can open the repo the agent left behind.
 
 ## Fixtures

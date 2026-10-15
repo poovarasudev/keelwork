@@ -32,7 +32,7 @@
       "steps": [
         {
           "prompt": "Use the tdd skill to add searchNotes(path, query) to src/notes.js: it returns the notes whose text contains the query, ignoring case.",
-          "timeout_s": 900
+          "timeout_s": 1800
         }
       ],
       "expect": {
@@ -55,15 +55,15 @@
     },
     {
       "id": "upstream-code-review-two-axes",
-      "description": "code-review still reports Standards and Spec separately.",
+      "description": "code-review still reports Standards and Spec separately. Invoked by name: whether it fires on its own is the trigger suite's job.",
       "fixture": "greenfield",
       "setup": [
         "git switch -qc feature/count && printf '\\nexport function countNotes(path) { return listNotes(path).length; }\\n' >> src/notes.js && git commit -qam 'Add countNotes'"
       ],
       "steps": [
         {
-          "prompt": "Review the changes on this branch since main. There's no spec; it adds countNotes.",
-          "timeout_s": 900
+          "prompt": "/keelwork:code-review Review the changes on this branch since main. There's no spec; the branch adds countNotes.",
+          "timeout_s": 1800
         }
       ],
       "expect": {

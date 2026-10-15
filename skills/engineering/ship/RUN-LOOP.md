@@ -2,6 +2,8 @@
 
 Steps 8 and 9 of `/ship`, run with nobody at the keyboard. You have the approved tickets, the contract and the ledger. Every judgement call is yours to make within the contract; everything outside it is parked. Re-read the ledger at the start of every ticket.
 
+**Never end a turn waiting.** Nobody is there to wake you: a turn that ends on "I'll continue when the subagent reports" ends the run. Run every subagent you dispatch (implementers, reviewers, and the sub-agents `code-review` and the audits spawn) in the foreground and wait for its result in the same turn, and keep working until the run finishes or halts.
+
 ## Picking work
 
 The **frontier** is every ticket whose status is `ready`. Take tickets in ID order.
