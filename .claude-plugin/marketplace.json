@@ -1,0 +1,23 @@
+{
+  "name": "keelwork",
+  "owner": {
+    "name": "Poovarasu Sekar"
+  },
+  "description": "Keelwork: disciplined agent workflows for Claude Code, as an installable plugin.",
+  "plugins": [
+    {
+      "name": "keelwork",
+      "source": "./",
+      "description": "Disciplined agent workflows for Claude Code: grill the plan, ship overnight, review at dawn.",
+      "category": "engineering",
+      "keywords": [
+        "agents",
+        "workflows",
+        "skills",
+        "grilling",
+        "tdd",
+        "code-review"
+      ]
+    }
+  ]
+}
