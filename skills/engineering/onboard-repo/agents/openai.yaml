@@ -1,0 +1,5 @@
+interface:
+  display_name: "Onboard Repo"
+  short_description: "Bootstrap agent context in an existing repo"
+policy:
+  allow_implicit_invocation: false

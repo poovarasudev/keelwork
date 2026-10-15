@@ -36,7 +36,7 @@ Each SRD layer maps onto a part of a ship, which gives the README and talks one 
 
 Read it bottom to top: the keel (Layer 1) is laid first and every later layer depends on it, while ballast hooks (Layer 4) steady all four.
 
-**Status:** none of layers 1 to 5 is built yet. The README marks each one as planned until it lands. Remove the marker in the same change that ships the layer.
+**Status:** all five layers have shipped. The README's layer table maps each one to its skills and hooks; a future layer is marked *(planned)* there until the change that ships it.
 
 ## The KEEL loop
 
@@ -104,7 +104,7 @@ Four rules keep the name distinct and the fork easy to sync.
 
 ## What the rebrand deliberately did not touch
 
-Everything below is upstream-owned. Editing it would make every upstream merge conflict, so it keeps upstream wording until a skill is genuinely changed by Keelwork.
+Everything below is upstream-owned. Editing it would make every upstream merge conflict, so it keeps upstream wording until a skill is genuinely changed by Keelwork. Every such change is logged in [`FORK-CHANGES.md`](../FORK-CHANGES.md).
 
 - Skill folders, `name:` frontmatter, and `SKILL.md` bodies under `skills/` (so `ask-matt` and `setup-matt-pocock-skills` keep their names and headings).
 - The `docs/` pages. Their links to `https://aihero.dev/skills-<name>` and to upstream issues still resolve and still describe the upstream skills accurately.
@@ -115,4 +115,4 @@ Everything below is upstream-owned. Editing it would make every upstream merge c
 
 - [x] GitHub owner is `poovarasudev` (README, `.agents/install-block.md`, `.claude-plugin/plugin.json`, `package.json`, `.changeset/config.json`). Create the `poovarasudev/keelwork` repo so the install commands resolve.
 - [ ] Check the GitHub org, npm, plugin marketplace and keelwork.dev / .com before announcing the name.
-- [ ] Replace this document's "planned" markers as each layer ships.
+- [x] Replace this document's "planned" markers as each layer ships.

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Brainstorm Ideas (New Product)"
+  short_description: "Generate and rank ideas for a new product"
+policy:
+  allow_implicit_invocation: false

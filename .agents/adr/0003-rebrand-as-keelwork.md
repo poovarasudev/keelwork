@@ -19,3 +19,7 @@ A full rename touches around 500 lines across every docs page and every skill th
 - The plugin is no longer in Claude Code's official marketplace. Installs go through this repo as a marketplace: `claude plugin marketplace add poovarasudev/keelwork`, then `claude plugin install keelwork@keelwork`. The wording is in [install-block.md](../install-block.md).
 - The five layers (Keel, Sails, Hull, Ballast, Compass) are a roadmap, so the README marks each *(planned)* until it ships.
 - ADR 0002 describes the upstream listing in the official marketplace. It is history, and does not describe how Keelwork is distributed.
+
+## Update, 2026-10-15
+
+All five layers shipped, so the README's *(planned)* markers are gone. The upstream skills Keelwork had to change to build them (`setup-matt-pocock-skills`, `to-spec`, `to-tickets`, `implement-spec`, `grilling`, `code-review`, `pr`, `ask-matt`) keep their names, as this decision requires; each edit is logged in [`FORK-CHANGES.md`](../../FORK-CHANGES.md). See [ADR 0004](./0004-build-the-layers-as-a-thin-fork.md).

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Brainstorm Ideas (Existing Product)"
+  short_description: "Generate and rank ideas for a live product"
+policy:
+  allow_implicit_invocation: false

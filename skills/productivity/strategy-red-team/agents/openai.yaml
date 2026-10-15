@@ -1,0 +1,5 @@
+interface:
+  display_name: "Strategy Red-Team"
+  short_description: "Attack a plan's load-bearing assumptions"
+policy:
+  allow_implicit_invocation: false

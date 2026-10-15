@@ -45,6 +45,10 @@ A generic review skill that does not know your standards is the thing this desig
 
 The **smell baseline** is the floor underneath it, twelve Fowler code smells from _Refactoring_ ch.3: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest. Each is a labelled heuristic ("possible Feature Envy"), never a hard violation, and each is stated as *what it is* → *how to fix*, so a finding arrives with a move attached rather than a complaint. Anything your linter already enforces is skipped by both axes.
 
+## Stack checklists
+
+On top of the repo's own standards and the smell baseline, the Standards axis carries **stack checklists**: short lists of the traps specific to TypeScript, React, Node.js, Python, Go and SQL migrations. [stack-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/stack-review.md) loads only the checklists for the stacks the diff actually touches, so a Python diff never pays for the React list. The repo still overrides: a documented standard beats a checklist item, and anything your linter already enforces is skipped.
+
 ## Common questions
 
 **It collides with Claude Code's own `/code-review`. What do I do?**
@@ -82,6 +86,7 @@ No. It diffs `<fixed-point>...HEAD`, three-dot, which is measured from the merge
 - Every Standards finding names either a rule in one of your repo's files or one of the twelve smells, with the hunk quoted; every Spec finding quotes a line of the spec.
 - The closing summary gives a worst issue per axis and declines to pick an overall winner.
 - With no spec available, the Spec block says so instead of listing requirements it inferred from the code.
+- Stack findings name the checklist item they trip, and only for stacks the diff touches.
 
 ## Where it fits
 
@@ -90,6 +95,7 @@ No. It diffs `<fixed-point>...HEAD`, three-dot, which is measured from the merge
 - [implement](https://aihero.dev/skills-implement) is the closest neighbour: it drives the build and calls this skill as its own closing review before committing. [implement-spec](https://aihero.dev/skills-implement-spec) does the same once, over the whole integration branch.
 - [retro](https://aihero.dev/skills-retro) comes after it and tunes it: when a session shows the review missing a class of mistake, `retro` proposes the check or the `CODING_STANDARDS.md` rule the Standards axis then reads.
 - [pr](https://aihero.dev/skills-pr) writes the pull request body once the reviewed work goes up.
+- [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) runs it twice: per ticket, after the spec review passes, and once over the whole branch before the audits.
 - [to-spec](https://aihero.dev/skills-to-spec) and [to-tickets](https://aihero.dev/skills-to-tickets) produce the document the Spec axis checks against; a vague spec makes that axis vague.
 - [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) is the whole-codebase counterpart: this skill only ever looks at one diff.
 

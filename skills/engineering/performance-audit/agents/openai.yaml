@@ -1,0 +1,3 @@
+interface:
+  display_name: "Performance Audit"
+  short_description: "Static performance review of a branch diff"

@@ -1,18 +1,19 @@
 ## What it does
 
-`pr` is the shape a pull request body should take: a **Summary** that shows the change, **Evidence** that it works, and a **Merge Danger** call on how risky it is to land. It is a format reference, not a workflow. It does not push a branch, open the PR, or decide what goes into it; it tells the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) what the body should look like once it is writing one.
+`pr` is the shape a pull request body should take: a **Summary** that shows the change, **Evidence** that it works, and a **Merge Danger** call on how risky it is to land. It tells the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) what the body should look like once it is writing one. Keelwork adds a second job, **finishing a branch**: a final full-suite run, a whole-branch review against the spec, then opening a PR or keeping the branch, and cleaning up. It never merges.
 
 The summary is a picture, not a paragraph. Where a default PR body narrates the diff in prose, this one picks the **smallest view** that makes the key point clear (pseudocode, a call tree, a component tree, a file tree, a Mermaid diagram, or a shaped diff) and keeps the words around it brief. The reviewer already has the diff open; the body's job is to show them its shape before they read it.
 
 ## When to reach for it
 
-Type `/pr`, or the agent reaches for it automatically whenever it is writing a PR body.
+Type `/pr`, or the agent reaches for it automatically whenever it is writing a PR body or wrapping up a branch.
 
 | Your situation | Reach for |
 | --- | --- |
 | A branch is ready and needs a body a reviewer can scan | `pr` |
 | The code is written but nobody has reviewed it yet | [code-review](https://aihero.dev/skills-code-review) first, then `pr` |
-| The PR is open and review comments are coming back | Nothing in this set yet; `pr` only writes the body |
+| The work is done and the branch needs checking and handing over | `pr`, finishing a branch |
+| The PR is open and review comments are coming back | [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) |
 
 ## The template
 
@@ -24,6 +25,17 @@ Three sections, in this order:
 
 The door call is the leading idea. It turns "is this safe to merge?" from a gut feeling into a stated claim the reviewer can disagree with, and it tells them where to spend their [human review](https://www.aihero.dev/ai-coding-dictionary/human-review): a two-way door with a small blast radius can be skimmed; a one-way door deserves a slow read.
 
+## Finishing a branch
+
+When the job is to hand a finished branch over rather than just to write a body, `pr` runs four steps in order:
+
+1. **Full suite**: test, lint, typecheck and build, through [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md). A failure off the known-failure list stops here.
+2. **Whole-branch review** against the spec with [code-review](https://aihero.dev/skills-code-review), its findings sorted by [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md).
+3. **Open a PR or keep the branch.** It asks you, unless [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) already decided in its autonomy contract. A PR body references every ticket it closes.
+4. **Clean up** worktrees and scratch files, only once a PR is open or you have discarded the branch. It never deletes a branch with unmerged work, and never merges.
+
+A caller that already ran steps 1 and 2 at the current commit (a `/ship` run, with its ledger as evidence) hands that over, and `pr` doesn't repeat them.
+
 ## Common questions
 
 **Can I trust the agent's own door call?**
@@ -32,7 +44,7 @@ Not blindly, and that is the point of stating it. The agent that wrote the chang
 
 **Does it open the PR for me?**
 
-No. `pr` covers only the body. [implement](https://aihero.dev/skills-implement) ends by committing to the current branch, and requests for a skill or option that opens the PR (a `/to-pr`, or `implement` opening a PR instead of committing) are still open proposals; one user's workaround is a one-sentence local override of `implement` telling it to open a PR. [implement-spec](https://aihero.dev/skills-implement-spec) is the exception: it opens a draft PR when your issue tracker closes work through PRs or when you ask for one. Because `pr` is model-invoked, any time you ask the agent to open a PR, this is the shape its description takes.
+When you ask it to finish a branch, yes: that is the job Keelwork added (see above). When it is only writing a body, no. [implement](https://aihero.dev/skills-implement) ends by committing to the current branch, and requests for a skill or option that opens the PR (a `/to-pr`, or `implement` opening a PR instead of committing) are still open proposals; one user's workaround is a one-sentence local override of `implement` telling it to open a PR. [implement-spec](https://aihero.dev/skills-implement-spec) is the exception: it opens a draft PR when your issue tracker closes work through PRs or when you ask for one. Because `pr` is model-invoked, any time you ask the agent to open a PR, this is the shape its description takes.
 
 **Won't it just produce another wall of text and diagrams?**
 
@@ -48,7 +60,7 @@ The output is a markdown PR body, not an HTML page. GitHub and GitLab render Mer
 
 **Can it sort through the review comments that come back?**
 
-No. It writes the body and stops. Triaging comments from other developers or review bots (which are worth acting on, which are non-issues) has been asked for more than once, and is not what this skill does.
+Not itself. That job now has its own skill: [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) checks each comment against the codebase and gives it a verdict, accepted with a fix or rejected with a reason.
 
 **Does it keep the body up to date as the PR changes?**
 
@@ -68,6 +80,7 @@ Not by itself. One user's approach is a standing instruction in the repo's agent
 - The body has no preamble: it starts at the Summary heading.
 - The Evidence section shows a before and an after, not a claim that tests pass.
 - Every PR states a door and a blast radius, and the one-way doors are the ones you slow down on.
+- When it finishes a branch, the full-suite output and the review summary come before the PR link, and nothing is ever merged.
 
 ## Where it fits
 

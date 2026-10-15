@@ -1,2 +1,5 @@
 node_modules
 .claude
+.ship/
+!evals/fixtures/runs/*/.ship/
+evals/results/

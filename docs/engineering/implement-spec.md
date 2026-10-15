@@ -2,6 +2,8 @@
 
 `implement-spec` takes a [spec](https://www.aihero.dev/ai-coding-dictionary/spec) and its [tickets](https://www.aihero.dev/ai-coding-dictionary/ticket) and lands the whole thing in one run. The orchestrating [agent](https://www.aihero.dev/ai-coding-dictionary/agent) hands each ticket to an implementer [subagent](https://www.aihero.dev/ai-coding-dictionary/subagent) working in its own git worktree, merges each finished branch into a single **integration branch**, runs [code-review](https://aihero.dev/skills-code-review) over the result, and resolves the tickets.
 
+Before it builds anything it asks you for the **execution mode**: a fresh implementer subagent per ticket, or inline in the current session, one ticket at a time. It never picks one silently.
+
 It reads the tickets as a **task graph**, not a list. Blocking edges decide what can start, so at any moment there is a **frontier** of tickets whose blockers have all landed, and every ticket on the frontier runs at once. That is the difference from working the tickets one by one: the graph's shape, not its order on the tracker, sets the pace.
 
 ## When to reach for it
@@ -20,6 +22,15 @@ You invoke this by typing `/implement-spec`, and the agent won't reach for it on
 - **An issue tracker.** The skill reads the tickets from, and resolves them on, the tracker [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) configured. If none has been configured, it stops and tells you to run that first rather than guessing.
 - **Tickets with blocking edges**, as [to-tickets](https://aihero.dev/skills-to-tickets) writes them. Without edges the graph is flat and every ticket starts at once.
 - **A [harness](https://www.aihero.dev/ai-coding-dictionary/harness) that runs subagents in the background and gives each one a git worktree.** The concurrency is the point; a harness that runs subagents one at a time gets a slower `implement`.
+
+## The per-ticket loop
+
+Both execution modes put every ticket through the same loop: implement (with [tdd](https://aihero.dev/skills-tdd)), **spec review** against the ticket's acceptance criteria, **quality review** with [code-review](https://aihero.dev/skills-code-review), fix, verify with [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md), commit. The quality review never starts until the spec review passes, because polishing code that does the wrong thing is wasted review. Review comments go through [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md), so each one is accepted with a fix or rejected with a reason. Fix rounds stop at three per ticket unless you set another limit, and whatever is still open is reported rather than looped on.
+
+| Mode | Who implements | Concurrency |
+| --- | --- | --- |
+| **Subagent per ticket** | a fresh implementer per ticket, in its own git worktree | every ready ticket on the frontier at once |
+| **Inline** | this session, ticket by ticket | one at a time, in frontier order |
 
 ## The integration branch
 
@@ -69,7 +80,9 @@ A worktree holds only what git tracks. Tests that read gitignored fixtures, loca
 
 ## It's working if
 
-- Several implementers are running at once whenever the graph allows, not one after another.
+- It asks subagent or inline before it starts, and doesn't assume.
+- In subagent mode, several implementers are running at once whenever the graph allows, not one after another.
+- Every ticket shows a spec review passing before its quality review starts.
 - A ticket starts as soon as its last blocker lands on the integration branch, not when the whole run ends.
 - Every ticket's trace shows `tdd` running, with a failing test before the code.
 - Merges into the integration branch are fast-forwards, not conflict resolutions.

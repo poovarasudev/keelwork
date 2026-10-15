@@ -1,0 +1,3 @@
+interface:
+  display_name: "Stack Review"
+  short_description: "Stack-specific review checklists, loaded on demand"

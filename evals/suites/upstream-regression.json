@@ -1,0 +1,80 @@
+{
+  "suite": "upstream-regression",
+  "description": "Upstream behaviour intact after a merge (SRD testing table, Upstream regression row).",
+  "cases": [
+    {
+      "id": "upstream-grilling-rounds",
+      "description": "Grilling still asks numbered rounds with recommendations, and adds no autonomy prep outside /ship.",
+      "fixture": null,
+      "steps": [
+        {
+          "prompt": "/keelwork:grill-me I want to add a dark mode to my personal blog.",
+          "timeout_s": 300
+        }
+      ],
+      "expect": {
+        "transcript_matches": [
+          "\\*\\*Q1\\*\\*",
+          "➡️"
+        ],
+        "transcript_not_matches": [
+          "(?i)autonomy prep"
+        ],
+        "skills_fired": [
+          "grilling"
+        ]
+      }
+    },
+    {
+      "id": "upstream-tdd-red-first",
+      "description": "tdd writes a failing test before the implementation.",
+      "fixture": "greenfield",
+      "steps": [
+        {
+          "prompt": "Use the tdd skill to add searchNotes(path, query) to src/notes.js: it returns the notes whose text contains the query, ignoring case.",
+          "timeout_s": 900
+        }
+      ],
+      "expect": {
+        "skills_fired": [
+          "tdd"
+        ],
+        "write_order": [
+          {
+            "first": "^test/",
+            "before": "^src/"
+          }
+        ],
+        "commands": [
+          {
+            "run": "npm test",
+            "exit": 0
+          }
+        ]
+      }
+    },
+    {
+      "id": "upstream-code-review-two-axes",
+      "description": "code-review still reports Standards and Spec separately.",
+      "fixture": "greenfield",
+      "setup": [
+        "git switch -qc feature/count && printf '\\nexport function countNotes(path) { return listNotes(path).length; }\\n' >> src/notes.js && git commit -qam 'Add countNotes'"
+      ],
+      "steps": [
+        {
+          "prompt": "Review the changes on this branch since main. There's no spec; it adds countNotes.",
+          "timeout_s": 900
+        }
+      ],
+      "expect": {
+        "skills_fired": [
+          "code-review"
+        ],
+        "transcript_matches": [
+          "## Standards",
+          "## Spec"
+        ]
+      }
+    }
+  ]
+}

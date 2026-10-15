@@ -1,6 +1,6 @@
 ## What it does
 
-`setup-matt-pocock-skills` answers three questions about one repo: where issues live, what the triage labels are called, and where the domain docs sit. It records the answers as markdown files under `docs/agents/`.
+`setup-matt-pocock-skills` answers four questions about one repo: where issues live, what the triage labels are called, where the domain docs sit, and which commands check the work. It records the answers as markdown files under `docs/agents/`, together with a **test baseline**: the tests that already fail, so later runs can tell a regression from old breakage.
 
 Those files are the only thing that varies between repos. The skills themselves are identical everywhere; they read `docs/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why no skill file ever needs editing to point it somewhere else. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with zero changes to the skills.
 
@@ -20,12 +20,13 @@ It writes into the repo you run it in:
 | --- | --- |
 | `issue-tracker.md` | `docs/agents/` |
 | `domain.md` | `docs/agents/` |
+| `commands.md`: test, lint, typecheck, build and verify commands, plus the known failures | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
 | An `## Agent skills` block | whichever of `CLAUDE.md` / `AGENTS.md` already exists |
 
 All of it is committed markdown. There is no user-level or global mode: the config lives in the repo, so every repo gets its own copy.
 
-## The three decisions
+## The four decisions
 
 It leads each section with the recommended answer, and skips whatever exploration already settled. Most runs are two confirmations and done.
 
@@ -34,6 +35,7 @@ It leads each section with the recommended answer, and skips whatever exploratio
 | **Issue tracker** | the one matching your `git remote` | always: this is the one real choice |
 | **Triage labels** | keep the five canonical names (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) | only if the `triage` skill is installed |
 | **Domain docs** | single-context: one `GLOSSARY.md` plus `docs/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `GLOSSARY-MAP.md` |
+| **Commands** | the test, lint, typecheck, build and verify commands it found in your scripts and CI | always, as one list to accept or correct; then it runs the tests once and records every failure as a **known failure** |
 
 The tracker options:
 
@@ -48,6 +50,12 @@ The first three ship as templates in the skill and work out of the box. Local ma
 
 "Other" is not a stub either. It is the reason Jira, Linear, Azure DevOps and Beads all work: you describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. The community has already done this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
 
+## The known-failure baseline
+
+Most real repos have a few tests that fail before anyone touches them. Without a record of which, every later check has two bad options: block on failures nobody introduced, or learn to ignore red. The baseline removes the choice. Setup runs the **test** command once, writes each failing test into `docs/agents/commands.md` as a known failure, and from then on [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md), [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) and the post-edit hook treat a failure on that list as pre-existing and a failure off it as a regression. Delete an entry when its test is fixed; re-run setup to re-take the baseline from scratch.
+
+The commands themselves are the other half. Every Keelwork skill and hook reads them from this one file, so none of them guesses `npm test` versus `pnpm vitest` versus `make check`.
+
 ## Common questions
 
 **Do I have to use GitHub?**
@@ -56,7 +64,7 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 **Do I need to re-run it after updating the skills?**
 
-Asked directly after v1.1, Matt said yes. The skill's own closing message is softer: it tells you re-running is only needed to switch trackers or start over. Both are defensible and the reason for the gap is real: the seed templates change between versions, so a `docs/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
+Asked directly after v1.1, the answer was yes. The skill's own closing message is softer: it tells you re-running is only needed to switch trackers or start over. Both are defensible and the reason for the gap is real: the seed templates change between versions, so a `docs/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
 
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 

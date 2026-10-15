@@ -1,0 +1,203 @@
+[
+  {
+    "skill": "to-spec",
+    "should_trigger": true,
+    "query": "We've agreed the whole design for the export feature in this thread. Write it up as a spec and publish it to the tracker."
+  },
+  {
+    "skill": "to-spec",
+    "should_trigger": true,
+    "query": "We've settled rate limiting for the public API: 100 requests a minute per API key, a 429 with a Retry-After header when exceeded, counters in the existing Redis, and admins exempt. Write that up as a spec and publish it."
+  },
+  {
+    "skill": "to-spec",
+    "should_trigger": false,
+    "query": "I'm thinking about how the export feature should work. Should it be CSV or JSON? What do you think?"
+  },
+  {
+    "skill": "to-spec",
+    "should_trigger": false,
+    "query": "What's the difference between a spec and an ADR in this repo?"
+  },
+  {
+    "skill": "to-spec",
+    "should_trigger": false,
+    "query": "Let's talk through the trade-offs of caching the search results before we decide anything."
+  },
+  {
+    "skill": "to-tickets",
+    "should_trigger": true,
+    "query": "Break the spec in .scratch/export/spec.md into tickets with blocking edges."
+  },
+  {
+    "skill": "to-tickets",
+    "should_trigger": true,
+    "query": "Split this agreed plan into tracer-bullet tickets and publish them to the tracker."
+  },
+  {
+    "skill": "to-tickets",
+    "should_trigger": false,
+    "query": "I'm not sure yet how to slice this feature. Could it be one big change, or should it be several? Let's think out loud."
+  },
+  {
+    "skill": "to-tickets",
+    "should_trigger": false,
+    "query": "Casual question: how do you usually split frontend and backend work on a feature like this?"
+  },
+  {
+    "skill": "to-tickets",
+    "should_trigger": false,
+    "query": "Can you look at ticket 03 and tell me what it's asking for?"
+  },
+  {
+    "skill": "verify-before-done",
+    "should_trigger": true,
+    "query": "I've finished ticket 04 (.scratch/archive/issues/04-archive-command.md): archiveNote is in src/notes.js. Mark the ticket done and commit it."
+  },
+  {
+    "skill": "verify-before-done",
+    "should_trigger": true,
+    "query": "I just added archiveNote to src/notes.js. Are the tests passing now? Confirm before you commit."
+  },
+  {
+    "skill": "verify-before-done",
+    "should_trigger": false,
+    "query": "Explain what the verify command in docs/agents/commands.md is for."
+  },
+  {
+    "skill": "verify-before-done",
+    "should_trigger": false,
+    "query": "Write a unit test for archiveNote in src/notes.js."
+  },
+  {
+    "skill": "receiving-code-review",
+    "should_trigger": true,
+    "query": "The reviewer left six comments on PR #42: rename the service, extract a helper, add a null check, drop the cache, add metrics, and inline the config. Work through them."
+  },
+  {
+    "skill": "receiving-code-review",
+    "should_trigger": true,
+    "query": "The code-review findings for my branch are in review-findings.md. Decide which ones to act on, and fix those."
+  },
+  {
+    "skill": "receiving-code-review",
+    "should_trigger": false,
+    "query": "Review my branch against main."
+  },
+  {
+    "skill": "receiving-code-review",
+    "should_trigger": false,
+    "query": "How should I phrase a code review comment so it doesn't sound harsh?"
+  },
+  {
+    "skill": "security-audit",
+    "should_trigger": true,
+    "query": "Before I open the PR, do a security review of the changes on this branch."
+  },
+  {
+    "skill": "security-audit",
+    "should_trigger": true,
+    "query": "Audit this branch's diff for injection, auth bypass and data exposure."
+  },
+  {
+    "skill": "security-audit",
+    "should_trigger": false,
+    "query": "What does OWASP stand for?"
+  },
+  {
+    "skill": "security-audit",
+    "should_trigger": false,
+    "query": "Add a login form to the settings page."
+  },
+  {
+    "skill": "performance-audit",
+    "should_trigger": true,
+    "query": "Will the queries this branch adds still be fast when the orders table has ten million rows?"
+  },
+  {
+    "skill": "performance-audit",
+    "should_trigger": true,
+    "query": "Do a performance review of the changes on this branch: N+1s, missing indexes, over-fetching."
+  },
+  {
+    "skill": "performance-audit",
+    "should_trigger": false,
+    "query": "The dashboard got slow since yesterday's deploy and I don't know why. Find the cause."
+  },
+  {
+    "skill": "performance-audit",
+    "should_trigger": false,
+    "query": "What's an N+1 query?"
+  },
+  {
+    "skill": "stack-review",
+    "should_trigger": true,
+    "query": "Review the React component src/NoteList.jsx on this branch for hooks and state pitfalls specifically.",
+    "accept_via": [
+      "code-review"
+    ]
+  },
+  {
+    "skill": "stack-review",
+    "should_trigger": true,
+    "query": "Check my Python change in scripts/report.py on this branch for language-specific traps like mutable default arguments.",
+    "accept_via": [
+      "code-review"
+    ]
+  },
+  {
+    "skill": "stack-review",
+    "should_trigger": false,
+    "query": "Convert this Python script to TypeScript."
+  },
+  {
+    "skill": "brainstorming",
+    "should_trigger": false,
+    "query": "Let's brainstorm some ideas for a new onboarding flow."
+  },
+  {
+    "skill": "brainstorming",
+    "should_trigger": false,
+    "query": "Give me three different approaches to caching the search page, with trade-offs."
+  },
+  {
+    "skill": "brainstorming",
+    "should_trigger": false,
+    "query": "I want to build a new feature that lets users export their data."
+  },
+  {
+    "skill": "pr",
+    "should_trigger": true,
+    "query": "Write the PR description for this branch."
+  },
+  {
+    "skill": "pr",
+    "should_trigger": true,
+    "query": "The work on this branch is finished. Wrap it up and hand it over as a pull request."
+  },
+  {
+    "skill": "pr",
+    "should_trigger": false,
+    "query": "What does PR stand for in our team's process docs?"
+  },
+  {
+    "skill": "grilling",
+    "should_trigger": true,
+    "query": "Grill me on my plan to migrate the billing service to event sourcing."
+  },
+  {
+    "skill": "grilling",
+    "should_trigger": false,
+    "query": "Write a function that parses ISO dates."
+  },
+  {
+    "skill": "code-review",
+    "should_trigger": true,
+    "query": "Review the changes on this branch since main."
+  },
+  {
+    "skill": "code-review",
+    "should_trigger": false,
+    "query": "Explain what a code smell is."
+  }
+]
