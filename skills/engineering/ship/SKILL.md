@@ -10,6 +10,8 @@ Run one feature through the **KEEL loop**. The human is here for **Know** and **
 
 The **ledger** at `.ship/<run-id>/ledger.md` is the run's memory. Write every state change to it the moment it happens, and re-read it whenever you're unsure where you are; it is what survives context compaction and restarts. Its format is in [LEDGER.md](LEDGER.md).
 
+The files beside this one are the procedure, not background. Read each one in full at the point this file names it, before acting on that step: [LEDGER.md](LEDGER.md) before you write the ledger, [CONTRACT.md](CONTRACT.md) at step 5, [RUN-LOOP.md](RUN-LOOP.md) before the first ticket, [MORNING-REPORT.md](MORNING-REPORT.md) at step 10. A run that works from the ledger alone skips the reviews and the gates.
+
 ## Before you start
 
 - `docs/agents/issue-tracker.md` and `docs/agents/commands.md` must exist. If either is missing, tell the user to run `/setup-matt-pocock-skills` and stop.
@@ -72,21 +74,30 @@ Record it in the ledger, set `Status: running` and `Phase: execute`, and tell th
 
 ### 8. Per-ticket loop
 
-Follow [RUN-LOOP.md](RUN-LOOP.md): implement, spec review, quality review, fix, verify, commit, for every ready ticket. Two-way doors are decided and logged; one-way doors park the ticket. A blocked ticket never ends the run: park it and move on. Halt only on the conditions RUN-LOOP.md lists.
+Read [RUN-LOOP.md](RUN-LOOP.md) in full now. Then put every ready ticket through these steps, in order, writing the quoted log line to the ledger after each:
+
+1. **Implement**: call the Skill tool with "tdd" and build the ticket at its seams. Log `implement: done`.
+2. **Spec review**: a fresh reviewer subagent checks the diff against the ticket's acceptance criteria. Log `spec review: pass` or `spec review: fail (<n> findings)`.
+3. **Quality review**, only after `spec review: pass`: call the Skill tool with "code-review" (fixed point: the ticket's base commit; spec: the ticket file). Log `quality review: pass` or `quality review: <n> findings`.
+4. **Fix**: call the Skill tool with "receiving-code-review" on the findings, fix the accepted ones, re-run the review that failed. Log `fix round <r>/<limit>`.
+5. **Verify**: call the Skill tool with "verify-before-done" with the ticket's verify command. Log `verify: pass` and add the evidence line.
+6. **Commit** as `<ticket id>: <ticket title>`. Log `committed <sha>`.
+
+Two-way doors are decided and logged; one-way doors park the ticket. A blocked ticket never ends the run: park it and move on. Halt only on the conditions RUN-LOOP.md lists.
 
 ### 9. Finish
 
-When no ticket is ready or in progress, run the finish in [RUN-LOOP.md](RUN-LOOP.md): the full suite, a whole-branch review, the security and performance audits, then the `pr` skill with the contract's finish action.
+When no ticket is ready or in progress, run the finish in [RUN-LOOP.md](RUN-LOOP.md), calling the Skill tool for each in turn: "verify-before-done" (the full suite), "code-review" (the whole branch against the spec), "security-audit" and "performance-audit" (reports to `.ship/<run-id>/`), then "pr" with the contract's finish action. Each one leaves a line in the ledger's *Finish* section.
 
 ## With the human again
 
 ### 10. Morning report
 
-Write `.ship/<run-id>/morning-report.md` from [MORNING-REPORT.md](MORNING-REPORT.md), set the ledger to `Status: finished` (or `halted`, with the reason) and `Phase: learn`, and end the session by pointing the user at the report.
+Read [MORNING-REPORT.md](MORNING-REPORT.md) and write `.ship/<run-id>/morning-report.md` with exactly its headings, set the ledger to `Status: finished` (or `halted`, with the reason) and `Phase: learn`, and end the session by pointing the user at the report.
 
 ## Resuming a run
 
-`/ship resume` takes the run id, or the newest `.ship/*/ledger.md` whose status isn't `finished`. Re-read the ledger, the contract and `git log` on the run's branch; trust them over your memory. Then:
+`/ship resume` takes the run id, or the newest `.ship/*/ledger.md` whose status isn't `finished`. Re-read the ledger, the contract and `git log` on the run's branch; trust them over your memory. Read [LEDGER.md](LEDGER.md) and [RUN-LOOP.md](RUN-LOOP.md) in full before touching any ticket: a resumed run follows the same per-ticket loop and finish as a fresh one. Then:
 
 - Tickets marked `done` stay done. A ticket marked `in-progress` restarts its loop from the last step the ledger records for it, after checking its working-tree changes still exist.
 - A `halted` run resumes only after the user has answered what halted it. Record each answer in *Decisions*, unpark the tickets it unblocks, and set `Status: running`.

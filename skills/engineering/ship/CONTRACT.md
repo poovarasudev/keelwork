@@ -42,7 +42,7 @@ Project-specific entries live in `docs/agents/autonomy-contract.md` in the targe
 ## Command allowlist
 - The commands in `docs/agents/commands.md`
 - Read-only shell: `ls`, `cat`, `head`, `tail`, `grep`, `rg`, `find`, `wc`, `sed -n`, `diff`, `pwd`, `cd`, `echo`, `test`, `date`, `sort`, `uniq`, `mkdir -p .ship/`
-- Read-only git: `git status`, `git diff`, `git log`, `git show`, `git rev-parse`, `git merge-base`
+- Read-only git: `git status`, `git diff`, `git log`, `git show`, `git rev-parse`, `git merge-base`, `git branch --show-current`
 - Branch work on the feature branch only: `git add`, `git commit`, `git restore` (on files the current ticket lists), `git stash`
 - <per-run additions agreed with the user, e.g. a code generator or a local database reset script>
 - At the finish only: `git push -u origin <feature branch>`, and the tracker's PR command (`gh pr create`, `glab mr create`)

@@ -1,6 +1,6 @@
 ---
 name: verify-before-done
-description: "Run the verify command and show its output before claiming work is done, fixed or passing. Use before marking a ticket done, committing, or saying tests pass."
+description: "Run the verify command and show its output before any done, fixed or passing claim. Always use it before marking a ticket done, committing, or reporting that tests pass."
 ---
 
 # Verify Before Done

@@ -1,6 +1,6 @@
 ---
 name: receiving-code-review
-description: "Judge review feedback before acting on it: accept each comment with a fix or reject it with a reason. Use when review findings or PR comments arrive."
+description: "Decide which review findings to act on: accept each with a fix or reject it with a reason. Always use it when review findings, audit results or PR comments need acting on."
 ---
 
 # Receiving Code Review

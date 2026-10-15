@@ -49,10 +49,13 @@ const NAMED_SETUPS = {
     `cp -R "$EVALS/fixtures/runs/tags/." .`,
     `git add .scratch && git commit -qm "Spec and tickets: tags"`,
     `git switch -qc ship/2026-10-16-a-tags`,
-    `sed -i.bak "s/BASE_SHA/$(git rev-parse --short HEAD)/; s/STARTED_AT/$(date -u +%Y-%m-%dT%H:%M)/" .ship/2026-10-16-a/ledger.md && rm .ship/2026-10-16-a/ledger.md.bak`,
+    `sed -i.bak "s/BASE_SHA/$(git rev-parse --short HEAD)/; s/STARTED_AT/$(date +%Y-%m-%dT%H:%M%z | sed -E 's/([0-9]{2})$/:\\1/')/" .ship/2026-10-16-a/ledger.md && rm .ship/2026-10-16-a/ledger.md.bak`,
     `echo ".ship/" >> .git/info/exclude`,
   ],
-  budget: (s) => [`sed -i.bak "s/^- Max tickets this run: .*/- Max tickets this run: ${s.tickets}/" .ship/2026-10-16-a/contract.md && rm .ship/2026-10-16-a/contract.md.bak`],
+  budget: (s) => [
+    `sed -i.bak "s/^- Max tickets this run: .*/- Max tickets this run: ${s.tickets}/" .ship/2026-10-16-a/contract.md && rm .ship/2026-10-16-a/contract.md.bak`,
+    `sed -i.bak "s/^Budget: [0-9]* tickets/Budget: ${s.tickets} tickets/" .ship/2026-10-16-a/ledger.md && rm .ship/2026-10-16-a/ledger.md.bak`,
+  ],
   bare_remote: () => [`git init -q --bare "$(pwd)/../remote.git" && git remote add origin "$(pwd)/../remote.git"`],
   brownfield_setup_done: () => [`cp -R "$EVALS/fixtures/runs/brownfield-setup/." . && git add -A && git commit -qm "Agent skills setup"`],
   // Trigger runs: a work-in-progress feature branch with a React component, a
@@ -100,7 +103,9 @@ function runClaude({ prompt, cwd, extraArgs = [], timeoutS = 600, killAfterS = n
       "--model", MODEL,
       ...extraArgs,
     ];
-    const child = spawn("claude", args, { cwd, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env } });
+    // Long runs outlast a laptop's idle sleep; keep the machine awake on macOS.
+    const [bin, binArgs] = process.platform === "darwin" ? ["caffeinate", ["-i", "claude", ...args]] : ["claude", args];
+    const child = spawn(bin, binArgs, { cwd, stdio: ["ignore", "pipe", "pipe"], env: { ...process.env } });
     const lines = [];
     let buf = "";
     let killedBy = null;
@@ -154,7 +159,18 @@ function analyse(events, cwd) {
           const p = input.file_path ?? input.notebook_path ?? "";
           out.writes.push(p.startsWith(cwd) ? relative(cwd, p) : p);
         }
-        if (c.name === "Bash") out.bash.push(String(input.command ?? ""));
+        if (c.name === "Bash") {
+          const cmd = String(input.command ?? "");
+          out.bash.push(cmd);
+          // Files a shell command writes: redirections, tee, and Python/Node scripts opening a path.
+          const shellWrites = [
+            ...cmd.matchAll(/(?:^|[^>&0-9])>>?\s*([\w./@-]+\.[\w]+)/g),
+            ...cmd.matchAll(/\btee(?:\s+-a)?\s+([\w./@-]+)/g),
+            ...cmd.matchAll(/\b(?:p|path|f|file)\s*=\s*['"]([\w./@-]+\.[\w]+)['"]/g),
+            ...cmd.matchAll(/(?:writeFileSync|open)\(\s*['"]([\w./@-]+\.[\w]+)['"]/g),
+          ].map((m) => m[1]);
+          for (const p of shellWrites) out.writes.push(p.startsWith(cwd) ? relative(cwd, p) : p.replace(/^\.\//, ""));
+        }
       }
       if (e.type === "assistant" && c.type === "text") out.text.push(c.text);
       if (e.type === "user" && c.type === "text") out.injected.push(c.text);

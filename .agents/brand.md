@@ -114,5 +114,11 @@ Everything below is upstream-owned. Editing it would make every upstream merge c
 ## Open checklist
 
 - [x] GitHub owner is `poovarasudev` (README, `.agents/install-block.md`, `.claude-plugin/plugin.json`, `package.json`, `.changeset/config.json`). Create the `poovarasudev/keelwork` repo so the install commands resolve.
-- [ ] Check the GitHub org, npm, plugin marketplace and keelwork.dev / .com before announcing the name.
+- [x] Check the GitHub org, npm, plugin marketplace and keelwork.dev / .com before announcing the name. Checked 2026-10-16:
+  - npm `keelwork`: free. Claim it (an empty placeholder package) if the name matters, even though the plugin doesn't publish there.
+  - GitHub org `keelwork`: free. `poovarasudev/keelwork` doesn't exist yet; create it so the install commands resolve.
+  - Claude Code's official marketplace (`anthropics/claude-plugins-official`): no `keelwork` entry.
+  - `keelwork.dev`: unregistered.
+  - `keelwork.com`: **already registered** (created 2026-03-07, registrar IONOS). Use `keelwork.dev`, or approach the owner before announcing.
+- [ ] Register `keelwork.dev` and claim the npm name and GitHub org, if wanted.
 - [x] Replace this document's "planned" markers as each layer ships.

@@ -1,6 +1,6 @@
 ---
 name: stack-review
-description: "Stack-specific review checklists (TypeScript, React, Node.js, Python, Go, SQL), loaded per diff. Use whenever reviewing code in these stacks for language or framework pitfalls."
+description: "Language and framework review checklists (TypeScript, React, Node.js, Python, Go, SQL). Always load it when reviewing or checking code in these stacks, even a quick look."
 ---
 
 # Stack Review

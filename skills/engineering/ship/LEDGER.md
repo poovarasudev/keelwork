@@ -19,7 +19,7 @@ Grill style: grill-with-docs
 Execution mode: subagent
 Finish action: open-pr
 Stop guard: on
-Started: 2026-10-16T22:10
+Started: 2026-10-16T22:10+05:30
 Budget: 8 tickets · 3 fix rounds · 8h
 
 ## Tickets
@@ -81,7 +81,7 @@ Budget: 8 tickets · 3 fix rounds · 8h
 
 ## Writing rules
 
-- Every log line starts with the time and the ticket id (`-` for run-level lines).
+- Every log line starts with the local time and the ticket id (`-` for run-level lines). `Started` always carries its UTC offset (`2026-10-16T22:10+05:30`), so the time limit is never misread across time zones.
 - Every step of the per-ticket loop leaves a log line, so a resumed run can tell exactly where a ticket stopped.
 - A `halted` run gets a `Halted: <reason>` line under the header.
 - Every entry in *Decisions* and *Parked* is numbered (`D1`, `P1`) so the morning report and the human's answers can refer to it.
