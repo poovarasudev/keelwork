@@ -70,13 +70,18 @@ A case names a fixture, optional `setup` shell commands (or a named setup: `seed
 
 Add a case for every bug a run reveals: the eval that would have caught it is the regression test.
 
-## Baseline, 2026-10-15
+## Baseline, 2026-10-16
 
-First runs on Claude Code 2.1.296, `--model sonnet`, one run per case. Use these as the starting point the SRD asks to confirm after the pilot, not as targets.
+Claude Code 2.1.296, `--model sonnet`, one run per case unless noted. Use these as the starting point the SRD asks to confirm after the pilot, not as targets.
 
 | Suite | Result | Notes |
 | --- | --- | --- |
-| Trigger | 33 to 34 of 39 across three runs | Every should-not-trigger case passed in every run, including all the casual-design-chat negatives for `to-spec` and `to-tickets` (SRD A1). The misses are all should-trigger cases where the model did the work directly instead of loading the skill: `verify-before-done` (it ran `npm test` itself), `stack-review` (it reviewed the React and Python traps unaided), `receiving-code-review` (one of two queries), and upstream's own `code-review` (1 of 3 runs), which no Keelwork change touched. Claude Code also ships built-in `code-review` and `verify` skills that compete for the same requests. Next step: run `skill-creator`'s description optimiser on those four, with `--runs 3`. |
-| Gate | 7 of 8 run live, all passing | `gate-spec-before-quality` and `gate-one-way-door-parks` need full `/ship` runs and haven't been run yet. |
-| Upstream regression | `upstream-grilling-rounds` passing | `upstream-tdd-red-first` and `upstream-code-review-two-axes` not yet run. |
-| Resume, end-to-end | not yet run | Full `/ship` runs; run them before the first tagged release and on the pilot projects. |
+| Trigger | 38 of 39 over three runs | Every should-not-trigger case passes, including all casual-design-chat negatives for `to-spec` and `to-tickets` (SRD A1). One should-trigger miss remains: a `verify-before-done` query phrased as a question ("are the tests passing?", rate 0.33). Claude Code's built-in `code-review` and `verify` skills compete for the same requests, so SRD N2 is only partly met. Next step: run `skill-creator`'s description optimiser on `verify-before-done`. |
+| Gate | 9 of 9 | Includes spec review before quality review, a one-way door parking instead of adding a dependency, `implement-spec` asking its execution mode, the allowlist hook refusing an off-list command, and the three other hooks. |
+| Resume | 2 of 2 | `resume-after-kill` (killed mid-ticket, resumed in a new session, one commit per ticket) and `resume-halted-run`. |
+| End-to-end | 3 of 3 | A five-ticket feature from resume to a finished run with audits and a pushed branch, never merged; setup's known-failure baseline on the brownfield fixture; `/onboard-repo` committing nothing. |
+| Upstream regression | 3 of 3 | Grilling rounds with no autonomy prep outside `/ship`; `tdd` writes the test first; `code-review` keeps two axes (invoked by name). |
+
+What the live runs fixed, so the suites keep guarding it: `/ship` skipping its gates when resumed from the ledger alone, ledger timestamps misread across time zones, a turn ending on a background subagent wait, and eval-harness gaps (laptop sleep, stalled streams, usage-limit hits mistaken for failures).
+
+A run that hits your usage limit ends with "You've hit your session limit" in its transcript; that is not a skill failure, so re-run it after the limit resets.
