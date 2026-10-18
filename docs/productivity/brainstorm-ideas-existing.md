@@ -32,4 +32,4 @@ Yes. Give it interview notes, an opportunity tree, personas or analytics, and it
 
 ## Where it fits
 
-The **on-ramp** in front of [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) for a live product, usually followed by [strategy-red-team](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/strategy-red-team.md). [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+The **on-ramp** in front of [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) for a live product, usually followed by [strategy-red-team](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/strategy-red-team.md). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

@@ -33,4 +33,4 @@ It's a port with three changes: it never auto-triggers, it hands off to grilling
 
 ## Where it fits
 
-A **chain step** inside [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md): after discovery and red-team (when they run), before [grilling](https://aihero.dev/skills-grilling). [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+A **chain step** inside [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md): after discovery and red-team (when they run), before [grilling](https://aihero.dev/skills-grilling). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

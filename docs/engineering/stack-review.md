@@ -28,4 +28,4 @@ Add it: a short checklist file in the same trap-then-fix shape, plus one row in 
 
 ## Where it fits
 
-A **reference layer underneath** [code-review](https://aihero.dev/skills-code-review), which pulls it in on every review, including the per-ticket and whole-branch reviews in [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md). [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+A **reference layer underneath** [code-review](https://aihero.dev/skills-code-review), which pulls it in on every review, including the per-ticket and whole-branch reviews in [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

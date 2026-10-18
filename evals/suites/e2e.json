@@ -81,7 +81,7 @@
       "fixture": "brownfield",
       "steps": [
         {
-          "prompt": "/keelwork:setup-matt-pocock-skills My answers, so don't wait for me: local markdown tracker, single-context docs, accept the commands you find, create CLAUDE.md.",
+          "prompt": "/keelwork:setup-keelwork My answers, so don't wait for me: local markdown tracker, single-context docs, accept the commands you find, create CLAUDE.md.",
           "timeout_s": 1800
         }
       ],

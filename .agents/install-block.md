@@ -34,7 +34,7 @@ The plugin is Claude Code only. Everywhere else, [skills.sh](https://skills.sh) 
 npx skills@latest add poovarasudev/keelwork
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-matt-pocock-skills` is one of them.**
+Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take: make sure `setup-keelwork` is one of them.**
 
 </canonical-block>
 
@@ -60,4 +60,4 @@ The plugin is a managed, read-only bundle you subscribe to. skills.sh writes fil
 
 ## Why the skill names did not change
 
-`setup-matt-pocock-skills`, `ask-matt` and the rest keep their upstream names so that merging upstream stays routine. The brand lives in the plugin name, not the skills. See [brand.md](./brand.md).
+`setup-keelwork`, `ask-keelwork` and the rest keep their upstream names so that merging upstream stays routine. The brand lives in the plugin name, not the skills. See [brand.md](./brand.md).

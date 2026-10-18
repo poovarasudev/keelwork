@@ -18,4 +18,4 @@ The SRD adds five layers (Foundation, Autopilot, Review, Guardrails, Discovery) 
 ## Consequences
 
 - A change to the per-ticket loop has to be made in two places (`ship/RUN-LOOP.md` and `implement-spec/SKILL.md`), and likewise for discovery (`ship/DISCOVERY.md` and the three productivity skills). The duplication is accepted as the price of the invocation rule.
-- Upstream edits to `to-spec`, `to-tickets`, `implement-spec`, `grilling`, `code-review`, `pr`, `setup-matt-pocock-skills` and `ask-matt` will conflict on sync. Each conflict has a row in `FORK-CHANGES.md` saying what to replay.
+- Upstream edits to `to-spec`, `to-tickets`, `implement-spec`, `grilling`, `code-review`, `pr`, `setup-keelwork` and `ask-keelwork` will conflict on sync. Each conflict has a row in `FORK-CHANGES.md` saying what to replay.

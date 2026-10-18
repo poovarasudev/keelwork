@@ -7,14 +7,25 @@ Every edit Keelwork makes to a file it inherited from upstream, with the reason,
 
 The sync process that uses this file is in [`.agents/upstream-sync.md`](.agents/upstream-sync.md). When you edit an upstream file, add or update its row here in the same change; `node scripts/check-repo.mjs` fails when a known upstream file has changed with no row.
 
+## Renamed
+
+| Upstream path | Now | Reason |
+| --- | --- | --- |
+| `skills/engineering/ask-matt/` | `skills/engineering/ask-keelwork/` | The command carried the author's first name. ADR 0005. |
+| `skills/engineering/setup-matt-pocock-skills/` | `skills/engineering/setup-keelwork/` | The command carried the author's name. ADR 0005. |
+| `docs/engineering/ask-matt.md` | `docs/engineering/ask-keelwork.md` | Follows the skill. |
+| `docs/engineering/setup-matt-pocock-skills.md` | `docs/engineering/setup-keelwork.md` | Follows the skill. |
+
+Every reference to the old names across the repo was updated in the same change. `scripts/upstream-sync.sh` rewrites these paths when it applies an upstream patch.
+
 ## Edits to upstream files
 
 ### Skills
 
 | File | Change | Reason |
 | --- | --- | --- |
-| `skills/engineering/setup-matt-pocock-skills/SKILL.md` | Description and intro mention commands; exploration reads the repo's scripts; new **Section D: Commands and test baseline**; `### Commands` added to the `## Agent skills` block; `commands.md` added to the seed list; the closing step points brownfield repos at `/onboard-repo`. | SRD F1: record test, lint, typecheck and build commands and the known failures in one config file. |
-| `skills/engineering/setup-matt-pocock-skills/triage-labels.md` | Header column renamed from "Label in mattpocock/skills" to "Canonical label". | Rebrand: the column named the upstream repo. |
+| `skills/engineering/setup-keelwork/SKILL.md` | Description and intro mention commands; exploration reads the repo's scripts; new **Section D: Commands and test baseline**; `### Commands` added to the `## Agent skills` block; `commands.md` added to the seed list; the closing step points brownfield repos at `/onboard-repo`. | SRD F1: record test, lint, typecheck and build commands and the known failures in one config file. |
+| `skills/engineering/setup-keelwork/triage-labels.md` | Header column renamed from "Label in mattpocock/skills" to "Canonical label". | Rebrand: the column named the upstream repo. |
 | `skills/engineering/to-spec/SKILL.md` | `disable-model-invocation` removed; description narrowed to explicit requests and `/ship`. | SRD A1: agent-callable so `/ship` can chain it, without firing during design talk. |
 | `skills/engineering/to-spec/agents/openai.yaml` | `policy.allow_implicit_invocation: false` removed. | SRD A1, kept in sync with the frontmatter per `.agents/invocation.md`. |
 | `skills/engineering/to-tickets/SKILL.md` | `disable-model-invocation` removed and description narrowed; each ticket planned in detail per the new `TICKET-PLAN.md`; acceptance criteria shown at the quiz; non-concrete criteria send the ticket back to grilling; the two inline templates replaced by a pointer to `TICKET-PLAN.md`; the "avoid file paths and snippets" rule replaced. | SRD A1 and A2: detailed plans an implementer with no session history can finish. |
@@ -23,7 +34,7 @@ The sync process that uses this file is in [`.agents/upstream-sync.md`](.agents/
 | `skills/productivity/grilling/SKILL.md` | One closing paragraph pointing at `AUTONOMY-PREP.md` when the caller says it's a `/ship` run. | SRD S5: autonomy prep under `/ship` only; supervised sessions unchanged. |
 | `skills/engineering/code-review/SKILL.md` | Step 3 calls `stack-review` for the diff's stacks; the Standards sub-agent gets the stack checklists and reports item (c). | SRD Q1: `code-review` loads the matching stack checklist. |
 | `skills/engineering/pr/SKILL.md` | Description extended; new **Finishing a branch** section (full suite, whole-branch review, open a PR or keep the branch, cleanup; never merges). | SRD Q5: name kept, behaviour extended. |
-| `skills/engineering/ask-matt/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `pr` descriptions updated; the precondition mentions the test baseline. | CLAUDE.md: the router must map every user-reachable skill. |
+| `skills/engineering/ask-keelwork/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `pr` descriptions updated; the precondition mentions the test baseline. | CLAUDE.md: the router must map every user-reachable skill. |
 | `skills/engineering/README.md` | Voice changed from first person; new skills listed; `to-spec` and `to-tickets` moved to Model-invoked; updated entries for setup, `implement-spec`, `code-review`, `pr`. | Rebrand, and CLAUDE.md's bucket README rule. |
 | `skills/productivity/README.md` | Discovery skills listed; `grilling` entry mentions autonomy prep. | CLAUDE.md's bucket README rule. |
 | `skills/misc/README.md` | Voice changed from first person. | Rebrand. |
@@ -34,7 +45,7 @@ The sync process that uses this file is in [`.agents/upstream-sync.md`](.agents/
 
 | File | Change | Reason |
 | --- | --- | --- |
-| `docs/engineering/setup-matt-pocock-skills.md` | Four decisions instead of three; `commands.md` in the writes table; new **The known-failure baseline** section; an author attribution removed. | Re-sync for SRD F1; rebrand. |
+| `docs/engineering/setup-keelwork.md` | Four decisions instead of three; `commands.md` in the writes table; new **The known-failure baseline** section; an author attribution removed. | Re-sync for SRD F1; rebrand. |
 | `docs/engineering/to-spec.md` | Invocation line rewritten (agent-callable, narrow); `/ship` in Where it fits. | Re-sync for SRD A1. |
 | `docs/engineering/to-tickets.md` | Invocation line rewritten; new **Each ticket is a detailed plan** section; an It's-working-if bullet replaced; `/ship` in Where it fits. | Re-sync for SRD A1 and A2. |
 | `docs/engineering/implement-spec.md` | Execution mode in What it does; new **The per-ticket loop** section; It's-working-if bullets updated. | Re-sync for SRD A3. |
@@ -50,6 +61,29 @@ The sync process that uses this file is in [`.agents/upstream-sync.md`](.agents/
 
 | File | Change | Reason |
 | --- | --- | --- |
+| `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `.out-of-scope/mainstream-issue-trackers-only.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `.out-of-scope/setup-skill-verify-mode.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/diagnosing-bugs.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/domain-modeling.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/grill-with-docs.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/implement.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/improve-codebase-architecture.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/prototype.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/research.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/resolving-merge-conflicts.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/retro.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/wayfinder.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/wizard.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/productivity/grill-me.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/productivity/handoff.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/productivity/to-questionnaire.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/productivity/wait-what.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/productivity/writing-for-agents.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `skills/engineering/ask-keelwork/agents/openai.yaml` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `skills/engineering/setup-keelwork/agents/openai.yaml` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `skills/engineering/triage/SKILL.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `skills/engineering/wayfinder/SKILL.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
 | `README.md` | Keelwork opening, layer table, how a `/ship` run works, setup and onboarding steps, reference lists for every new skill, credits. | Brand kit and CLAUDE.md's README rule. |
 | `CLAUDE.md` (and `AGENTS.md`, its symlink) | Keelwork intro, the docs-URL rule for Keelwork skills, the `FORK-CHANGES.md` rule, the validator note. | Brand kit; SRD N3. |
 | `GLOSSARY.md` | Keelwork title, and terms for the KEEL loop, morning report, ledger, autonomy contract, doors, parking, known failures, execution mode and finish action. | Domain language for the fork. |
@@ -85,7 +119,7 @@ These skills are Keelwork's, not upstream's. They never conflict on a sync; thei
 
 New files placed inside upstream skill folders. They never conflict, but they only make sense together with the edits above.
 
-- `skills/engineering/setup-matt-pocock-skills/commands.md`: the commands and known-failures seed template.
+- `skills/engineering/setup-keelwork/commands.md`: the commands and known-failures seed template.
 - `skills/engineering/to-tickets/TICKET-PLAN.md`: the detailed ticket plan.
 - `skills/productivity/grilling/AUTONOMY-PREP.md`: the `/ship`-only autonomy prep branches.
 

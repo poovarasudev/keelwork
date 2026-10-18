@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Give an existing repo the context a fresh agent session needs on day one: agent instructions, a seeded glossary, and ADRs for decisions already baked into the code. Everything you write is a **draft for human review**. A confidently wrong glossary misleads every later session, so every inferred fact carries an `(unverified)` mark until the human confirms it, and nothing is committed before that review.
 
-`docs/agents/domain.md` and `docs/agents/commands.md` should exist. If they don't, tell the user to run `/setup-matt-pocock-skills` first and stop: the glossary layout and the commands come from there.
+`docs/agents/domain.md` and `docs/agents/commands.md` should exist. If they don't, tell the user to run `/setup-keelwork` first and stop: the glossary layout and the commands come from there.
 
 ## Process
 

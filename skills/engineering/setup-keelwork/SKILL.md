@@ -1,10 +1,10 @@
 ---
-name: setup-matt-pocock-skills
+name: setup-keelwork
 description: "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline. Run once before first use of the other engineering skills."
 disable-model-invocation: true
 ---
 
-# Setup Matt Pocock's Skills
+# Setup Keelwork
 
 Scaffold the per-repo configuration that the engineering skills assume:
 

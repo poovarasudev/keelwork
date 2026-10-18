@@ -27,4 +27,4 @@ The rejection has to be a checkable technical reason, and in a `/ship` run every
 
 ## Where it fits
 
-A **gate** inside the review loop: after [code-review](https://aihero.dev/skills-code-review), [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md) or [performance-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/performance-audit.md) report, before anything is fixed. [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+A **gate** inside the review loop: after [code-review](https://aihero.dev/skills-code-review), [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md) or [performance-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/performance-audit.md) report, before anything is fixed. [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

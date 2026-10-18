@@ -168,8 +168,20 @@ const baseline = read(".agents/upstream-baseline.txt")
   .split("\n")
   .filter((l) => l && !l.startsWith("#"))
   .map((l) => l.split(" "));
+// Upstream skills Keelwork renamed (FORK-CHANGES.md, "Renamed"): baseline path -> current path.
+const RENAMES = [
+  ["skills/engineering/ask-matt", "skills/engineering/ask-keelwork"],
+  ["skills/engineering/setup-matt-pocock-skills", "skills/engineering/setup-keelwork"],
+  ["docs/engineering/ask-matt.md", "docs/engineering/ask-keelwork.md"],
+  ["docs/engineering/setup-matt-pocock-skills.md", "docs/engineering/setup-keelwork.md"],
+];
+const renamed = (p) => {
+  for (const [from, to] of RENAMES) if (p === from || p.startsWith(`${from}/`)) return to + p.slice(from.length);
+  return p;
+};
 const upstreamPaths = new Set();
-for (const [sha, path] of baseline) {
+for (const [sha, upstreamPath] of baseline) {
+  const path = renamed(upstreamPath);
   upstreamPaths.add(path);
   const exists = existsSync(join(repo, path)) || (() => { try { lstatSync(join(repo, path)); return true; } catch { return false; } })();
   if (!exists) {
@@ -224,7 +236,7 @@ for (const s of skills.filter((x) => x.promoted)) {
     if (i < last) (keelworkOwned.has(s.name) ? error : warn)(`${page}: "${h}" is out of the template's order`);
     last = i;
   }
-  if (s.name !== "ask-matt" && !/aihero\.dev\/skills-ask-matt/.test(text)) error(`${page}: "Where it fits" should point at ask-matt`);
+  if (s.name !== "ask-keelwork" && !/docs\/engineering\/ask-keelwork\.md/.test(text)) error(`${page}: "Where it fits" should point at ask-keelwork`);
 }
 const docsDirs = PROMOTED.map((b) => join(repo, "docs", b));
 for (const dir of docsDirs) {

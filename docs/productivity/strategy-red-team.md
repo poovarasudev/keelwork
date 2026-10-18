@@ -32,4 +32,4 @@ Hand `/ship` the file and it treats the idea as chosen and red-teamed, starting 
 
 ## Where it fits
 
-The second **on-ramp** step, after [brainstorm-ideas-new](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/brainstorm-ideas-new.md) or [brainstorm-ideas-existing](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/brainstorm-ideas-existing.md) and before [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md). It works on any plan, not only product ideas. [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+The second **on-ramp** step, after [brainstorm-ideas-new](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/brainstorm-ideas-new.md) or [brainstorm-ideas-existing](https://github.com/poovarasudev/keelwork/blob/main/docs/productivity/brainstorm-ideas-existing.md) and before [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md). It works on any plan, not only product ideas. [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

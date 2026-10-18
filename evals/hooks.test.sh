@@ -184,7 +184,7 @@ P="$(new_project)"
 allow_case 0 "curl https://example.com" "no /ship run: nothing is refused"
 write_ledger "$P" 2026-10-16-a running on ready
 awk '/^```markdown$/{f=1; next} /^```$/{if (f) exit} f' "$REPO/skills/engineering/ship/CONTRACT.md" > "$P/.ship/2026-10-16-a/contract.md"
-cp "$REPO/skills/engineering/setup-matt-pocock-skills/commands.md" "$P/docs/agents/commands.md"
+cp "$REPO/skills/engineering/setup-keelwork/commands.md" "$P/docs/agents/commands.md"
 allow_case 0 "npm test -- notes" "contract template: a commands.md command with extra args is allowed"
 allow_case 0 "npx eslint src/a.ts src/b.ts" "a {files} command is allowed with its files"
 allow_case 0 "git status && git diff --stat | tail -5" "chained read-only git and shell are allowed"
@@ -216,7 +216,7 @@ awk '/^```markdown$/{f=1; next} /^```$/{if (f) exit} f' "$REPO/skills/engineerin
 n="$(keelwork_open_ticket_count "$P/.ship/2026-10-16-a/ledger.md")"
 if [ "$n" = "2" ]; then ok "LEDGER.md example: 2 open tickets (one ready, one in-progress)"; else bad "LEDGER.md example parse" "got $n"; fi
 if [ "$(keelwork_running_ledgers "$P")" = "$P/.ship/2026-10-16-a/ledger.md" ]; then ok "LEDGER.md example: Status line is recognised"; else bad "LEDGER.md status line" "$(keelwork_running_ledgers "$P")"; fi
-cp "$REPO/skills/engineering/setup-matt-pocock-skills/commands.md" "$P/docs/agents/commands.md"
+cp "$REPO/skills/engineering/setup-keelwork/commands.md" "$P/docs/agents/commands.md"
 if [ "$(keelwork_command "$P" lint)" = "npx eslint {files}" ] && [ "$(keelwork_command "$P" typecheck)" = "npx tsc --noEmit" ] && [ "$(keelwork_command "$P" lint-extensions)" = "ts tsx js jsx" ]; then
   ok "commands.md seed template: lint, typecheck and lint-extensions parse"
 else

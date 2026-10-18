@@ -97,8 +97,8 @@ The palette is a calm night sea with brass fittings: dark and steady, with one w
 
 Four rules keep the name distinct and the fork easy to sync.
 
-1. **Always "Keelwork", one word.** Never shorten it to "Keel" in product copy: KEEL is already the name of a runtime trust layer for agentic AI, and a "Keel Safety Guardrails" skill exists. The full word is what keeps search results yours. (Layer 1 is called "Keel" inside the five-layer picture only, always next to Sails, Hull, Ballast and Compass.)
-2. **Rename the plugin, not the skills.** Upstream skill names such as `setup-matt-pocock-skills`, `grilling` and `to-spec` stay unchanged, so monthly merges stay routine (G4, N3).
+1. **Always "Keelwork", one word.** Never shorten it to "Keel" in product copy: KEEL is already the name of a runtime trust layer for agentic AI, and a "Keel Safety Guardrails" skill exists. The full word is what keeps search results yours. (The ship picture behind the layers may say "keel" as a plain word, but the layers themselves have plain names.)
+2. **No personal names in commands.** The two upstream skills that carried the author's name are `ask-keelwork` and `setup-keelwork` (formerly `ask-matt` and `setup-matt-pocock-skills`). Every other upstream skill, such as `grilling` and `to-spec`, keeps its name so monthly merges stay routine (G4, N3); the sync script maps the two renamed paths. See ADR 0005.
 3. **Keep "Matt" and "Pocock" out of the brand.** Credit him and the MIT source in the README instead; his name in the product name could imply endorsement.
 4. **Keep the prefix short.** Plugin skills are namespaced, so every command carries it: `/keelwork:ship`, `/keelwork:ship resume`.
 
@@ -106,7 +106,7 @@ Four rules keep the name distinct and the fork easy to sync.
 
 Everything below is upstream-owned. Editing it would make every upstream merge conflict, so it keeps upstream wording until a skill is genuinely changed by Keelwork. Every such change is logged in [`FORK-CHANGES.md`](../FORK-CHANGES.md).
 
-- Skill folders, `name:` frontmatter, and `SKILL.md` bodies under `skills/` (so `ask-matt` and `setup-matt-pocock-skills` keep their names and headings).
+- Skill folders, `name:` frontmatter, and `SKILL.md` bodies under `skills/` (so `ask-keelwork` and `setup-keelwork` keep their names and headings).
 - The `docs/` pages. Their links to `https://aihero.dev/skills-<name>` and to upstream issues still resolve and still describe the upstream skills accurately.
 - `CHANGELOG.md` history up to 1.3.1, and `.agents/adr/0001` and `0002`, which are records of upstream decisions.
 - `LICENSE`: the upstream copyright line stays (MIT requires it). Keelwork's line is added beneath it.
