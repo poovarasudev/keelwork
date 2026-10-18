@@ -1,5 +1,11 @@
 # keelwork
 
+## 1.5.0
+
+### Minor Changes
+
+- [#3](https://github.com/poovarasudev/keelwork/pull/3) [`5b28764`](https://github.com/poovarasudev/keelwork/commit/5b287645c7e7cb193866da079b985b3dd5e509ba) Thanks [@poovarasudev](https://github.com/poovarasudev)! - Rename the two commands that carried the upstream author's name: `/setup-matt-pocock-skills` is now `/setup-keelwork`, and `/ask-matt` is now `/ask-keelwork`. The five layers also have plain names: Foundation, Autopilot, Review, Guardrails and Discovery.
+
 ## 1.4.0
 
 ### Minor Changes
