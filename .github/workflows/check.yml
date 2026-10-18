@@ -33,5 +33,5 @@ jobs:
         run: |
           (cd evals/fixtures/greenfield && npm test)
           # The brownfield fixture fails exactly its two recorded known failures.
-          fails=$(cd evals/fixtures/brownfield && npm test 2>&1 | sed -n 's/^ℹ fail //p')
+          fails=$(cd evals/fixtures/brownfield && npm test 2>&1 | grep -E '^(ℹ|#) fail ' | awk '{print $3}')
           test "$fails" = "2"
