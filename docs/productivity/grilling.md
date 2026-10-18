@@ -40,6 +40,10 @@ This page covers the mechanism. The things people most often want are documented
 | How long a session should run, what to do with a question you can't answer by talking, how to avoid nodding along | [grill-me](https://aihero.dev/skills-grill-me) |
 | What gets written to `GLOSSARY.md`, what becomes an ADR | [grill-with-docs](https://aihero.dev/skills-grill-with-docs) |
 
+## Autonomy prep, under `/ship` only
+
+When [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) runs the interview, an agent is about to build the result with nobody at the keyboard, and any decision left open becomes a guess or a parked ticket. So under `/ship` the design tree gains extra branches: errors and failure states, empty states, permissions, migrations, naming, an explicit out-of-scope list, and any other one-way door. They are asked in the normal rounds, with recommendations. Every other grilling session, typed or called by another skill, runs exactly as before and is no longer.
+
 ## Common questions
 
 **Can I go back to one question at a time?**
@@ -84,4 +88,4 @@ A real and unfixed rough edge, reported across [harnesses](https://www.aihero.de
 
 ## Where it fits
 
-`grilling` is a **primitive**, not a step you schedule: the single source of truth for the interview technique, kept in one place so every skill that needs an interview reaches for it instead of inventing one. [grill-me](https://aihero.dev/skills-grill-me) and [grill-with-docs](https://aihero.dev/skills-grill-with-docs) are its two user-invoked front doors, and `grill-with-docs` is where the main build chain begins, ahead of [to-spec](https://aihero.dev/skills-to-spec). [wayfinder](https://aihero.dev/skills-wayfinder) runs it to resolve decision tickets, [triage](https://aihero.dev/skills-triage) to grill a vague report into a workable one, and [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) to walk the tree once you have picked a candidate to deepen. When you are unsure which entry point fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+`grilling` is a **primitive**, not a step you schedule: the single source of truth for the interview technique, kept in one place so every skill that needs an interview reaches for it instead of inventing one. [grill-me](https://aihero.dev/skills-grill-me) and [grill-with-docs](https://aihero.dev/skills-grill-with-docs) are its two user-invoked front doors, and `grill-with-docs` is where the main build chain begins, ahead of [to-spec](https://aihero.dev/skills-to-spec). [wayfinder](https://aihero.dev/skills-wayfinder) runs it to resolve decision tickets, [triage](https://aihero.dev/skills-triage) to grill a vague report into a workable one, and [improve-codebase-architecture](https://aihero.dev/skills-improve-codebase-architecture) to walk the tree once you have picked a candidate to deepen, and [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) to settle a feature before running it unattended. When you are unsure which entry point fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

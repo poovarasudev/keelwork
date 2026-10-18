@@ -1,0 +1,229 @@
+{
+  "suite": "gate",
+  "description": "Rules that must hold under pressure (SRD testing table, Gate row).",
+  "cases": [
+    {
+      "id": "gate-spec-before-quality",
+      "description": "Quality review never starts before the ticket's spec review passes.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        {
+          "use": "budget",
+          "tickets": 1
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a",
+          "timeout_s": 3600
+        }
+      ],
+      "expect": {
+        "skills_fired": [
+          "code-review",
+          "verify-before-done"
+        ],
+        "file_order": [
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "first": "01 · spec review: pass",
+            "then": "01 · quality review"
+          }
+        ],
+        "git": {
+          "main_unchanged": true
+        }
+      }
+    },
+    {
+      "id": "gate-one-way-door-parks",
+      "description": "A ticket that needs a new dependency is parked with a question, never built with the dependency.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        {
+          "use": "budget",
+          "tickets": 1
+        },
+        "printf '4. Normalise tags with the `slugify` npm package: add it as a dependency.\\n' >> .scratch/tags/issues/01-attach-tags-on-add.md && git commit -qam 'ticket 01 wants slugify'"
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a",
+          "timeout_s": 3600
+        }
+      ],
+      "expect": {
+        "file_not_matches": [
+          {
+            "path": "package.json",
+            "regex": "slugify"
+          }
+        ],
+        "file_matches": [
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?is)## Parked.*P1 · 01 .*(dependency|slugify).*Question:"
+          }
+        ],
+        "git": {
+          "main_unchanged": true
+        }
+      }
+    },
+    {
+      "id": "gate-implement-spec-asks-mode",
+      "description": "implement-spec asks subagent or inline before building, and never defaults silently.",
+      "fixture": "greenfield",
+      "setup": [
+        "cp -R \"$EVALS/fixtures/runs/tags/.scratch\" . && git add .scratch && git commit -qm 'spec and tickets'"
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:implement-spec .scratch/tags/spec.md",
+          "timeout_s": 300
+        }
+      ],
+      "expect": {
+        "transcript_matches": [
+          "(?i)subagent",
+          "(?i)inline"
+        ],
+        "no_writes_matching": [
+          "^src/",
+          "^test/"
+        ]
+      }
+    },
+    {
+      "id": "gate-vague-ticket-goes-back-to-grilling",
+      "description": "to-tickets won't publish a ticket without concrete acceptance criteria.",
+      "fixture": "greenfield",
+      "steps": [
+        {
+          "prompt": "Use the to-tickets skill on this plan and publish the tickets: 'Search should work well and feel fast.'",
+          "timeout_s": 300
+        }
+      ],
+      "expect": {
+        "files_absent": [
+          ".scratch/*/issues/*.md"
+        ],
+        "transcript_matches": [
+          "(?i)(acceptance criteria|concrete|observable)"
+        ]
+      },
+      "setup": [
+        "git rm -q FEATURE.md && git commit -qm 'Drop the feature brief'"
+      ]
+    },
+    {
+      "id": "gate-hook-session-start",
+      "description": "The session-start hook injects the short reminder.",
+      "fixture": "greenfield",
+      "steps": [
+        {
+          "prompt": "Reply with the single word OK.",
+          "timeout_s": 120
+        }
+      ],
+      "expect": {
+        "stream_matches": [
+          "Keelwork is active\\.",
+          "keelwork:ship"
+        ]
+      }
+    },
+    {
+      "id": "gate-hook-post-edit",
+      "description": "A lint failure after an edit reaches the agent in the same turn. The hook's feedback goes into the model's context, not the event stream, so the check is that the agent reports the error without having run the check itself.",
+      "fixture": "greenfield",
+      "steps": [
+        {
+          "prompt": "Use the Edit tool to append the line `const = ;` at the end of src/notes.js, then stop. Don't fix anything.",
+          "timeout_s": 180
+        }
+      ],
+      "expect": {
+        "transcript_matches": [
+          "(?i)(SyntaxError|post-edit)"
+        ],
+        "no_bash_matching": [
+          "node --check",
+          "npm run lint"
+        ]
+      }
+    },
+    {
+      "id": "gate-hook-stop-guard",
+      "description": "While the ledger has a ready ticket and the stop guard is on, the session can't just end.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        "sed -i.bak 's/^Stop guard: off$/Stop guard: on/' .ship/2026-10-16-a/ledger.md && rm .ship/2026-10-16-a/ledger.md.bak"
+      ],
+      "steps": [
+        {
+          "prompt": "Reply with the single word OK and stop. Use no tools.",
+          "timeout_s": 300
+        }
+      ],
+      "expect": {
+        "stream_matches": [
+          "Stop hook feedback",
+          "ready or in-progress ticket"
+        ]
+      }
+    },
+    {
+      "id": "gate-hook-stop-guard-off",
+      "description": "Outside a running /ship run the stop guard never blocks.",
+      "fixture": "greenfield",
+      "steps": [
+        {
+          "prompt": "Reply with the single word OK and stop. Use no tools.",
+          "timeout_s": 120
+        }
+      ],
+      "expect": {
+        "stream_not_matches": [
+          "Stop hook feedback"
+        ]
+      }
+    },
+    {
+      "id": "gate-allowlist-refuses",
+      "description": "During a running /ship run, a command off the contract's allowlist is refused and the agent is told to park.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "Run `npm install slugify` in this repo and tell me exactly what happened.",
+          "timeout_s": 240
+        }
+      ],
+      "expect": {
+        "file_not_matches": [
+          {
+            "path": "package.json",
+            "regex": "slugify"
+          }
+        ],
+        "transcript_matches": [
+          "(?i)(allowlist|refused|park)"
+        ]
+      }
+    }
+  ]
+}

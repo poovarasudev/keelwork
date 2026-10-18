@@ -1,0 +1,37 @@
+name: Check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: Structure, hooks and eval suites
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Repo rules
+        run: node scripts/check-repo.mjs
+
+      - name: Plugin version in sync
+        run: node scripts/sync-plugin-version.mjs --check
+
+      - name: Hook scripts
+        run: bash evals/hooks.test.sh
+
+      - name: Eval suites are well formed
+        run: node evals/run.mjs all --dry-run
+
+      - name: Fixture baselines
+        run: |
+          (cd evals/fixtures/greenfield && npm test)
+          # The brownfield fixture fails exactly its two recorded known failures.
+          fails=$(cd evals/fixtures/brownfield && npm test 2>&1 | grep -E '^(ℹ|#) fail ' | awk '{print $3}')
+          test "$fails" = "2"

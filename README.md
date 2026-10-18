@@ -12,14 +12,21 @@ Keelwork is a skills pack for Claude Code built on
 [Matt Pocock's skills](https://github.com/mattpocock/skills).
 Every upstream command still works exactly as before. Keelwork adds:
 
-- **Keel**: repo onboarding, a known test baseline, verify-before-done *(planned)*
-- **Sails**: `/ship`, from approved plan to reviewed PR, unattended *(planned)*
-- **Hull**: stack-aware review, plus security and performance audits *(planned)*
-- **Ballast**: hooks that hold the rules even when the agent forgets *(planned)*
-- **Compass**: optional idea discovery and red-teaming before you build *(planned)*
+- **Keel**: repo onboarding, a known test baseline, verify-before-done
+- **Sails**: `/ship`, from approved plan to reviewed PR, unattended
+- **Hull**: stack-aware review, plus security and performance audits
+- **Ballast**: hooks that hold the rules even when the agent forgets
+- **Compass**: optional idea discovery and red-teaming before you build
 
-> [!NOTE]
-> **Status.** Today this repo ships the upstream skill set, rebranded as a plugin. The five layers above are the fork's roadmap, and each stays marked *(planned)* until it lands. See [`.agents/brand.md`](./.agents/brand.md).
+| Layer | Skills and hooks |
+| --- | --- |
+| **Keel** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) |
+| **Sails** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
+| **Hull** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
+| **Ballast** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
+| **Compass** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
+
+Every edit Keelwork makes to an upstream skill is logged in [`FORK-CHANGES.md`](./FORK-CHANGES.md), so the monthly upstream merge stays routine.
 
 ## How a run works
 
@@ -28,7 +35,9 @@ Every upstream command still works exactly as before. Keelwork adds:
 3. **Execute**: the agent works overnight; anything that needs you is parked
 4. **Learn**: read the morning report and answer parked questions
 
-This is the KEEL loop, and `/ship` is what will run it end to end *(planned)*. Until then you can run the same shape by hand with the upstream skills: [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) to Know, [`/to-spec`](./skills/engineering/to-spec/SKILL.md) and [`/to-tickets`](./skills/engineering/to-tickets/SKILL.md) to Elaborate, [`/implement-spec`](./skills/engineering/implement-spec/SKILL.md) to Execute, then review the result yourself to Learn.
+This is the KEEL loop, and [`/ship`](./skills/engineering/ship/SKILL.md) runs it end to end. You're there for steps 1 to 7: optional discovery and red-team, design brainstorming, a grilling session, the **autonomy contract** (what the agent may decide alone, and what it must park for you), and approving the ticket plan. Then it works unattended: each ticket goes through implement, spec review, quality review, fix, verify and commit, and anything that needs you is **parked** with the exact question while the run carries on. It finishes with the full suite, a whole-branch review, security and performance audits, and a pushed branch or an open PR. It never merges. In the morning you read `.ship/<run-id>/morning-report.md`, answer the parked questions, and `/ship resume`.
+
+Prefer to stay at the wheel? Every upstream command still works by hand: [`/grill-with-docs`](./skills/engineering/grill-with-docs/SKILL.md) to Know, [`/to-spec`](./skills/engineering/to-spec/SKILL.md) and [`/to-tickets`](./skills/engineering/to-tickets/SKILL.md) to Elaborate, [`/implement-spec`](./skills/engineering/implement-spec/SKILL.md) to Execute, then review the result yourself to Learn.
 
 ## Installation (30-second setup)
 
@@ -88,10 +97,15 @@ In your agent, run it once per repo (with the plugin: `/keelwork:setup-matt-poco
 - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
 - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
 - Ask you where you want to save any docs we create
+- Record your test, lint, typecheck and build commands, and run the tests once to note the ones that already fail, so later runs can tell a regression from the baseline
 
 The skill keeps its upstream name on purpose, so merges from upstream stay routine.
 
-### 3. You're ready to go.
+### 3. Existing codebase? Run `/onboard-repo`
+
+On a repo with code but no agent context, [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md) drafts a short AGENTS.md, a seeded `GLOSSARY.md` and ADRs for decisions already in the code, every inferred fact marked unverified, and hands you a checklist to review before anything is committed.
+
+### 4. You're ready to go.
 
 ## Why The Upstream Skills Exist
 
@@ -209,24 +223,32 @@ Skills for daily code work.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout). Run once per repo before using the other engineering skills.
-- **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed.
-- **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break any plan, spec, or conversation into a set of tracer-bullet tickets, each declaring its blocking edges, written as text in a local file, or as native blocking links on a real tracker.
+- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline). Run once per repo before using the other engineering skills.
+- **[onboard-repo](./skills/engineering/onboard-repo/SKILL.md)**: Bootstrap context in an existing repo in one session: a short AGENTS.md, a seeded `GLOSSARY.md` and retroactive ADRs, all marked unverified and held for your review before anything is committed.
+- **[ship](./skills/engineering/ship/SKILL.md)**: Take one feature from idea to reviewed PR: set the course with you, run the tickets unattended, and leave a morning report. `/ship resume` continues a run.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
-- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Works the tickets as a task graph, running implementer subagents across the ready frontier for maximum concurrency, then closes out with `/code-review`.
+- **[implement-spec](./skills/engineering/implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Asks whether to run a subagent per ticket or work inline, then puts every ticket through implement, spec review, quality review, fix, verify and commit, and closes out with `/code-review`.
 - **[wayfinder](./skills/engineering/wayfinder/SKILL.md)**: Plan a huge chunk of work, more than one agent session can hold, as a shared map of decision tickets on the issue tracker, and resolve them one at a time until the way to the destination is clear.
 - **[retro](./skills/engineering/retro/SKILL.md)**: Suggest improvements to the coding agent's environment (navigation, automated checks, coding standards, steering files, tooling) after a session, most severe first.
 
 **Model-invoked**
 
+- **[to-spec](./skills/engineering/to-spec/SKILL.md)**: Turn the current conversation into a spec and publish it to the issue tracker. No interview, just synthesizes what you've already discussed. Fires only when you ask for a spec, or from `/ship`.
+- **[to-tickets](./skills/engineering/to-tickets/SKILL.md)**: Break a spec or plan into tracer-bullet tickets, each a detailed plan (acceptance criteria, files, interfaces, test cases, verify command) declaring its blocking edges. Fires only when you ask for tickets, or from `/ship`.
 - **[prototype](./skills/engineering/prototype/SKILL.md)**: Build a throwaway prototype to answer a design question, either a single shareable HTML file for state/logic questions, or several radically different UI variations toggleable from one route.
 - **[diagnosing-bugs](./skills/engineering/diagnosing-bugs/SKILL.md)**: Disciplined diagnosis loop for hard bugs and performance regressions: build a feedback loop that goes red on this bug → minimise → hypothesise → instrument → fix → regression-test.
 - **[research](./skills/engineering/research/SKILL.md)**: Investigate a question against high-trust primary sources and capture the findings as a cited Markdown file in the repo, run as a background agent.
 - **[tdd](./skills/engineering/tdd/SKILL.md)**: Test-driven development with a red-green-refactor loop. Builds features or fixes bugs one vertical slice at a time.
 - **[domain-modeling](./skills/engineering/domain-modeling/SKILL.md)**: Actively build and sharpen a project's domain model: challenge terms against the glossary, stress-test with edge-case scenarios, and update `GLOSSARY.md` and ADRs inline.
 - **[codebase-design](./skills/engineering/codebase-design/SKILL.md)**: Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface.
-- **[code-review](./skills/engineering/code-review/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other.
-- **[pr](./skills/engineering/pr/SKILL.md)**: The shape a pull request body should take: a summary as the smallest visual that makes the change clear, before/after evidence that it works, and a merge-danger call (one-way or two-way door, plus blast radius).
+- **[code-review](./skills/engineering/code-review/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline and the matching stack checklists?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other.
+- **[pr](./skills/engineering/pr/SKILL.md)**: The shape a pull request body should take (a summary as the smallest visual, before/after evidence, a merge-danger call), plus finishing a branch: a final full-suite run, a whole-branch review, then open a PR or keep the branch, and clean up. Never merges.
+- **[verify-before-done](./skills/engineering/verify-before-done/SKILL.md)**: Run the verify command and show its output before any claim that work is done, fixed or passing; failures on the known-failure list don't block, new ones do.
+- **[brainstorming](./skills/engineering/brainstorming/SKILL.md)**: The design step of `/ship`: two or three approaches with trade-offs and the YAGNI cuts listed, then a design draft for grilling. Never fires on its own.
+- **[stack-review](./skills/engineering/stack-review/SKILL.md)**: Stack-specific review checklists (TypeScript, React, Node.js, Python, Go, SQL), loaded only for the stacks a diff touches. `/code-review` pulls it in.
+- **[security-audit](./skills/engineering/security-audit/SKILL.md)**: Static security audit of a branch diff before a PR: untrusted input traced to dangerous sinks, every finding refuted or backed by quoted code. Critical findings block the PR.
+- **[performance-audit](./skills/engineering/performance-audit/SKILL.md)**: Static performance audit of a branch diff before a PR: N+1 queries, over-fetching, missing indexes and caching gaps, ranked by impact and effort. Critical findings block the PR.
+- **[receiving-code-review](./skills/engineering/receiving-code-review/SKILL.md)**: Evaluate each review comment against the codebase and give it a verdict, accepted with a fix or rejected with a reason, instead of applying feedback blindly.
 - **[wizard](./skills/engineering/wizard/SKILL.md)**: Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.
 
 ### Productivity
@@ -240,10 +262,13 @@ General workflow tools, not code-specific.
 - **[teach](./skills/productivity/teach/SKILL.md)**: Teach the user a new skill or concept over multiple sessions, using the current directory as a stateful teaching workspace.
 - **[to-questionnaire](./skills/productivity/to-questionnaire/SKILL.md)**: Turn a decision you can't answer alone into a Markdown questionnaire for the one person who can, filled in async, or together over a meeting. It grills you about the send (who it's for, what you need back), not the subject.
 - **[wait-what](./skills/productivity/wait-what/SKILL.md)**: Fire this the moment a message doesn't land. The agent re-pitches it with the context you're missing, in plain English, using your `GLOSSARY.md` vocabulary.
+- **[brainstorm-ideas-new](./skills/productivity/brainstorm-ideas-new/SKILL.md)**: Brainstorm and rank feature ideas for a new product from product, design and engineering perspectives, then hand the chosen idea to `/ship`.
+- **[brainstorm-ideas-existing](./skills/productivity/brainstorm-ideas-existing/SKILL.md)**: Brainstorm and rank ideas for a live product from the product trio's three perspectives, then hand the chosen idea to `/ship`.
+- **[strategy-red-team](./skills/productivity/strategy-red-team/SKILL.md)**: Red-team an idea, plan or strategy: steelman then attack its load-bearing assumptions, with the cheapest test and kill criterion for each.
 
 **Model-invoked**
 
-- **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder` and `improve-codebase-architecture`.
+- **[grilling](./skills/productivity/grilling/SKILL.md)**: Interview the user relentlessly about a plan, decision, or idea until every branch of the design tree is resolved. The reusable interview primitive behind `grill-me`, `grill-with-docs`, `triage`, `wayfinder`, `improve-codebase-architecture` and `ship`; under `/ship` it also settles errors, empty states, permissions, migrations, naming and scope.
 - **[writing-for-agents](./skills/productivity/writing-for-agents/SKILL.md)**: Writing documents for agents: skills, AGENTS.md/CLAUDE.md, and any doc an agent reaches by a pointer.
 
 ## Credits

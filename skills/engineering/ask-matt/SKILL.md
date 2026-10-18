@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 You don't remember every skill, so ask.
 
-A **flow** is a path through the skills. Most paths run along one **main flow**, and two **on-ramps** merge onto it. Everything else is standalone, or a vocabulary layer that runs underneath.
+A **flow** is a path through the skills. Most paths run along one **main flow**, which you can drive by hand or hand to **`/ship`** to run unattended, and a few **on-ramps** merge onto it. Everything else is standalone, or a layer that runs underneath.
 
 ## The main flow: idea → ship
 
@@ -22,12 +22,12 @@ The route most work travels. You have an idea and want it built.
 3. **Branch: is this a multi-session build?**
    - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
      - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
-     - **`/implement-spec`** for the whole spec in one run. It reads the tickets as a **task graph**, runs implementer subagents across the ready **frontier** in parallel, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
+     - **`/implement-spec`** for the whole spec in one run. It asks whether to run a fresh subagent per ticket (in parallel across the ready **frontier**) or work inline, puts each ticket through implement, spec review, quality review, fix, verify and commit, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
    - **No** → **`/implement`** right here, in the same context window.
 
    Either way, the code gets built by driving **`/tdd`** (one red-green slice at a time) and closes out with **`/code-review`**, a two-axis review (Standards + Spec) of the diff. `/implement` runs both per ticket; `/implement-spec`'s implementers each drive `/tdd`, and it runs one `/code-review` over the integration branch. Reach for **`/tdd`** on its own when you just want to build a concrete behaviour test-first without a full spec, and **`/code-review`** on its own whenever you want to review a branch or PR against a fixed point.
 
-   When the work goes up as a pull request, **`/pr`** shapes the body: the smallest visual that shows the change, before/after evidence that it works, and a one-way or two-way door call. It's model-invoked, so the agent reaches for it whenever it writes a PR.
+   When the work goes up as a pull request, **`/pr`** shapes the body: the smallest visual that shows the change, before/after evidence that it works, and a one-way or two-way door call. It also finishes a branch: a final full-suite run, a whole-branch review, then open a PR or keep the branch, and clean up. It's model-invoked, so the agent reaches for it whenever it writes a PR or wraps up a branch, and it never merges.
 
 4. **`/retro`** closes the loop. After a build, and especially one that went sideways, it looks back over the session and suggests changes to the agent's **environment**, not the code: navigation pointers, automated checks, the coding standards `/code-review` enforces, steering files, tooling. Mechanical mistakes become deterministic checks; judgement calls become coding standards. The next build then starts from a better environment.
 
@@ -37,9 +37,24 @@ Keep steps 1–3 in **one unbroken context window** (don't compact or clear unti
 
 The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-dictionary/smart-zone)**: the window (~150k tokens on state-of-the-art models) within which the model still reasons sharply. If a session approaches it before `/to-tickets`, don't push on degraded; `/compact` at the nearest phase boundary and carry on (see Phase boundaries).
 
+## The unattended flow: `/ship`
+
+The main flow above, run for you overnight. Reach for **`/ship`** when a scoped feature should go from idea to reviewed PR without you at the keyboard. It follows the **KEEL loop**:
+
+- **Know** (with you): optional discovery and red-team when the idea isn't chosen yet, then **`brainstorming`** (two or three approaches, the YAGNI cuts listed) and a grilling session in the style you pick (`grill-me` or `grill-with-docs`), with extra **autonomy prep** so the run has nothing left to guess.
+- **Elaborate** (with you): the **autonomy contract** (two-way doors the agent decides and logs, one-way doors it parks), `/to-spec`, `/to-tickets` with detailed per-ticket plans, and the execution mode.
+- **Execute** (unattended): every ticket through implement, spec review, quality review, fix, verify, commit. A blocked ticket is **parked** with the exact question, and the run carries on. It finishes with the full suite, a whole-branch review, **`security-audit`**, **`performance-audit`** and `/pr`. It never merges.
+- **Learn** (with you again): read `.ship/<run-id>/morning-report.md`, answer the parked questions, and **`/ship resume`**.
+
+Use the hand-driven main flow when you want to steer each step; use `/ship` when the scope is clear enough to set the course once.
+
 ## On-ramps
 
 A starting situation that generates work, then merges onto the main flow.
+
+- **An existing codebase with no agent context** → **`/onboard-repo`**. In one session it drafts a short AGENTS.md, seeds `GLOSSARY.md` and writes ADRs for decisions already in the code, every inferred fact marked unverified, and stops at a review checklist. Nothing is committed until you've reviewed it. Run it once, after setup, before the first feature.
+
+- **No idea chosen yet** → **`/brainstorm-ideas-new`** (no product yet) or **`/brainstorm-ideas-existing`** (a live product). Each generates ideas from product, design and engineering perspectives and ranks the top five with the assumptions to test. Then **`/strategy-red-team`** attacks the chosen idea's load-bearing assumptions before you build. Both save their output to a file you hand to `/ship`, which picks up at design brainstorming. (`/ship` can also run the same discovery inline when you start it without an idea.)
 
 - **Bugs and requests piling up** → **`/triage`**. It moves issues through triage roles and produces agent-ready issues, which **`/implement`** later picks up.
 
@@ -56,6 +71,15 @@ A starting situation that generates work, then merges onto the main flow.
 Not feature work, just upkeep.
 
 - **`/improve-codebase-architecture`** runs whenever you have a spare moment to keep the codebase good for agents to operate in. It surfaces **deepening opportunities**; picking one _generates an idea_ you can take into the main flow at `/grill-with-docs`. It's the survey that finds the candidates; **`/codebase-design`** (below) is the bench you design the chosen one on.
+
+## Gates underneath
+
+Model-invoked skills the flows above pull in at their checkpoints. Reach for them directly when you want just that check.
+
+- **`/verify-before-done`**: no "done", "fixed" or "passing" without running the verify command and showing its output. Failures already on the **known-failure** list don't block; new ones do.
+- **`/stack-review`**: the stack-specific checklists (TypeScript, React, Node.js, Python, Go, SQL) that `/code-review` loads for only the stacks a diff touches.
+- **`/receiving-code-review`**: give each review comment a verdict, accepted with a fix or rejected with a reason, instead of applying feedback blindly.
+- **`/security-audit`** and **`/performance-audit`**: static audits of a branch diff before a PR. Critical findings block the PR.
 
 ## Vocabulary underneath
 
@@ -92,4 +116,4 @@ Off the main flow entirely.
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume. Custom issue trackers also work.
+**`/setup-matt-pocock-skills`**: run before your first engineering flow to configure the issue tracker, triage labels, and doc layout the other skills assume, and to record the test, lint, typecheck and build commands with a **known-failure** baseline. Custom issue trackers also work. On an existing codebase, follow it with `/onboard-repo`.

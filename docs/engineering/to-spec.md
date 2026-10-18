@@ -6,7 +6,7 @@ It does not interview you. By the time you reach for it the deciding is already 
 
 ## When to reach for it
 
-You invoke this by typing `/to-spec`; the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.
+Type `/to-spec`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it when you explicitly ask it to write up or publish a spec. Its description is deliberately narrow so it doesn't fire while you are still discussing a design. It became agent-callable in Keelwork so that [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) can run it at its spec step, with you still present.
 
 Reach for it when the build is too big for one agent [session](https://www.aihero.dev/ai-coding-dictionary/session) and has to survive being split across several. That is the whole trigger:
 
@@ -78,4 +78,4 @@ Very large specs can outgrow what a tracker issue will serve back cleanly, and t
 grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-Its neighbours upstream are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which does the deciding this skill only records, and [wayfinder](https://aihero.dev/skills-wayfinder), whose finished map merges onto the chain right here. Downstream, [to-tickets](https://aihero.dev/skills-to-tickets) cuts the spec into tracer-bullet tickets for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+Under [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) it runs as step 6, between grilling and `to-tickets`. Its neighbours upstream are [grill-with-docs](https://aihero.dev/skills-grill-with-docs), which does the deciding this skill only records, and [wayfinder](https://aihero.dev/skills-wayfinder), whose finished map merges onto the chain right here. Downstream, [to-tickets](https://aihero.dev/skills-to-tickets) cuts the spec into tracer-bullet tickets for [implement](https://aihero.dev/skills-implement) to build. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

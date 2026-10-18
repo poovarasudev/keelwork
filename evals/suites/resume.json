@@ -1,0 +1,95 @@
+{
+  "suite": "resume",
+  "description": "A run survives interruption (SRD testing table, Resume row).",
+  "cases": [
+    {
+      "id": "resume-after-kill",
+      "description": "Kill a /ship run mid-ticket; /ship resume continues from the ledger without redoing finished tickets.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        {
+          "use": "budget",
+          "tickets": 2
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a",
+          "timeout_s": 2400,
+          "kill_after_s": 300
+        },
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a",
+          "timeout_s": 5400,
+          "new_session": true
+        }
+      ],
+      "expect": {
+        "commit_counts": [
+          {
+            "regex": "(^01:|ticket 01\\b)",
+            "min": 1,
+            "max": 1
+          },
+          {
+            "regex": "(^02:|ticket 02\\b)",
+            "min": 1,
+            "max": 1
+          }
+        ],
+        "file_matches": [
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?m)^Status: (finished|halted)$"
+          },
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?m)^\\| 01 \\|[^|]*\\| done \\|"
+          }
+        ],
+        "git": {
+          "main_unchanged": true
+        }
+      }
+    },
+    {
+      "id": "resume-halted-run",
+      "description": "A halted run resumes after the human answers the parked question.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        {
+          "use": "budget",
+          "tickets": 1
+        },
+        "python3 - <<'PY'\nimport re\np='.ship/2026-10-16-a/ledger.md'\ns=open(p).read()\ns=s.replace('Status: running','Status: halted\\nHalted: no ticket is ready')\ns=s.replace('| 01 | Attach tags when adding a note | ready |','| 01 | Attach tags when adding a note | parked |')\ns=s.replace('## Parked\\n\\nNone.','## Parked\\n\\n- P1 · 01 · one-way: public API · Question: \"Should --tag be repeatable, or take a comma-separated list?\" · Patch: none')\nopen(p,'w').write(s)\nPY"
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a P1: repeatable --tag, exactly as the ticket says.",
+          "timeout_s": 3600
+        }
+      ],
+      "expect": {
+        "file_matches": [
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?is)## Decisions.*P1"
+          },
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?m)^\\| 01 \\|[^|]*\\| done \\|"
+          }
+        ],
+        "git": {
+          "main_unchanged": true
+        }
+      }
+    }
+  ]
+}

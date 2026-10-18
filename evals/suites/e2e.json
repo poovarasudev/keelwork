@@ -1,0 +1,145 @@
+{
+  "suite": "e2e",
+  "description": "Whole flows on the fixtures (SRD testing table, End-to-end row).",
+  "cases": [
+    {
+      "id": "e2e-greenfield-tags",
+      "description": "A five-ticket feature from 'go' to morning report with no human input.",
+      "fixture": "greenfield",
+      "setup": [
+        {
+          "use": "seed_tags_run"
+        },
+        {
+          "use": "bare_remote"
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:ship resume 2026-10-16-a",
+          "timeout_s": 14400
+        }
+      ],
+      "expect": {
+        "file_matches": [
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?m)^Status: finished$"
+          },
+          {
+            "path": ".ship/2026-10-16-a/morning-report.md",
+            "regex": "(?s)## Shipped.*## Parked: needs your decision.*## Decisions made: to skim.*## Review findings.*## Suggested rule updates"
+          },
+          {
+            "path": ".ship/2026-10-16-a/ledger.md",
+            "regex": "(?s)## Verify evidence.*01 ·.*05 ·"
+          }
+        ],
+        "files_exist": [
+          "test/tags.test.js",
+          ".ship/2026-10-16-a/security-audit.md",
+          ".ship/2026-10-16-a/performance-audit.md"
+        ],
+        "commands": [
+          {
+            "run": "npm test",
+            "exit": 0
+          }
+        ],
+        "skills_fired": [
+          "tdd",
+          "code-review",
+          "verify-before-done",
+          "security-audit",
+          "performance-audit",
+          "pr"
+        ],
+        "order": [
+          [
+            "code-review",
+            "security-audit"
+          ],
+          [
+            "security-audit",
+            "pr"
+          ]
+        ],
+        "git": {
+          "main_unchanged": true,
+          "remote_has_branch": "ship/2026-10-16-a-tags"
+        },
+        "no_bash_matching": [
+          "git merge",
+          "git push[^\\n]*\\bmain\\b",
+          "git branch -D"
+        ]
+      }
+    },
+    {
+      "id": "e2e-brownfield-baseline",
+      "description": "Setup records commands and the two pre-existing failures as known failures.",
+      "fixture": "brownfield",
+      "steps": [
+        {
+          "prompt": "/keelwork:setup-matt-pocock-skills My answers, so don't wait for me: local markdown tracker, single-context docs, accept the commands you find, create CLAUDE.md.",
+          "timeout_s": 1800
+        }
+      ],
+      "expect": {
+        "files_exist": [
+          "docs/agents/commands.md",
+          "docs/agents/issue-tracker.md"
+        ],
+        "file_matches": [
+          {
+            "path": "docs/agents/commands.md",
+            "regex": "(?m)^- \\*\\*test\\*\\*: `npm test`"
+          },
+          {
+            "path": "docs/agents/commands.md",
+            "regex": "(?is)known failures.*(pricing|round).*"
+          },
+          {
+            "path": "docs/agents/commands.md",
+            "regex": "(?is)known failures.*(invoice|finance|sandbox)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "e2e-brownfield-onboard",
+      "description": "onboard-repo drafts context marked unverified and commits nothing.",
+      "fixture": "brownfield",
+      "setup": [
+        {
+          "use": "brownfield_setup_done"
+        }
+      ],
+      "steps": [
+        {
+          "prompt": "/keelwork:onboard-repo",
+          "timeout_s": 2400
+        }
+      ],
+      "expect": {
+        "files_exist": [
+          "GLOSSARY.md",
+          "docs/agents/onboarding-review.md"
+        ],
+        "file_matches": [
+          {
+            "path": "GLOSSARY.md",
+            "regex": "\\(unverified\\)"
+          },
+          {
+            "path": "GLOSSARY.md",
+            "regex": "(?is)customer.*_Avoid_.*(client|account)"
+          }
+        ],
+        "git": {
+          "no_new_commits": true
+        }
+      }
+    }
+  ]
+}

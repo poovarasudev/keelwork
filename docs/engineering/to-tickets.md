@@ -6,7 +6,7 @@ Every ticket is a **tracer bullet**: a narrow but complete path through every la
 
 ## When to reach for it
 
-You invoke this by typing `/to-tickets`. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) won't reach for it on its own.
+Type `/to-tickets`, or the [agent](https://www.aihero.dev/ai-coding-dictionary/agent) reaches for it when you explicitly ask for tickets or a ticket breakdown. Its description is deliberately narrow so casual design talk doesn't trigger it. It became agent-callable in Keelwork so that [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) can chain it after `to-spec`.
 
 | Where you are | What to run |
 | --- | --- |
@@ -40,6 +40,12 @@ The edges are the point of the artifact. They read two ways depending on the tra
 | A real tracker (GitHub, Linear) | Native blocking links, or sub-issues where the tracker has them | Any ticket whose blockers are done is on the **frontier** and can be grabbed |
 
 The edges live in the ticket either way. The medium only decides whether anything can act on them in parallel. `to-tickets` produces the artifact; running it (one session at a time, or a fleet) is your job, not the skill's.
+
+## Each ticket is a detailed plan
+
+A ticket here is written for an implementer with **no session history**: someone who never saw the conversation and will not be able to ask. So every ticket carries the plan, not just the goal: acceptance criteria, ordered implementation steps, the exact files to create or change, the interfaces as code, data and schema changes, test cases including the edge cases, a verify command, a definition of done, and its blocking edges. Where the approach isn't obvious it includes a short snippet of the decision-rich part.
+
+The bar is that the implementer finishes without asking anything. A ticket whose acceptance criteria aren't concrete (observable, and false at the commit the work starts from) is not published: it goes back to grilling until they are.
 
 ## The wide-refactor exception
 
@@ -84,7 +90,7 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 - Every ticket has an answer to "what can I demo when this is done?", and the answer is behaviour, not a layer.
 - The list comes back to you numbered, with a "Blocked by" line on each, before anything is published.
 - The ticket at the top has no blockers and can be started immediately.
-- Nothing in a ticket body is a file path or a line number, except a snippet a prototype produced.
+- Every ticket names its files, its test cases and its verify command, and each acceptance criterion is something you could watch fail.
 - Each ticket reads like something a fresh session could finish without you in the room.
 - Prefactoring, where it found any, is at the front of the order rather than mixed into feature tickets.
 
@@ -96,4 +102,4 @@ The skill stops at the artifact, and there is no auto-dispatch mode. Dispatch is
 grill-with-docs → to-spec → to-tickets → implement → code-review → retro
 ```
 
-Upstream is [to-spec](https://aihero.dev/skills-to-spec), which hands it a settled spec to slice against; keep both in one unbroken context window. Downstream is [implement](https://aihero.dev/skills-implement), which builds one ticket per fresh session, driving [tdd](https://aihero.dev/skills-tdd) for the tests and closing with [code-review](https://aihero.dev/skills-code-review). [implement-spec](https://aihero.dev/skills-implement-spec) is the other way down: it reads the same blocking edges as a task graph and builds every ready ticket in parallel on one integration branch. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.
+Upstream is [to-spec](https://aihero.dev/skills-to-spec), which hands it a settled spec to slice against; keep both in one unbroken context window. Under [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md), your approval at its quiz step is the plan approval that starts the unattended run. Downstream is [implement](https://aihero.dev/skills-implement), which builds one ticket per fresh session, driving [tdd](https://aihero.dev/skills-tdd) for the tests and closing with [code-review](https://aihero.dev/skills-code-review). [implement-spec](https://aihero.dev/skills-implement-spec) is the other way down: it reads the same blocking edges as a task graph and builds every ready ticket in parallel on one integration branch. When you're unsure which skill or flow fits, [ask-matt](https://aihero.dev/skills-ask-matt) routes you.

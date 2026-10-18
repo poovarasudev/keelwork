@@ -1,0 +1,12 @@
+{
+  "name": "notes-cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A tiny command-line notebook. Keelwork eval fixture.",
+  "bin": { "notes": "src/cli.js" },
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check"
+  }
+}

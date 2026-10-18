@@ -1,6 +1,11 @@
 # Writing docs pages
 
-> **Keelwork note.** The pages under `docs/` are upstream-owned and still link to the upstream docs site and issue tracker, which keeps upstream merges conflict-free. New pages for Keelwork's own skills should link to their in-repo path instead. See [brand.md](./brand.md).
+> **Keelwork note.** Two kinds of page live under `docs/`, and they link differently:
+>
+> - **Upstream skills** (every skill the fork inherited): the page is upstream-owned and published at `https://aihero.dev/skills-<name>`. It keeps linking to the upstream docs site and issue tracker, which keeps upstream merges conflict-free. When Keelwork changes such a skill, re-sync the page and log the edit in [`FORK-CHANGES.md`](../FORK-CHANGES.md).
+> - **Keelwork skills** (listed in `FORK-CHANGES.md` under *Keelwork-owned skills*): the page is published on GitHub at `https://github.com/poovarasudev/keelwork/blob/main/docs/<bucket>/<name>.md`. Link to it there, from any page.
+>
+> Everywhere below that says `https://aihero.dev/skills-<name>`, read the Keelwork URL for a Keelwork skill. See [brand.md](./brand.md).
 
 Every skill in `engineering/` and `productivity/` has a human-facing **docs page** at `docs/<bucket>/<skill-name>.md`. The docs tree mirrors those two bucket folders under `skills/`. It is published at `https://aihero.dev/skills-<skill-name>`; the URL is always `skills-<skill-name>` regardless of bucket, so the docs path is repo organisation only. The page is not the skill and not a copy of `SKILL.md`. Only these two buckets are promoted; the rest (`misc/`, `in-progress/`, `deprecated/`) ship no docs page.
 
@@ -8,7 +13,7 @@ Most of these skills are **user-invoked**: the agent will never fire them for yo
 
 Act whenever a promoted skill is added, renamed, or has its behaviour changed: create or re-sync its docs page. A rename moves the file too (`docs/<bucket>/<old>.md` → `docs/<bucket>/<new>.md`), because the published URL tracks the name; a skill that moves between `engineering/` and `productivity/` moves its docs file to the matching folder. Skills in `misc/`, `in-progress/`, and `deprecated/` get no page, because none of those buckets is promoted. A skill moving *out* of one of them into `engineering/` or `productivity/` gains a page; one moving the other way loses it. A promoted skill that is removed outright keeps its page as an **archived** page: leave the body as it was and open it with a blockquote notice (`> **Archived.** ...`) naming the version it was removed in and any replacement, so the published URL keeps resolving.
 
-Because these pages are published on `aihero.dev`, **every link is absolute**: never a repo-relative path. A link to another skill points at `https://aihero.dev/skills-<name>`; a link into the repo points at its full `https://github.com/mattpocock/skills/...` URL. A relative link that works in the repo breaks once published.
+Because these pages are published on `aihero.dev`, **every link is absolute**: never a repo-relative path. A link to another skill points at its published page (`https://aihero.dev/skills-<name>` for an upstream skill, the GitHub URL above for a Keelwork skill); a link into the repo points at its full `https://github.com/poovarasudev/keelwork/blob/main/...` URL. A relative link that works in the repo breaks once published.
 
 There is no H1. The published page takes its title from the slug.
 

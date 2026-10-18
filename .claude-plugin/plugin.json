@@ -17,7 +17,9 @@
     "tdd",
     "code-review",
     "overnight",
-    "autonomy"
+    "autonomy",
+    "hooks",
+    "security-audit"
   ],
   "skills": [
     "./skills/engineering/ask-matt",
@@ -40,12 +42,23 @@
     "./skills/engineering/pr",
     "./skills/engineering/retro",
     "./skills/engineering/wizard",
+    "./skills/engineering/ship",
+    "./skills/engineering/onboard-repo",
+    "./skills/engineering/verify-before-done",
+    "./skills/engineering/brainstorming",
+    "./skills/engineering/stack-review",
+    "./skills/engineering/security-audit",
+    "./skills/engineering/performance-audit",
+    "./skills/engineering/receiving-code-review",
     "./skills/productivity/grill-me",
     "./skills/productivity/grilling",
     "./skills/productivity/handoff",
     "./skills/productivity/teach",
     "./skills/productivity/to-questionnaire",
     "./skills/productivity/wait-what",
-    "./skills/productivity/writing-for-agents"
+    "./skills/productivity/writing-for-agents",
+    "./skills/productivity/brainstorm-ideas-new",
+    "./skills/productivity/brainstorm-ideas-existing",
+    "./skills/productivity/strategy-red-team"
   ]
 }
