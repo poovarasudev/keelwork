@@ -8,6 +8,7 @@
   "homepage": "https://github.com/poovarasudev/keelwork",
   "repository": "https://github.com/poovarasudev/keelwork",
   "license": "MIT",
+  "icon": "./assets/keelwork-logo.svg",
   "keywords": [
     "keelwork",
     "agents",
