@@ -12,19 +12,19 @@ Keelwork is a skills pack for Claude Code built on
 [Matt Pocock's skills](https://github.com/mattpocock/skills).
 Every upstream command still works exactly as before. Keelwork adds:
 
-- **Keel**: repo onboarding, a known test baseline, verify-before-done
-- **Sails**: `/ship`, from approved plan to reviewed PR, unattended
-- **Hull**: stack-aware review, plus security and performance audits
-- **Ballast**: hooks that hold the rules even when the agent forgets
-- **Compass**: optional idea discovery and red-teaming before you build
+- **Foundation**: repo onboarding, a known test baseline, and a check that nothing is called "done" without proof
+- **Autopilot**: `/ship`, from approved plan to reviewed PR, with nobody at the keyboard
+- **Review**: stack-aware code review, plus security and performance audits
+- **Guardrails**: hooks that enforce the rules even when the agent forgets them
+- **Discovery**: optional idea brainstorming and red-teaming before you build
 
-| Layer | Skills and hooks |
+| Part | Skills and hooks |
 | --- | --- |
-| **Keel** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) |
-| **Sails** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
-| **Hull** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
-| **Ballast** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
-| **Compass** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
+| **Foundation** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) |
+| **Autopilot** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
+| **Review** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
+| **Guardrails** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
+| **Discovery** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
 
 Every edit Keelwork makes to an upstream skill is logged in [`FORK-CHANGES.md`](./FORK-CHANGES.md), so the monthly upstream merge stays routine.
 

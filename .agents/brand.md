@@ -22,19 +22,19 @@ Keelwork gives them a keel. You set the course in one focused session, and the a
 
 Built on Matt Pocock's skills, steadied with ideas from Superpowers and pm-skills.
 
-## The five layers as a ship
+## The five layers
 
-Each SRD layer maps onto a part of a ship, which gives the README and talks one picture to explain the whole fork.
+The layers have plain names. Say "Foundation", "Autopilot" and so on in user-facing copy, never the nautical terms. The ship picture below is only the story behind the name Keelwork.
 
-| Layer | Name | Part of the ship | What it adds |
+| Layer | Name | Ship picture | What it adds |
 | --- | --- | --- | --- |
-| 1 | Keel | The keel | Repo onboarding, a known test baseline, verify-before-done |
-| 2 | Sails | The sails | `/ship`, from approved plan to reviewed PR, unattended |
-| 3 | Hull | The hull | Stack-aware review, plus security and performance audits |
-| 4 | Ballast | The ballast | Hooks that hold the rules even when the agent forgets |
-| 5 | Compass | The compass | Optional idea discovery and red-teaming before you build |
+| 1 | Foundation | The keel | Repo onboarding, a known test baseline, verify-before-done |
+| 2 | Autopilot | The sails | `/ship`, from approved plan to reviewed PR, unattended |
+| 3 | Review | The hull | Stack-aware review, plus security and performance audits |
+| 4 | Guardrails | The ballast | Hooks that enforce the rules even when the agent forgets |
+| 5 | Discovery | The compass | Optional idea brainstorming and red-teaming before you build |
 
-Read it bottom to top: the keel (Layer 1) is laid first and every later layer depends on it, while ballast hooks (Layer 4) steady all four.
+Read it bottom to top: Foundation (Layer 1) is laid first and every later layer depends on it, while the Guardrails hooks (Layer 4) steady all four.
 
 **Status:** all five layers have shipped. The README's layer table maps each one to its skills and hooks; a future layer is marked *(planned)* there until the change that ships it.
 

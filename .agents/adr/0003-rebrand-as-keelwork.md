@@ -17,7 +17,7 @@ A full rename touches around 500 lines across every docs page and every skill th
 
 - `/keelwork:setup-matt-pocock-skills` still has "Matt Pocock" in its name. That is accepted, and is the one place his name appears in a command.
 - The plugin is no longer in Claude Code's official marketplace. Installs go through this repo as a marketplace: `claude plugin marketplace add poovarasudev/keelwork`, then `claude plugin install keelwork@keelwork`. The wording is in [install-block.md](../install-block.md).
-- The five layers (Keel, Sails, Hull, Ballast, Compass) are a roadmap, so the README marks each *(planned)* until it ships.
+- The five layers (then named Keel, Sails, Hull, Ballast and Compass; now Foundation, Autopilot, Review, Guardrails and Discovery) were a roadmap, so the README marked each *(planned)* until it shipped.
 - ADR 0002 describes the upstream listing in the official marketplace. It is history, and does not describe how Keelwork is distributed.
 
 ## Update, 2026-10-15

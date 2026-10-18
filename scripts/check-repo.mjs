@@ -287,7 +287,7 @@ for (const rel of ["README.md", ".claude-plugin/plugin.json", ".claude-plugin/ma
   const text = read(rel);
   for (const m of text.matchAll(/\bKeel\b(?!work)/g)) {
     const around = text.slice(Math.max(0, m.index - 200), m.index + 200);
-    if (!/Sails|Hull|Ballast|Compass/.test(around)) error(`${rel}: "Keel" used alone outside the five-layer picture (brand rule 1)`);
+    if (!/Sails|Hull|Ballast|Compass|Autopilot|Guardrails|Discovery/.test(around)) error(`${rel}: "Keel" used alone outside the five-layer picture (brand rule 1)`);
   }
 }
 

@@ -1,6 +1,6 @@
 # Build the five layers as a thin fork
 
-The SRD adds five layers (Keel, Sails, Hull, Ballast, Compass) on top of the upstream skills, and requires that the monthly upstream merge stays a small, routine job (G4, N3). We built every layer as new skill folders, new files inside upstream skill folders, and a handful of small, logged edits to upstream `SKILL.md` files. Several of the choices below would look odd without the reasons, so they're recorded here.
+The SRD adds five layers (Foundation, Autopilot, Review, Guardrails, Discovery) on top of the upstream skills, and requires that the monthly upstream merge stays a small, routine job (G4, N3). We built every layer as new skill folders, new files inside upstream skill folders, and a handful of small, logged edits to upstream `SKILL.md` files. Several of the choices below would look odd without the reasons, so they're recorded here.
 
 ## Decisions
 
