@@ -17,7 +17,7 @@ You invoke this by typing `/onboard-repo`, and the agent won't reach for it on i
 
 ## Prerequisites
 
-[setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) must have run first: the glossary layout comes from its `docs/agents/domain.md`, and the agent instructions point at its `docs/agents/commands.md`. It writes `GLOSSARY.md`, ADRs under `docs/adr/`, additions to `CLAUDE.md` or `AGENTS.md`, and a temporary `docs/agents/onboarding-review.md`.
+[setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md) must have run first: the glossary layout comes from its `docs/agents/domain.md`, and the agent instructions point at its `docs/agents/commands.md`. It writes `GLOSSARY.md`, ADRs under `docs/adr/`, additions to `CLAUDE.md` or `AGENTS.md`, and a temporary `docs/agents/onboarding-review.md`.
 
 ## Unverified until reviewed
 
@@ -44,4 +44,4 @@ Probably not. The instructions are meant to be pointers to where things live, pl
 
 ## Where it fits
 
-`onboard-repo` is a **run-once setup**, right after [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) on a brownfield repo and before the first feature. It drives [writing-for-agents](https://aihero.dev/skills-writing-for-agents) for the agent instructions and [domain-modeling](https://aihero.dev/skills-domain-modeling) for the glossary and ADRs. After it, the main flow (by hand, or via [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md)) starts with real context. [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+`onboard-repo` is a **run-once setup**, right after [setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md) on a brownfield repo and before the first feature. It drives [writing-for-agents](https://aihero.dev/skills-writing-for-agents) for the agent instructions and [domain-modeling](https://aihero.dev/skills-domain-modeling) for the glossary and ADRs. After it, the main flow (by hand, or via [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md)) starts with real context. [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

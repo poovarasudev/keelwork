@@ -6,11 +6,11 @@ Skills for daily code work.
 
 Reachable only when you type them (Claude Code: `disable-model-invocation: true`; Codex: `policy.allow_implicit_invocation: false` in `agents/openai.yaml`).
 
-- **[ask-matt](./ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-keelwork](./ask-keelwork/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
 - **[grill-with-docs](./grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[triage](./triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline). Run once per repo.
+- **[setup-keelwork](./setup-keelwork/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline). Run once per repo.
 - **[onboard-repo](./onboard-repo/SKILL.md)**: Bootstrap context in an existing repo in one session: a short AGENTS.md, a seeded `GLOSSARY.md` and retroactive ADRs, all marked unverified and held for your review before anything is committed.
 - **[ship](./ship/SKILL.md)**: Take one feature from idea to reviewed PR: set the course with you, run the tickets unattended, and leave a morning report. `/ship resume` continues a run.
 - **[implement](./implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.

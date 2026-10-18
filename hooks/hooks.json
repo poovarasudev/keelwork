@@ -1,5 +1,5 @@
 {
-  "description": "Keelwork ballast: a session reminder, the /ship command allowlist, post-edit lint and typecheck, and the /ship stop guard.",
+  "description": "Keelwork guardrails: a session reminder, the /ship command allowlist, post-edit lint and typecheck, and the /ship stop guard.",
   "hooks": {
     "SessionStart": [
       {

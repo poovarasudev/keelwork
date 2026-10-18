@@ -12,19 +12,19 @@ Keelwork is a skills pack for Claude Code built on
 [Matt Pocock's skills](https://github.com/mattpocock/skills).
 Every upstream command still works exactly as before. Keelwork adds:
 
-- **Keel**: repo onboarding, a known test baseline, verify-before-done
-- **Sails**: `/ship`, from approved plan to reviewed PR, unattended
-- **Hull**: stack-aware review, plus security and performance audits
-- **Ballast**: hooks that hold the rules even when the agent forgets
-- **Compass**: optional idea discovery and red-teaming before you build
+- **Foundation**: repo onboarding, a known test baseline, and a check that nothing is called "done" without proof
+- **Autopilot**: `/ship`, from approved plan to reviewed PR, with nobody at the keyboard
+- **Review**: stack-aware code review, plus security and performance audits
+- **Guardrails**: hooks that enforce the rules even when the agent forgets them
+- **Discovery**: optional idea brainstorming and red-teaming before you build
 
-| Layer | Skills and hooks |
+| Part | Skills and hooks |
 | --- | --- |
-| **Keel** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/SKILL.md) |
-| **Sails** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
-| **Hull** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
-| **Ballast** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
-| **Compass** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
+| **Foundation** | [`/onboard-repo`](./skills/engineering/onboard-repo/SKILL.md), [`verify-before-done`](./skills/engineering/verify-before-done/SKILL.md), and a test baseline recorded by [`/setup-keelwork`](./skills/engineering/setup-keelwork/SKILL.md) |
+| **Autopilot** | [`/ship`](./skills/engineering/ship/SKILL.md), [`brainstorming`](./skills/engineering/brainstorming/SKILL.md), and agent-callable [`to-spec`](./skills/engineering/to-spec/SKILL.md) and [`to-tickets`](./skills/engineering/to-tickets/SKILL.md) with detailed ticket plans |
+| **Review** | [`stack-review`](./skills/engineering/stack-review/SKILL.md), [`security-audit`](./skills/engineering/security-audit/SKILL.md), [`performance-audit`](./skills/engineering/performance-audit/SKILL.md), [`receiving-code-review`](./skills/engineering/receiving-code-review/SKILL.md), and [`pr`](./skills/engineering/pr/SKILL.md) finishing a branch |
+| **Guardrails** | [Claude Code hooks](./hooks/README.md): a session reminder, the `/ship` command allowlist, post-edit lint and typecheck, and the `/ship` stop guard |
+| **Discovery** | [`/brainstorm-ideas-new`](./skills/productivity/brainstorm-ideas-new/SKILL.md), [`/brainstorm-ideas-existing`](./skills/productivity/brainstorm-ideas-existing/SKILL.md), [`/strategy-red-team`](./skills/productivity/strategy-red-team/SKILL.md) |
 
 Every edit Keelwork makes to an upstream skill is logged in [`FORK-CHANGES.md`](./FORK-CHANGES.md), so the monthly upstream merge stays routine.
 
@@ -71,7 +71,7 @@ Plugin skills are namespaced, so every command carries the prefix: `/keelwork:gr
 npx skills@latest add poovarasudev/keelwork
 ```
 
-Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take, so make sure `setup-matt-pocock-skills` is one of them.**
+Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take, so make sure `setup-keelwork` is one of them.**
 
 A native Codex plugin is on the roadmap (see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md)).
 
@@ -90,9 +90,9 @@ It writes the skills into your repo as ordinary files you own and can edit. Noth
 
 </details>
 
-### 2. Run `/setup-matt-pocock-skills`
+### 2. Run `/setup-keelwork`
 
-In your agent, run it once per repo (with the plugin: `/keelwork:setup-matt-pocock-skills`). It will:
+In your agent, run it once per repo (with the plugin: `/keelwork:setup-keelwork`). It will:
 
 - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
 - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
@@ -219,11 +219,11 @@ Skills for daily code work.
 
 **User-invoked**
 
-- **[ask-matt](./skills/engineering/ask-matt/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[ask-keelwork](./skills/engineering/ask-keelwork/SKILL.md)**: Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)**: Grilling session that also builds your project's domain model, sharpening terminology and updating `GLOSSARY.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)**: Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)**: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
-- **[setup-matt-pocock-skills](./skills/engineering/setup-matt-pocock-skills/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline). Run once per repo before using the other engineering skills.
+- **[setup-keelwork](./skills/engineering/setup-keelwork/SKILL.md)**: Configure this repo for the engineering skills (issue tracker, triage labels, domain doc layout, and the test, lint, typecheck and build commands with a known-failure baseline). Run once per repo before using the other engineering skills.
 - **[onboard-repo](./skills/engineering/onboard-repo/SKILL.md)**: Bootstrap context in an existing repo in one session: a short AGENTS.md, a seeded `GLOSSARY.md` and retroactive ADRs, all marked unverified and held for your review before anything is committed.
 - **[ship](./skills/engineering/ship/SKILL.md)**: Take one feature from idea to reviewed PR: set the course with you, run the tickets unattended, and leave a morning report. `/ship resume` continues a run.
 - **[implement](./skills/engineering/implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.

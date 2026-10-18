@@ -1,6 +1,6 @@
 # Build the five layers as a thin fork
 
-The SRD adds five layers (Keel, Sails, Hull, Ballast, Compass) on top of the upstream skills, and requires that the monthly upstream merge stays a small, routine job (G4, N3). We built every layer as new skill folders, new files inside upstream skill folders, and a handful of small, logged edits to upstream `SKILL.md` files. Several of the choices below would look odd without the reasons, so they're recorded here.
+The SRD adds five layers (Foundation, Autopilot, Review, Guardrails, Discovery) on top of the upstream skills, and requires that the monthly upstream merge stays a small, routine job (G4, N3). We built every layer as new skill folders, new files inside upstream skill folders, and a handful of small, logged edits to upstream `SKILL.md` files. Several of the choices below would look odd without the reasons, so they're recorded here.
 
 ## Decisions
 
@@ -18,4 +18,4 @@ The SRD adds five layers (Keel, Sails, Hull, Ballast, Compass) on top of the ups
 ## Consequences
 
 - A change to the per-ticket loop has to be made in two places (`ship/RUN-LOOP.md` and `implement-spec/SKILL.md`), and likewise for discovery (`ship/DISCOVERY.md` and the three productivity skills). The duplication is accepted as the price of the invocation rule.
-- Upstream edits to `to-spec`, `to-tickets`, `implement-spec`, `grilling`, `code-review`, `pr`, `setup-matt-pocock-skills` and `ask-matt` will conflict on sync. Each conflict has a row in `FORK-CHANGES.md` saying what to replay.
+- Upstream edits to `to-spec`, `to-tickets`, `implement-spec`, `grilling`, `code-review`, `pr`, `setup-keelwork` and `ask-keelwork` will conflict on sync. Each conflict has a row in `FORK-CHANGES.md` saying what to replay.

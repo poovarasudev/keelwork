@@ -40,4 +40,4 @@ No. It reads code and queries, so it can say what will grow, not how fast things
 
 ## Where it fits
 
-A **pre-PR gate**, run by [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) at its finish beside [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md). Its findings go through [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) before anything is changed. [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+A **pre-PR gate**, run by [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) at its finish beside [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md). Its findings go through [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) before anything is changed. [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

@@ -14,7 +14,7 @@ This repo's history starts at a snapshot of upstream `v1.3.1`, not at upstream's
 2. **Merge, replaying the edits in `FORK-CHANGES.md`.** For each conflicted file, take upstream's new version and re-apply the Keelwork change its row describes. Where upstream changed something Keelwork depends on (a renamed skill, a moved section, a changed `SKILL.md` that a Keelwork skill calls), fix the Keelwork side too. Then:
    - update the **Baseline** line in `FORK-CHANGES.md` to the new ref and commit;
    - regenerate `.agents/upstream-baseline.txt` (the script prints the command);
-   - add any new upstream skill to `plugin.json`, the READMEs and `ask-matt` as CLAUDE.md requires, and decide whether a Keelwork skill now duplicates it.
+   - add any new upstream skill to `plugin.json`, the READMEs and `ask-keelwork` as CLAUDE.md requires, and decide whether a Keelwork skill now duplicates it.
 3. **Run the full eval suite**, upstream regression included: `node scripts/check-repo.mjs`, `bash evals/hooks.test.sh`, `claude plugin validate .`, then `node evals/run.mjs all` (see [`evals/README.md`](../evals/README.md)). A failing upstream-regression case means a Keelwork edit broke upstream behaviour: fix it before releasing.
 4. **Release a tagged version.** Add a changeset describing the sync (`npx changeset`), merge the sync branch to `main` through a PR, and let the release workflow version and tag it.
 

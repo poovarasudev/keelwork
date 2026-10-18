@@ -1,6 +1,6 @@
 # Hooks
 
-Keelwork's **ballast** (Layer 4): the few rules that must hold whether or not the agent remembers them, run by the harness instead of the prompt. They ship for Claude Code only (see the SRD's open question on other harnesses).
+Keelwork's **Guardrails**: the few rules that must hold whether or not the agent remembers them, run by the harness instead of the prompt. They ship for Claude Code only (see the SRD's open question on other harnesses).
 
 | Hook | Event | What it does |
 | --- | --- | --- |

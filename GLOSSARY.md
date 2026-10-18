@@ -1,6 +1,6 @@
 # Keelwork
 
-A collection of agent skills (slash commands and behaviors) loaded by Claude Code, forked from Matt Pocock's skills. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-matt-pocock-skills`.
+A collection of agent skills (slash commands and behaviors) loaded by Claude Code, forked from Matt Pocock's skills. Skills are organized into buckets and consumed by per-repo configuration emitted by `/setup-keelwork`.
 
 ## Language
 

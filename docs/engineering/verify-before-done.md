@@ -10,7 +10,7 @@ Type `/verify-before-done`, or the agent reaches for it automatically before mar
 
 ## Prerequisites
 
-`docs/agents/commands.md`, written by [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). Without it the skill falls back to the repo's own scripts and tells you to run setup.
+`docs/agents/commands.md`, written by [setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md). Without it the skill falls back to the repo's own scripts and tells you to run setup.
 
 ## Evidence before claims
 
@@ -39,4 +39,4 @@ Not if it's on the known-failure list in `docs/agents/commands.md`. Setup record
 
 ## Where it fits
 
-A **gate** that the build skills call at every claim of completion: [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) per ticket and at the finish, [implement-spec](https://aihero.dev/skills-implement-spec) per ticket, and [pr](https://aihero.dev/skills-pr) before handing a branch over. Its baseline comes from [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills). [ask-matt](https://aihero.dev/skills-ask-matt) routes you over the whole set.
+A **gate** that the build skills call at every claim of completion: [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) per ticket and at the finish, [implement-spec](https://aihero.dev/skills-implement-spec) per ticket, and [pr](https://aihero.dev/skills-pr) before handing a branch over. Its baseline comes from [setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

@@ -11,7 +11,7 @@ description: "Run the verify command and show its output before any done, fixed 
 
 Before any claim of status, including the soft ones ("should work now", "looks good", a ticket ticked off):
 
-1. **Identify** the command that proves the claim. In order: the verify command the ticket names; otherwise the matching command in `docs/agents/commands.md` (**verify** for "done", **test**, **lint**, **typecheck** or **build** for those claims). If the repo has no such file, tell the user to run `/setup-matt-pocock-skills`, and in the meantime use the command the repo's own scripts expose.
+1. **Identify** the command that proves the claim. In order: the verify command the ticket names; otherwise the matching command in `docs/agents/commands.md` (**verify** for "done", **test**, **lint**, **typecheck** or **build** for those claims). If the repo has no such file, tell the user to run `/setup-keelwork`, and in the meantime use the command the repo's own scripts expose.
 2. **Run** it fresh and in full. A previous run, a partial run, or a subagent's report of a run is not evidence.
 3. **Read** the whole output: exit code, failure count, warnings.
 4. **Compare** each failure against the **known failures** in `docs/agents/commands.md`. A failure on that list is the baseline and does not block. A failure off the list is a regression, and it does.

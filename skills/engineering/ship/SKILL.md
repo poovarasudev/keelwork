@@ -14,7 +14,7 @@ The files beside this one are the procedure, not background. Read each one in fu
 
 ## Before you start
 
-- `docs/agents/issue-tracker.md` and `docs/agents/commands.md` must exist. If either is missing, tell the user to run `/setup-matt-pocock-skills` and stop.
+- `docs/agents/issue-tracker.md` and `docs/agents/commands.md` must exist. If either is missing, tell the user to run `/setup-keelwork` and stop.
 - The working tree is clean. If it isn't, ask the user to commit or stash first.
 - `/ship resume [run-id]` skips everything below: go to **Resuming a run**.
 

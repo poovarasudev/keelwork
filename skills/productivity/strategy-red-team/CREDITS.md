@@ -2,7 +2,7 @@
 
 `strategy-red-team` is ported from the [`strategy-red-team`](https://github.com/phuryn/pm-skills/tree/main/pm-execution/skills/strategy-red-team) skill in the pm-execution plugin of [phuryn/pm-skills](https://github.com/phuryn/pm-skills), by Pawel Huryn, under the MIT License reproduced below.
 
-What Keelwork changed, per SRD Layer 5: the skill is user-invoked, so it never fires on its own and never competes with grilling; it saves its output to a file and hands the chosen idea to `/ship`; the "Further reading" links to the author's newsletter are dropped; and the prose is rewritten to this repo's style.
+What Keelwork changed, per the SRD's Discovery layer: the skill is user-invoked, so it never fires on its own and never competes with grilling; it saves its output to a file and hands the chosen idea to `/ship`; the "Further reading" links to the author's newsletter are dropped; and the prose is rewritten to this repo's style.
 
 ## pm-skills license
 
