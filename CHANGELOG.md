@@ -1,5 +1,13 @@
 # keelwork
 
+## 1.6.0
+
+### Minor Changes
+
+- [#6](https://github.com/poovarasudev/keelwork/pull/6) [`1a2fb99`](https://github.com/poovarasudev/keelwork/commit/1a2fb999fad97b4cf523283582b65c472b4b3464) Thanks [@poovarasudev](https://github.com/poovarasudev)! - Rename the two skills whose names Superpowers also uses: `brainstorming` is now `brainstorm`, and `receiving-code-review` is now `review-feedback`. Behaviour is unchanged. With the plugin they are `keelwork:brainstorm` and `keelwork:review-feedback`; without it, they no longer share a folder name with Superpowers' `brainstorming` and `receiving-code-review`, so both packs install side by side.
+
+- [#6](https://github.com/poovarasudev/keelwork/pull/6) [`1a2fb99`](https://github.com/poovarasudev/keelwork/commit/1a2fb999fad97b4cf523283582b65c472b4b3464) Thanks [@poovarasudev](https://github.com/poovarasudev)! - `/setup-keelwork` offers a **Superpowers layout** for the local-markdown tracker: specs in `docs/superpowers/specs/` and tickets in `docs/superpowers/plans/<date>-<feature>/`, one file per ticket, beside what Superpowers already wrote. It is proposed first when the repo already has a `docs/superpowers/` folder, even with a GitHub remote, and Keelwork works whether Superpowers is installed, enabled or used: a Keelwork skill that names another skill means Keelwork's (a new **Skill precedence** line in the `## Agent skills` block, the session reminder, and a `/ship` run rule), so a Keelwork flow never hands a step to another pack's skill. Past specs count as the design record: agents read the ones touching an area, and `/onboard-repo` mines them for ADRs. `/to-tickets` now writes local tickets to the path the tracker file names, with `.scratch/` as the default.
+
 ## 1.5.0
 
 ### Minor Changes
