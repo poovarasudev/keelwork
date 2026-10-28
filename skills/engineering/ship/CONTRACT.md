@@ -18,7 +18,7 @@ Project-specific entries live in `docs/agents/autonomy-contract.md` in the targe
 - Error and log message wording, within what the spec says
 - The order of steps inside a ticket
 - Which of two equivalent standard-library or existing-dependency APIs to use
-- A reviewer finding that is wrong for this codebase (rejected with a reason, per `receiving-code-review`)
+- A reviewer finding that is wrong for this codebase (rejected with a reason, per `review-feedback`)
 
 ## One-way doors: always park
 - Database schema changes and migrations

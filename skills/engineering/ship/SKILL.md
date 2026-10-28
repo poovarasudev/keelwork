@@ -34,7 +34,7 @@ Only after discovery: ask whether to red-team the chosen idea, following [DISCOV
 
 ### 3. Design brainstorming
 
-Call the Skill tool with "brainstorming". Tell it this is the `/ship` design step and that its design draft goes to `.ship/<run-id>/design.md`. The user picks an approach there.
+Call the Skill tool with "brainstorm". Tell it this is the `/ship` design step and that its design draft goes to `.ship/<run-id>/design.md`. The user picks an approach there.
 
 ### 4. Grill
 
@@ -79,7 +79,7 @@ Read [RUN-LOOP.md](RUN-LOOP.md) in full now. Then put every ready ticket through
 1. **Implement**: call the Skill tool with "tdd" and build the ticket at its seams. Log `implement: done`.
 2. **Spec review**: a fresh reviewer subagent checks the diff against the ticket's acceptance criteria. Log `spec review: pass` or `spec review: fail (<n> findings)`.
 3. **Quality review**, only after `spec review: pass`: call the Skill tool with "code-review" (fixed point: the ticket's base commit; spec: the ticket file). Log `quality review: pass` or `quality review: <n> findings`.
-4. **Fix**: call the Skill tool with "receiving-code-review" on the findings, fix the accepted ones, re-run the review that failed. Log `fix round <r>/<limit>`.
+4. **Fix**: call the Skill tool with "review-feedback" on the findings, fix the accepted ones, re-run the review that failed. Log `fix round <r>/<limit>`.
 5. **Verify**: call the Skill tool with "verify-before-done" with the ticket's verify command. Log `verify: pass` and add the evidence line.
 6. **Commit** as `<ticket id>: <ticket title>`. Log `committed <sha>`.
 
@@ -107,6 +107,7 @@ Read [MORNING-REPORT.md](MORNING-REPORT.md) and write `.ship/<run-id>/morning-re
 
 - **Never merge** into the main branch, and never push to it. Merge is the human's decision.
 - **Never delete a branch** that has unmerged work.
+- **Keelwork's skills only.** Every step names the skill it uses; call that one (`keelwork:<name>` under the plugin), never another pack's skill of the same name or purpose. Another pack loaded beside Keelwork (Superpowers, say) has its own brainstorming, plan-writing, plan-executing, worktree and branch-finishing skills: they duplicate steps this run already owns, and some stop to ask a question or offer to merge.
 - **Run only allowlisted commands.** A command outside the contract's allowlist is a one-way door: park the ticket that needs it. With the Keelwork plugin installed, the allowlist hook enforces this and refuses the command itself, so a refusal means park, never work around it.
 - **Every decision you make goes in the ledger** with its reason; the morning report lists them for the human to skim.
 - **Never end a turn waiting** on a background subagent or notification: nobody is there to resume you. Run subagents in the foreground and keep going until the run finishes or halts.

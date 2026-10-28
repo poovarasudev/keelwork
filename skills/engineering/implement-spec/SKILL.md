@@ -30,7 +30,7 @@ Both modes put every ticket through the same loop, in this order:
 1. **Implement** the ticket, calling the Skill tool with "tdd" at the ticket's seams.
 2. **Spec review**: a fresh reviewer subagent compares the ticket's diff against its acceptance criteria and definition of done, and reports what is missing, what is extra, and what was misunderstood. It quotes the ticket line for each finding.
 3. **Quality review**, only once the spec review passes: call the Skill tool with "code-review", with the ticket's base commit as the fixed point and the ticket as the spec.
-4. **Fix**: call the Skill tool with "receiving-code-review" on the findings, fix the ones it accepts, and re-run the review that failed (a spec fix re-runs the spec review, then the quality review). Stop at **3 fix rounds** per ticket unless the user set another limit, and report the findings still open.
+4. **Fix**: call the Skill tool with "review-feedback" on the findings, fix the ones it accepts, and re-run the review that failed (a spec fix re-runs the spec review, then the quality review). Stop at **3 fix rounds** per ticket unless the user set another limit, and report the findings still open.
 5. **Verify**: call the Skill tool with "verify-before-done" with the ticket's verify command.
 6. **Commit** the ticket.
 

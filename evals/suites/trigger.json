@@ -70,22 +70,22 @@
     "query": "Write a unit test for archiveNote in src/notes.js."
   },
   {
-    "skill": "receiving-code-review",
+    "skill": "review-feedback",
     "should_trigger": true,
     "query": "The reviewer left six comments on PR #42: rename the service, extract a helper, add a null check, drop the cache, add metrics, and inline the config. Work through them."
   },
   {
-    "skill": "receiving-code-review",
+    "skill": "review-feedback",
     "should_trigger": true,
     "query": "The code-review findings for my branch are in review-findings.md. Decide which ones to act on, and fix those."
   },
   {
-    "skill": "receiving-code-review",
+    "skill": "review-feedback",
     "should_trigger": false,
     "query": "Review my branch against main."
   },
   {
-    "skill": "receiving-code-review",
+    "skill": "review-feedback",
     "should_trigger": false,
     "query": "How should I phrase a code review comment so it doesn't sound harsh?"
   },
@@ -151,17 +151,17 @@
     "query": "Convert this Python script to TypeScript."
   },
   {
-    "skill": "brainstorming",
+    "skill": "brainstorm",
     "should_trigger": false,
     "query": "Let's brainstorm some ideas for a new onboarding flow."
   },
   {
-    "skill": "brainstorming",
+    "skill": "brainstorm",
     "should_trigger": false,
     "query": "Give me three different approaches to caching the search page, with trade-offs."
   },
   {
-    "skill": "brainstorming",
+    "skill": "brainstorm",
     "should_trigger": false,
     "query": "I want to build a new feature that lets users export their data."
   },

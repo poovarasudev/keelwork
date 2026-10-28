@@ -24,17 +24,17 @@ Every reference to the old names across the repo was updated in the same change.
 
 | File | Change | Reason |
 | --- | --- | --- |
-| `skills/engineering/setup-keelwork/SKILL.md` | Description and intro mention commands; exploration reads the repo's scripts; new **Section D: Commands and test baseline**; `### Commands` added to the `## Agent skills` block; `commands.md` added to the seed list; the closing step points brownfield repos at `/onboard-repo`. | SRD F1: record test, lint, typecheck and build commands and the known failures in one config file. |
+| `skills/engineering/setup-keelwork/SKILL.md` | Description and intro mention commands; exploration reads the repo's scripts; new **Section D: Commands and test baseline**; `### Commands` added to the `## Agent skills` block; `commands.md` added to the seed list; the closing step points brownfield repos at `/onboard-repo`; exploration spots `docs/superpowers/` and a loaded Superpowers plugin; Section A offers the **Superpowers layout**, proposed ahead of the remote's tracker when that folder exists, and its template joins the seed list; the Superpowers summary line in the `## Agent skills` block names the specs as the design record; a **Skill precedence** sub-block in every `## Agent skills` block; the closing step notes when Superpowers' skills are loaded, says both packs can stay on, warns when the chosen tracker is not the Superpowers layout, and shows a per-user off switch only as an option. | SRD F1: record test, lint, typecheck and build commands and the known failures in one config file. Superpowers layout: a repo that used Superpowers keeps one docs tree, whether Superpowers stays on or not. |
 | `skills/engineering/setup-keelwork/triage-labels.md` | Header column renamed from "Label in mattpocock/skills" to "Canonical label". | Rebrand: the column named the upstream repo. |
 | `skills/engineering/to-spec/SKILL.md` | `disable-model-invocation` removed; description narrowed to explicit requests and `/ship`. | SRD A1: agent-callable so `/ship` can chain it, without firing during design talk. |
 | `skills/engineering/to-spec/agents/openai.yaml` | `policy.allow_implicit_invocation: false` removed. | SRD A1, kept in sync with the frontmatter per `.agents/invocation.md`. |
-| `skills/engineering/to-tickets/SKILL.md` | `disable-model-invocation` removed and description narrowed; each ticket planned in detail per the new `TICKET-PLAN.md`; acceptance criteria shown at the quiz; non-concrete criteria send the ticket back to grilling; the two inline templates replaced by a pointer to `TICKET-PLAN.md`; the "avoid file paths and snippets" rule replaced. | SRD A1 and A2: detailed plans an implementer with no session history can finish. |
+| `skills/engineering/to-tickets/SKILL.md` | `disable-model-invocation` removed and description narrowed; each ticket planned in detail per the new `TICKET-PLAN.md`; acceptance criteria shown at the quiz; non-concrete criteria send the ticket back to grilling; the two inline templates replaced by a pointer to `TICKET-PLAN.md`; the "avoid file paths and snippets" rule replaced; local tickets go to the path `docs/agents/issue-tracker.md` names, `.scratch/` only by default. | SRD A1 and A2: detailed plans an implementer with no session history can finish. The path change lets the Superpowers layout template take effect. |
 | `skills/engineering/to-tickets/agents/openai.yaml` | `policy.allow_implicit_invocation: false` removed. | SRD A1. |
 | `skills/engineering/implement-spec/SKILL.md` | New **Execution mode** and **The per-ticket loop** sections; step 4 split into inline and subagent modes; step 5 merges only after both reviews; step 7 notes inline fixing. | SRD A3: ask the mode, never default to subagents silently; spec review before quality review; fix rounds capped. |
 | `skills/productivity/grilling/SKILL.md` | One closing paragraph pointing at `AUTONOMY-PREP.md` when the caller says it's a `/ship` run. | SRD S5: autonomy prep under `/ship` only; supervised sessions unchanged. |
 | `skills/engineering/code-review/SKILL.md` | Step 3 calls `stack-review` for the diff's stacks; the Standards sub-agent gets the stack checklists and reports item (c). | SRD Q1: `code-review` loads the matching stack checklist. |
 | `skills/engineering/pr/SKILL.md` | Description extended; new **Finishing a branch** section (full suite, whole-branch review, open a PR or keep the branch, cleanup; never merges). | SRD Q5: name kept, behaviour extended. |
-| `skills/engineering/ask-keelwork/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `pr` descriptions updated; the precondition mentions the test baseline. | CLAUDE.md: the router must map every user-reachable skill. |
+| `skills/engineering/ask-keelwork/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `pr` descriptions updated; the precondition mentions the test baseline; local tickets may live where the tracker file says, such as the Superpowers layout. | CLAUDE.md: the router must map every user-reachable skill. |
 | `skills/engineering/README.md` | Voice changed from first person; new skills listed; `to-spec` and `to-tickets` moved to Model-invoked; updated entries for setup, `implement-spec`, `code-review`, `pr`. | Rebrand, and CLAUDE.md's bucket README rule. |
 | `skills/productivity/README.md` | Discovery skills listed; `grilling` entry mentions autonomy prep. | CLAUDE.md's bucket README rule. |
 | `skills/misc/README.md` | Voice changed from first person. | Rebrand. |
@@ -45,9 +45,9 @@ Every reference to the old names across the repo was updated in the same change.
 
 | File | Change | Reason |
 | --- | --- | --- |
-| `docs/engineering/setup-keelwork.md` | Four decisions instead of three; `commands.md` in the writes table; new **The known-failure baseline** section; an author attribution removed. | Re-sync for SRD F1; rebrand. |
+| `docs/engineering/setup-keelwork.md` | Four decisions instead of three; `commands.md` in the writes table; new **The known-failure baseline** section; an author attribution removed; the Superpowers layout in the decisions table, the tracker table and the GitHub question; a new question for repos coming from Superpowers; Skill precedence in the writes table. | Re-sync for SRD F1; rebrand; the Superpowers layout option. |
 | `docs/engineering/to-spec.md` | Invocation line rewritten (agent-callable, narrow); `/ship` in Where it fits. | Re-sync for SRD A1. |
-| `docs/engineering/to-tickets.md` | Invocation line rewritten; new **Each ticket is a detailed plan** section; an It's-working-if bullet replaced; `/ship` in Where it fits. | Re-sync for SRD A1 and A2. |
+| `docs/engineering/to-tickets.md` | Invocation line rewritten; new **Each ticket is a detailed plan** section; an It's-working-if bullet replaced; `/ship` in Where it fits; the local-markdown row names the tracker file's path. | Re-sync for SRD A1 and A2, and the Superpowers layout option. |
 | `docs/engineering/implement-spec.md` | Execution mode in What it does; new **The per-ticket loop** section; It's-working-if bullets updated. | Re-sync for SRD A3. |
 | `docs/engineering/pr.md` | What it does, When to reach for it and two questions rewritten; new **Finishing a branch** section; one It's-working-if bullet added. | Re-sync for SRD Q5 and Q4. |
 | `docs/engineering/code-review.md` | New **Stack checklists** section; one bullet each in It's working if and Where it fits. | Re-sync for SRD Q1. |
@@ -106,11 +106,11 @@ These skills are Keelwork's, not upstream's. They never conflict on a sync; thei
 | `ship` | engineering | Keelwork (discovery adapted from pm-skills; run loop draws on Superpowers) |
 | `onboard-repo` | engineering | Keelwork |
 | `verify-before-done` | engineering | Ported from Superpowers `verification-before-completion` |
-| `brainstorming` | engineering | Ported from Superpowers `brainstorming` |
+| `brainstorm` | engineering | Ported from Superpowers `brainstorming` |
 | `stack-review` | engineering | Keelwork |
 | `security-audit` | engineering | Adapted from pm-skills `security-audit-static` |
 | `performance-audit` | engineering | Adapted from pm-skills `performance-audit-static` |
-| `receiving-code-review` | engineering | Ported from Superpowers `receiving-code-review` |
+| `review-feedback` | engineering | Ported from Superpowers `receiving-code-review` |
 | `brainstorm-ideas-new` | productivity | Ported from pm-skills |
 | `brainstorm-ideas-existing` | productivity | Ported from pm-skills |
 | `strategy-red-team` | productivity | Ported from pm-skills |
@@ -120,6 +120,7 @@ These skills are Keelwork's, not upstream's. They never conflict on a sync; thei
 New files placed inside upstream skill folders. They never conflict, but they only make sense together with the edits above.
 
 - `skills/engineering/setup-keelwork/commands.md`: the commands and known-failures seed template.
+- `skills/engineering/setup-keelwork/issue-tracker-superpowers.md`: the local-markdown tracker in the Superpowers layout.
 - `skills/engineering/to-tickets/TICKET-PLAN.md`: the detailed ticket plan.
 - `skills/productivity/grilling/AUTONOMY-PREP.md`: the `/ship`-only autonomy prep branches.
 

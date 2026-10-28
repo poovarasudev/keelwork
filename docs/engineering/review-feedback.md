@@ -1,12 +1,12 @@
 ## What it does
 
-`receiving-code-review` decides what to do with review feedback before anything is changed. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) checks each comment against the codebase (does the problem exist here, would the fix break a caller or a test, is there a recorded reason for the current code) and gives it a **verdict**: **accepted**, with the fix, or **rejected**, with a reason a reviewer can check.
+`review-feedback` decides what to do with review feedback before anything is changed. The [agent](https://www.aihero.dev/ai-coding-dictionary/agent) checks each comment against the codebase (does the problem exist here, would the fix break a caller or a test, is there a recorded reason for the current code) and gives it a **verdict**: **accepted**, with the fix, or **rejected**, with a reason a reviewer can check.
 
 Reviewers are sometimes wrong, and an agent that applies every comment turns a wrong suggestion into a regression. This skill makes pushing back a normal, recorded outcome rather than a social risk.
 
 ## When to reach for it
 
-Type `/receiving-code-review`, or the agent reaches for it automatically when findings arrive: from [code-review](https://aihero.dev/skills-code-review), from the audits, from PR comments, or from a human reviewer. [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) and [implement-spec](https://aihero.dev/skills-implement-spec) run it on every review round.
+Type `/review-feedback`, or the agent reaches for it automatically when findings arrive: from [code-review](https://aihero.dev/skills-code-review), from the audits, from PR comments, or from a human reviewer. [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) and [implement-spec](https://aihero.dev/skills-implement-spec) run it on every review round.
 
 ## A verdict per comment
 

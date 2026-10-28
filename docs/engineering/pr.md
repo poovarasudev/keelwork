@@ -13,7 +13,7 @@ Type `/pr`, or the agent reaches for it automatically whenever it is writing a P
 | A branch is ready and needs a body a reviewer can scan | `pr` |
 | The code is written but nobody has reviewed it yet | [code-review](https://aihero.dev/skills-code-review) first, then `pr` |
 | The work is done and the branch needs checking and handing over | `pr`, finishing a branch |
-| The PR is open and review comments are coming back | [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) |
+| The PR is open and review comments are coming back | [review-feedback](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/review-feedback.md) |
 
 ## The template
 
@@ -30,7 +30,7 @@ The door call is the leading idea. It turns "is this safe to merge?" from a gut 
 When the job is to hand a finished branch over rather than just to write a body, `pr` runs four steps in order:
 
 1. **Full suite**: test, lint, typecheck and build, through [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md). A failure off the known-failure list stops here.
-2. **Whole-branch review** against the spec with [code-review](https://aihero.dev/skills-code-review), its findings sorted by [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md).
+2. **Whole-branch review** against the spec with [code-review](https://aihero.dev/skills-code-review), its findings sorted by [review-feedback](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/review-feedback.md).
 3. **Open a PR or keep the branch.** It asks you, unless [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) already decided in its autonomy contract. A PR body references every ticket it closes.
 4. **Clean up** worktrees and scratch files, only once a PR is open or you have discarded the branch. It never deletes a branch with unmerged work, and never merges.
 
@@ -60,7 +60,7 @@ The output is a markdown PR body, not an HTML page. GitHub and GitLab render Mer
 
 **Can it sort through the review comments that come back?**
 
-Not itself. That job now has its own skill: [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md) checks each comment against the codebase and gives it a verdict, accepted with a fix or rejected with a reason.
+Not itself. That job now has its own skill: [review-feedback](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/review-feedback.md) checks each comment against the codebase and gives it a verdict, accepted with a fix or rejected with a reason.
 
 **Does it keep the body up to date as the PR changes?**
 

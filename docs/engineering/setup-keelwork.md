@@ -22,7 +22,7 @@ It writes into the repo you run it in:
 | `domain.md` | `docs/agents/` |
 | `commands.md`: test, lint, typecheck, build and verify commands, plus the known failures | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
-| An `## Agent skills` block | whichever of `CLAUDE.md` / `AGENTS.md` already exists |
+| An `## Agent skills` block, ending in a **Skill precedence** line: a Keelwork skill that names another skill means Keelwork's, whatever other packs are installed | whichever of `CLAUDE.md` / `AGENTS.md` already exists |
 
 All of it is committed markdown. There is no user-level or global mode: the config lives in the repo, so every repo gets its own copy.
 
@@ -32,7 +32,7 @@ It leads each section with the recommended answer, and skips whatever exploratio
 
 | Decision | What it proposes | When it actually asks |
 | --- | --- | --- |
-| **Issue tracker** | the one matching your `git remote` | always: this is the one real choice |
+| **Issue tracker** | the one matching your `git remote`, or the Superpowers layout when the repo has a `docs/superpowers/` folder | always: this is the one real choice |
 | **Triage labels** | keep the five canonical names (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) | only if the `triage` skill is installed |
 | **Domain docs** | single-context: one `GLOSSARY.md` plus `docs/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `GLOSSARY-MAP.md` |
 | **Commands** | the test, lint, typecheck, build and verify commands it found in your scripts and CI | always, as one list to accept or correct; then it runs the tests once and records every failure as a **known failure** |
@@ -44,9 +44,10 @@ The tracker options:
 | **GitHub** | the repo's GitHub Issues | the `gh` CLI |
 | **GitLab** | the repo's GitLab Issues | the `glab` CLI |
 | **Local markdown** | files under `.scratch/<feature>/` in this repo | nothing: no remote at all |
+| **Local markdown, Superpowers layout** | specs in `docs/superpowers/specs/`, tickets in `docs/superpowers/plans/<date>-<feature>/` | nothing; proposed when the repo already has a `docs/superpowers/` folder |
 | **Other** | wherever you say | one paragraph from you describing the workflow |
 
-The first three ship as templates in the skill and work out of the box. Local markdown is a first-class option, not a fallback: a solo project with no remote is fully supported. One caveat is worth repeating: don't use local markdown if you're using GitHub. They are alternatives, not layers.
+The first four ship as templates in the skill and work out of the box. Local markdown is a first-class option, not a fallback: a solo project with no remote is fully supported. One caveat is worth repeating: don't use local markdown if you're using GitHub Issues. They are alternatives, not layers. That holds for the Superpowers layout too: setup proposes it even with a GitHub remote because the repo already tracks its specs and plans in files, and choosing it means GitHub Issues is not the tracker.
 
 "Other" is not a stub either. It is the reason Jira, Linear, Azure DevOps and Beads all work: you describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. The community has already done this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
 
@@ -60,7 +61,11 @@ The commands themselves are the other half. Every Keelwork skill and hook reads 
 
 **Do I have to use GitHub?**
 
-No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made templates, and anything else works through the "other" path. This is the most-repeated question in the record, in roughly these words: *"hard locked to github"*, *"can I use GitLab / Jira"*, *"what about Azure DevOps"*. The answer every time is that the tracker is a setup answer, not a skill property.
+No. GitHub, GitLab and local markdown (under `.scratch/`, or in the Superpowers layout under `docs/superpowers/`) all ship as ready-made templates, and anything else works through the "other" path. This is the most-repeated question in the record, in roughly these words: *"hard locked to github"*, *"can I use GitLab / Jira"*, *"what about Azure DevOps"*. The answer every time is that the tracker is a setup answer, not a skill property.
+
+**I've been using Superpowers. Do I lose my specs and plans?**
+
+No. When the repo has a `docs/superpowers/` folder, setup proposes the **Superpowers layout** first, even if your remote is GitHub, so new specs land beside the old ones in `docs/superpowers/specs/` instead of splitting your history across two places. One thing changes: Superpowers writes one plan file per feature, and Keelwork writes one file per ticket, in a folder (`docs/superpowers/plans/<date>-<feature>/01-<slug>.md`), because `/ship` and `/implement-spec` track each ticket's status and blockers in its own file. Your existing plans, any folders of your own such as `notes/`, and the git-ignored `.superpowers/` scratch space are left alone. Past specs count as the design record: the tracker file tells agents to read the ones touching an area before working in it, and [onboard-repo](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/onboard-repo.md) mines them for ADRs. And you don't have to turn Superpowers off. Keelwork's skills have names of their own (its `brainstorm` and `review-feedback` against Superpowers' `brainstorming` and `receiving-code-review`), so nothing collides however either pack is installed. On top of that, the **Skill precedence** line, the session reminder and `/ship`'s own rules all say a Keelwork flow uses Keelwork's skills, and Superpowers itself ranks your `CLAUDE.md` above its skills. Anything Superpowers still writes lands in `docs/superpowers/`, where this layout already expects it, and a Superpowers spec with no ticket folder yet is pointed at `/to-tickets`. Turning Superpowers off is there only if you want a single pack steering every session; setup shows the `enabledPlugins` line for `.claude/settings.local.json`, which turns it off for you in this repo without touching your collaborators. If you pick a tracker other than the Superpowers layout while Superpowers stays on, setup warns that its brainstorming and plan skills still write to `docs/superpowers/`.
 
 **Do I need to re-run it after updating the skills?**
 

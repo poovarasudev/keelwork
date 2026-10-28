@@ -174,7 +174,7 @@ The blast radius is the potential impact or scope of the changes introduced by t
 When the work on a branch is done and it's time to hand it over, run these in order. **Never merge** into the main branch, and never push to it: merging is the human's decision.
 
 1. **Full suite.** Call the Skill tool with "verify-before-done" for the test, lint, typecheck and build commands in `docs/agents/commands.md`. A failure off the known-failure list stops here: report it.
-2. **Whole-branch review.** Call the Skill tool with "code-review", with the merge-base with the main branch as the fixed point and the spec as the spec. Call the Skill tool with "receiving-code-review" on its findings and fix the accepted ones, re-running step 1 after any fix.
+2. **Whole-branch review.** Call the Skill tool with "code-review", with the merge-base with the main branch as the fixed point and the spec as the spec. Call the Skill tool with "review-feedback" on its findings and fix the accepted ones, re-running step 1 after any fix.
 
    If the caller hands you fresh evidence that steps 1 and 2 already ran at the current `HEAD` (a `/ship` run's ledger does), skip them and use that evidence.
 3. **Open a PR or keep the branch.** Ask the user which, unless the caller already decided (a `/ship` run passes its **finish action**):

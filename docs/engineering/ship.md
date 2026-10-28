@@ -30,7 +30,7 @@ It writes its run state to `.ship/<run-id>/` (the ledger, the contract, the desi
 | --- | --- | --- |
 | 1. Discovery | optional | Ideas from product, design and engineering perspectives, ranked; you pick one |
 | 2. Red-team | optional | The chosen idea's load-bearing assumptions attacked; you keep, rework or drop each critical one |
-| 3. Design brainstorming | yes | Two or three approaches with trade-offs and YAGNI cuts, via [brainstorming](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/brainstorming.md); you pick |
+| 3. Design brainstorming | yes | Two or three approaches with trade-offs and YAGNI cuts, via [brainstorm](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/brainstorm.md); you pick |
 | 4. Grill | yes | You choose `grill-me` or `grill-with-docs` style, every run; [grilling](https://aihero.dev/skills-grilling) adds **autonomy prep** |
 | 5. Contract and preflight | yes | The autonomy contract, the test baseline re-checked, the feature branch created |
 | 6. Spec and plan | yes | `to-spec`, then `to-tickets` with a detailed plan per ticket; you approve the plan |
@@ -61,6 +61,10 @@ If the contract says it's a two-way door, the agent decides, writes the decision
 
 No. It works on its own `ship/<run-id>-<slug>` branch, never pushes to the main branch, never merges, and never deletes a branch with unmerged work. The most it does is push its branch and open a PR, and only if you chose that finish action.
 
+**I also have Superpowers installed. Will the run use its skills?**
+
+No. Every step names the Keelwork skill it uses, and the run calls only those, never another pack's skill of the same name or purpose. That matters because Superpowers has its own brainstorming, plan-writing, plan-executing, worktree and branch-finishing skills, and some of them stop to ask or offer to merge, which an unattended run can't afford. You don't need to turn Superpowers off for a run.
+
 **Why does it ask the grill style every time?**
 
 Because the right depth changes per feature. A small change needs only decisions (`grill-me` style); a feature that introduces new domain language should update `GLOSSARY.md` and the ADRs as well (`grill-with-docs` style). The choice is stored in the ledger, never carried over from the last run.
@@ -79,4 +83,4 @@ Yes. Nothing requires you to leave. The value of the unattended half is that it 
 
 ## Where it fits
 
-`ship` is the main build chain run for you: `grill-with-docs → to-spec → to-tickets → implement-spec → code-review → pr`, with discovery in front and audits behind. It calls [brainstorming](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/brainstorming.md), [grilling](https://aihero.dev/skills-grilling), [to-spec](https://aihero.dev/skills-to-spec), [to-tickets](https://aihero.dev/skills-to-tickets), [tdd](https://aihero.dev/skills-tdd), [code-review](https://aihero.dev/skills-code-review), [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md), [receiving-code-review](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/receiving-code-review.md), [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md), [performance-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/performance-audit.md) and [pr](https://aihero.dev/skills-pr). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you when you are not sure whether a feature is ready for it.
+`ship` is the main build chain run for you: `grill-with-docs → to-spec → to-tickets → implement-spec → code-review → pr`, with discovery in front and audits behind. It calls [brainstorm](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/brainstorm.md), [grilling](https://aihero.dev/skills-grilling), [to-spec](https://aihero.dev/skills-to-spec), [to-tickets](https://aihero.dev/skills-to-tickets), [tdd](https://aihero.dev/skills-tdd), [code-review](https://aihero.dev/skills-code-review), [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md), [review-feedback](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/review-feedback.md), [security-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/security-audit.md), [performance-audit](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/performance-audit.md) and [pr](https://aihero.dev/skills-pr). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you when you are not sure whether a feature is ready for it.
