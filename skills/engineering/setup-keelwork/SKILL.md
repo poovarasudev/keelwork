@@ -27,6 +27,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - `.scratch/`: a sign that a local-markdown issue tracker convention is already in use
+- `docs/superpowers/` (its `specs/` and `plans/`) or a `.superpowers/` scratch folder: a sign the repo used the Superpowers skills, so the Superpowers layout fits. Also note whether Superpowers' skills are loaded in this session: `superpowers:*` names in your available skills, or, when it was installed without the plugin, names only Superpowers has, such as `using-superpowers`, `writing-plans` or `executing-plans`
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - The repo's commands: `package.json` scripts, `Makefile`, `justfile`, `pyproject.toml`, `Cargo.toml`, `go.mod`, CI workflow files, and the README's "development" section. These tell you the test, lint, typecheck and build commands.
 - `docs/agents/commands.md`: does a known-failure baseline already exist?
@@ -42,11 +43,12 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 > Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets`, `triage`, and `to-spec` read from and write to it. They need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo.
 
-Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. Otherwise (or if the user prefers), offer:
+Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. The one exception: if exploration found `docs/superpowers/`, propose the Superpowers layout first, even with a GitHub or GitLab remote, because that is where the team already keeps its specs and plans, and splitting them across two places loses the history. Offer the remote's tracker as the alternative. Otherwise (or if the user prefers), offer:
 
 - **GitHub**: issues live in the repo's GitHub Issues (uses the `gh` CLI)
 - **GitLab**: issues live in the repo's GitLab Issues (uses the [`glab`](https://gitlab.com/gitlab-org/cli) CLI)
 - **Local markdown**: issues live as files under `.scratch/<feature>/` in this repo (good for solo projects or repos without a remote)
+- **Local markdown, Superpowers layout**: the same, but specs live in `docs/superpowers/specs/` and tickets in `docs/superpowers/plans/`, beside what Superpowers already wrote. Proposed first when exploration found `docs/superpowers/`
 - **Other** (Jira, Linear, etc.): ask the user to describe the workflow in one paragraph; the skill will record it as freeform prose
 
 Record the choice in `docs/agents/issue-tracker.md`. The GitHub and GitLab templates carry a "PRs as a request surface" flag, defaulted **off**. Leave it off and don't raise it: a user who wants external PRs in the triage queue can flip the flag in the file later.
@@ -108,7 +110,15 @@ The block:
 ### Commands
 
 [one-line summary: the verify command, and how many known failures]. See `docs/agents/commands.md`.
+
+### Skill precedence
+
+When a Keelwork skill names another skill, use Keelwork's (`keelwork:<name>` under the plugin), not another pack's skill of the same name or purpose.
 ```
+
+With the Superpowers layout, the issue-tracker summary line also says that past specs in `docs/superpowers/specs/` are the design record to read before working in an area: this block is the one place every session sees it.
+
+Always include `### Skill precedence`, whatever other skill packs the repo uses or doesn't: a pack added later then can't take over a Keelwork flow's steps.
 
 Include the `### Triage labels` sub-block, and write `docs/agents/triage-labels.md`, only when `triage` is installed and Section B ran. When it isn't, both are omitted.
 
@@ -117,6 +127,7 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [issue-tracker-github.md](./issue-tracker-github.md): GitHub issue tracker
 - [issue-tracker-gitlab.md](./issue-tracker-gitlab.md): GitLab issue tracker
 - [issue-tracker-local.md](./issue-tracker-local.md): local-markdown issue tracker
+- [issue-tracker-superpowers.md](./issue-tracker-superpowers.md): local-markdown issue tracker in the Superpowers layout
 - [triage-labels.md](./triage-labels.md): label mapping (only if `triage` is installed)
 - [domain.md](./domain.md): domain doc consumer rules + layout
 - [commands.md](./commands.md): commands + known failures, filled from Section D
@@ -128,3 +139,5 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers, re-take the test baseline, or restart from scratch.
 
 If the repo already has code but no `GLOSSARY.md`, ADRs or agent instructions, tell the user that `/onboard-repo` bootstraps that context in one session.
+
+If Superpowers' skills are loaded in this session, tell the user both packs can stay on: Keelwork's flows use Keelwork's skills (the `### Skill precedence` block), and whatever Superpowers writes lands in the same `docs/superpowers/` tree, where the Superpowers layout already expects it. Only if they want one pack steering every session, Superpowers can be turned off for this repo alone, in Claude Code with `"enabledPlugins": { "superpowers@claude-plugins-official": false }` in `.claude/settings.json` (match the id to the installed plugin).

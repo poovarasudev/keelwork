@@ -21,7 +21,7 @@ The route most work travels. You have an idea and want it built.
    - **`/handoff`** back what you learned, and reference it from the original idea thread.
 3. **Branch: is this a multi-session build?**
    - **Yes** → **`/to-spec`** (turn the thread into a spec), then **`/to-tickets`** to split it into tracer-bullet tickets, each declaring its **blocking edges**. Then work the tickets one of two ways:
-     - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/`, worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
+     - **`/implement`** per ticket, **`/clear`ing context between each one**. On a local tracker that's one file per ticket under `.scratch/<feature>/issues/` (or wherever the tracker file says, such as `docs/superpowers/plans/<date>-<feature>/` in the Superpowers layout), worked blockers-first by hand; on a real tracker the edges become native blocking links, so any ticket whose blockers are done can be grabbed. Each ticket is self-contained, so the last one's context is disposable.
      - **`/implement-spec`** for the whole spec in one run. It asks whether to run a fresh subagent per ticket (in parallel across the ready **frontier**) or work inline, puts each ticket through implement, spec review, quality review, fix, verify and commit, and lands everything on one **integration branch**. Reach for it when you'd rather orchestrate the build than drive each ticket yourself.
    - **No** → **`/implement`** right here, in the same context window.
 
@@ -41,7 +41,7 @@ The limit on this is the **[smart zone](https://www.aihero.dev/ai-coding-diction
 
 The main flow above, run for you overnight. Reach for **`/ship`** when a scoped feature should go from idea to reviewed PR without you at the keyboard. It follows the **KEEL loop**:
 
-- **Know** (with you): optional discovery and red-team when the idea isn't chosen yet, then **`brainstorming`** (two or three approaches, the YAGNI cuts listed) and a grilling session in the style you pick (`grill-me` or `grill-with-docs`), with extra **autonomy prep** so the run has nothing left to guess.
+- **Know** (with you): optional discovery and red-team when the idea isn't chosen yet, then **`brainstorm`** (two or three approaches, the YAGNI cuts listed) and a grilling session in the style you pick (`grill-me` or `grill-with-docs`), with extra **autonomy prep** so the run has nothing left to guess.
 - **Elaborate** (with you): the **autonomy contract** (two-way doors the agent decides and logs, one-way doors it parks), `/to-spec`, `/to-tickets` with detailed per-ticket plans, and the execution mode.
 - **Execute** (unattended): every ticket through implement, spec review, quality review, fix, verify, commit. A blocked ticket is **parked** with the exact question, and the run carries on. It finishes with the full suite, a whole-branch review, **`security-audit`**, **`performance-audit`** and `/pr`. It never merges.
 - **Learn** (with you again): read `.ship/<run-id>/morning-report.md`, answer the parked questions, and **`/ship resume`**.
@@ -78,7 +78,7 @@ Model-invoked skills the flows above pull in at their checkpoints. Reach for the
 
 - **`/verify-before-done`**: no "done", "fixed" or "passing" without running the verify command and showing its output. Failures already on the **known-failure** list don't block; new ones do.
 - **`/stack-review`**: the stack-specific checklists (TypeScript, React, Node.js, Python, Go, SQL) that `/code-review` loads for only the stacks a diff touches.
-- **`/receiving-code-review`**: give each review comment a verdict, accepted with a fix or rejected with a reason, instead of applying feedback blindly.
+- **`/review-feedback`**: give each review comment a verdict, accepted with a fix or rejected with a reason, instead of applying feedback blindly.
 - **`/security-audit`** and **`/performance-audit`**: static audits of a branch diff before a PR. Critical findings block the PR.
 
 ## Vocabulary underneath

@@ -34,7 +34,7 @@ Mark every definition `(unverified)`. Don't resolve an ambiguity by guessing: it
 
 Find decisions already in the code that pass the ADR test in `domain-modeling` (hard to reverse, surprising without context, the result of a real trade-off): the datastore, the framework, the architecture's shape, the auth provider, a deliberate deviation from the obvious path. Write each in `docs/adr/` (or where `docs/agents/domain.md` says) with `Status: proposed` frontmatter and a line naming its evidence: `(unverified: inferred from <file or commit>)`.
 
-You can see *what* was decided but rarely *why*. Write the why only where the code, a comment or a commit states it; otherwise write "Reason not recorded" and ask in the checklist.
+You can see *what* was decided but rarely *why*. Write the why only where the code, a comment, a commit or a design doc states it; otherwise write "Reason not recorded" and ask in the checklist. A repo that used the Superpowers skills keeps its design docs in `docs/superpowers/specs/`: mine them for decisions as well as reasons, citing the spec as evidence.
 
 ### 5. Review checklist
 

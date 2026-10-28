@@ -17,6 +17,7 @@ echo "Keelwork is active."
 echo "- Build requests start with grilling: /keelwork:grill-with-docs in a repo, /keelwork:grill-me outside one."
 echo "- Unattended work runs through /keelwork:ship, which settles every question up front and parks what needs a human."
 echo "- Claim done only with fresh verify output (the verify-before-done skill); commands live in docs/agents/commands.md."
+echo "- A Keelwork skill that names another skill means the keelwork: one, even where another pack (Superpowers, say) has a skill of the same name or purpose."
 
 while IFS= read -r ledger; do
   [ -n "$ledger" ] || continue

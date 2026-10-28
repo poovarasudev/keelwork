@@ -1,9 +1,9 @@
 ---
-name: receiving-code-review
+name: review-feedback
 description: "Decide which review findings to act on: accept each with a fix or reject it with a reason. Always use it when review findings, audit results or PR comments need acting on."
 ---
 
-# Receiving Code Review
+# Review Feedback
 
 A review comment is a claim about the code, and claims can be wrong. Check each one against the codebase before changing anything, then give it a **verdict**: **accepted** with the fix, or **rejected** with the reason. Applying every comment because a reviewer said so is how wrong suggestions land.
 

@@ -1,14 +1,8 @@
 # Credits
 
-`brainstorming` is ported from the [`brainstorming`](https://github.com/obra/superpowers/tree/main/skills/brainstorming) skill in [obra/superpowers](https://github.com/obra/superpowers), by Jesse Vincent, under the MIT License reproduced below.
+`review-feedback` is ported from the [`receiving-code-review`](https://github.com/obra/superpowers/tree/main/skills/receiving-code-review) skill in [obra/superpowers](https://github.com/obra/superpowers), by Jesse Vincent, under the MIT License reproduced below.
 
-What Keelwork changed, per SRD requirement S3:
-
-- **No auto-trigger.** The description scopes it to the design step of `/ship`; Superpowers fires it before any creative work.
-- **Hands off to grilling, not writing-plans.** Its exit returns to `/ship`, which runs grilling and then `to-spec` and `to-tickets`. It never invokes writing-plans.
-- **The design draft is grilling input.** The written spec, its self-review and the spec review gate are dropped: grilling and `to-spec` cover them.
-- **Every approach lists its YAGNI cuts**, so the user can restore any of them by name.
-- The spike and bounded paths, the visual-companion server and its scripts are dropped. Visual questions go to the `prototype` skill instead.
+What Keelwork changed, per SRD requirement Q4: every comment ends with an explicit verdict, **accepted** with a fix or **rejected** with a reason, reported as a table; during an unattended `/ship` run an unclear comment becomes a two-way decision or a parked ticket instead of a question; and the guidance on tone is condensed into one paragraph.
 
 ## Superpowers license
 

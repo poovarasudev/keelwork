@@ -1,5 +1,5 @@
 ---
-name: brainstorming
+name: brainstorm
 description: "Design step of a /ship run: compare 2-3 approaches with trade-offs and YAGNI cuts. Use only when the ship skill calls it."
 ---
 
