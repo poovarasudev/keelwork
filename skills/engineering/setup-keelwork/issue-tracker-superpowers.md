@@ -1,6 +1,6 @@
 # Issue tracker: Local Markdown (Superpowers layout)
 
-Issues and specs for this repo live as markdown files under `docs/superpowers/`, the layout the Superpowers skills use, so a repo moving off Superpowers keeps one docs tree.
+Issues and specs for this repo live as markdown files under `docs/superpowers/`, the layout the Superpowers skills use, so the repo keeps one docs tree whether Superpowers stays on or not.
 
 ## Conventions
 

@@ -27,7 +27,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - `.scratch/`: a sign that a local-markdown issue tracker convention is already in use
-- `docs/superpowers/` (its `specs/` and `plans/`) or a `.superpowers/` scratch folder: a sign the repo used the Superpowers skills, so the Superpowers layout fits. Also note whether Superpowers' skills are loaded in this session: `superpowers:*` names in your available skills, or, when it was installed without the plugin, names only Superpowers has, such as `using-superpowers`, `writing-plans` or `executing-plans`
+- `docs/superpowers/` (its `specs/` and `plans/`): the repo keeps its specs and plans the Superpowers way, so the Superpowers layout fits. A `.superpowers/` scratch folder alone means Superpowers ran here without leaving docs: not a reason to propose the layout. Also note whether Superpowers' skills are loaded in this session: `superpowers:*` names in your available skills, or, when it was installed without the plugin, names only Superpowers has, such as `using-superpowers`, `writing-plans` or `executing-plans`
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - The repo's commands: `package.json` scripts, `Makefile`, `justfile`, `pyproject.toml`, `Cargo.toml`, `go.mod`, CI workflow files, and the README's "development" section. These tell you the test, lint, typecheck and build commands.
 - `docs/agents/commands.md`: does a known-failure baseline already exist?
@@ -43,7 +43,7 @@ Lead each section with the recommended answer so the user can accept it in a wor
 
 > Explainer: The "issue tracker" is where issues live for this repo. Skills like `to-tickets`, `triage`, and `to-spec` read from and write to it. They need to know whether to call `gh issue create`, write a markdown file under `.scratch/`, or follow some other workflow you describe. Pick the place you actually track work for this repo.
 
-Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. The one exception: if exploration found `docs/superpowers/`, propose the Superpowers layout first, even with a GitHub or GitLab remote, because that is where the team already keeps its specs and plans, and splitting them across two places loses the history. Offer the remote's tracker as the alternative. Otherwise (or if the user prefers), offer:
+Default posture: these skills were designed for GitHub. If a `git remote` points at GitHub, propose that. If a `git remote` points at GitLab (`gitlab.com` or a self-hosted host), propose GitLab. The one exception: if exploration found `docs/superpowers/`, propose the Superpowers layout first, even with a GitHub or GitLab remote, because that is where the team already keeps its specs and plans, and splitting them across two places loses the history; offer the remote's tracker as the alternative. With none of these, or if the user prefers something else, offer:
 
 - **GitHub**: issues live in the repo's GitHub Issues (uses the `gh` CLI)
 - **GitLab**: issues live in the repo's GitLab Issues (uses the [`glab`](https://gitlab.com/gitlab-org/cli) CLI)
@@ -140,4 +140,9 @@ Tell the user the setup is complete and which engineering skills will now read f
 
 If the repo already has code but no `GLOSSARY.md`, ADRs or agent instructions, tell the user that `/onboard-repo` bootstraps that context in one session.
 
-If Superpowers' skills are loaded in this session, tell the user both packs can stay on: Keelwork's flows use Keelwork's skills (the `### Skill precedence` block), and whatever Superpowers writes lands in the same `docs/superpowers/` tree, where the Superpowers layout already expects it. Only if they want one pack steering every session, Superpowers can be turned off for this repo alone, in Claude Code with `"enabledPlugins": { "superpowers@claude-plugins-official": false }` in `.claude/settings.json` (match the id to the installed plugin).
+If Superpowers' skills are loaded in this session, tell the user both packs can stay on: Keelwork's flows use Keelwork's skills (the `### Skill precedence` block). Then the one thing that depends on the tracker:
+
+- **Superpowers layout chosen**: whatever Superpowers still writes lands in `docs/superpowers/`, where this layout already expects it.
+- **Any other tracker**: Superpowers' own brainstorming and plan skills still write to `docs/superpowers/`, outside it. Say so, so the user starts new work with Keelwork's skills (or picks the Superpowers layout) rather than ending up with two places.
+
+If they'd rather have one pack steering every session, Superpowers can be turned off for them alone in this repo: in Claude Code, `"enabledPlugins": { "superpowers@claude-plugins-official": false }` in `.claude/settings.local.json` (match the id to the installed plugin). Not `.claude/settings.json`: that file is shared, and would turn it off for every collaborator.

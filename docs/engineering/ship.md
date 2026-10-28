@@ -63,7 +63,7 @@ No. It works on its own `ship/<run-id>-<slug>` branch, never pushes to the main 
 
 **I also have Superpowers installed. Will the run use its skills?**
 
-No. Every step names the Keelwork skill it uses, and the run calls only those, never another pack's skill of the same name or purpose. That matters because Superpowers has its own brainstorming, plan-executing, worktree and branch-finishing skills, and some of them stop to ask or offer to merge, which an unattended run can't afford. You don't need to turn Superpowers off for a run.
+No. Every step names the Keelwork skill it uses, and the run calls only those, never another pack's skill of the same name or purpose. That matters because Superpowers has its own brainstorming, plan-writing, plan-executing, worktree and branch-finishing skills, and some of them stop to ask or offer to merge, which an unattended run can't afford. You don't need to turn Superpowers off for a run.
 
 **Why does it ask the grill style every time?**
 

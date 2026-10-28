@@ -79,6 +79,7 @@ P="$(new_project)"
 run_hook session-start.sh "$(start_payload "$P" startup)"
 lines="$(printf '%s\n' "$OUT" | wc -l | tr -d ' ')"
 if [ "$CODE" -eq 0 ] && [ "$lines" -lt 10 ] && printf '%s' "$OUT" | grep -q "keelwork:ship"; then ok "short reminder, under 10 lines ($lines)"; else bad "short reminder" "$OUT"; fi
+if printf '%s' "$OUT" | grep -q "means the keelwork: one"; then ok "names skill precedence over other packs"; else bad "skill precedence line" "$OUT"; fi
 write_ledger "$P" 2026-10-16-a running on ready
 run_hook session-start.sh "$(start_payload "$P" compact)"
 if printf '%s' "$OUT" | grep -q "re-read .ship/2026-10-16-a/ledger.md"; then ok "after compaction, points at the running ledger"; else bad "compaction pointer" "$OUT"; fi
