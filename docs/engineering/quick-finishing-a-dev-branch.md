@@ -22,14 +22,14 @@ A test command in `docs/agents/commands.md`, which [setup-keelwork](https://gith
 
 1. **Test.** Only the test command, through [verify-before-done](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/verify-before-done.md). A failure off the known-failure list stops everything: nothing is committed.
 2. **Commit.** One commit of everything pending, except files that look like secrets or scratch (it names what it left out).
-3. **Push.** `git push -u origin HEAD`.
+3. **Push with `gh`.** `gh` authenticates the push (`gh auth git-credential`) and `git push -u origin HEAD` sends the branch. Your git config is not changed.
 4. **Ask.** Whether to open a PR. Yes runs `gh pr create --fill`; no leaves the branch pushed.
 
 ## Common questions
 
-**Why `git push` and not `gh`?**
+**Is the push really done by `gh`?**
 
-`gh` has no push command. It owns the PR step and the login check, and `git` pushes with the credentials `gh auth` set up.
+`gh` has no push command, so the transfer is still `git push`. `gh` is what logs you in and supplies the credentials for it, as well as opening the PR, so no other login (SSH key, stored token) is needed.
 
 **It stopped on a failing test. How do I push anyway?**
 
