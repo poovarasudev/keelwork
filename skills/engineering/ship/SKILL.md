@@ -87,7 +87,7 @@ Two-way doors are decided and logged; one-way doors park the ticket. A blocked t
 
 ### 9. Finish
 
-When no ticket is ready or in progress, run the finish in [RUN-LOOP.md](RUN-LOOP.md), calling the Skill tool for each in turn: "verify-before-done" (the full suite), "code-review" (the whole branch against the spec), "security-audit" and "performance-audit" (reports to `.ship/<run-id>/`), then "pr" with the contract's finish action. Each one leaves a line in the ledger's *Finish* section.
+When no ticket is ready or in progress, run the finish in [RUN-LOOP.md](RUN-LOOP.md), calling the Skill tool for each in turn: "verify-before-done" (the full suite), "code-review" (the whole branch against the spec), "security-audit" and "performance-audit" (reports to `.ship/<run-id>/`), then "finishing-a-dev-branch" with the contract's finish action. Each one leaves a line in the ledger's *Finish* section.
 
 ## With the human again
 

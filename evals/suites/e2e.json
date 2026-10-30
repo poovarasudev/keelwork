@@ -52,7 +52,7 @@
           "verify-before-done",
           "security-audit",
           "performance-audit",
-          "pr"
+          "finishing-a-dev-branch"
         ],
         "order": [
           [
@@ -61,7 +61,7 @@
           ],
           [
             "security-audit",
-            "pr"
+            "finishing-a-dev-branch"
           ]
         ],
         "git": {

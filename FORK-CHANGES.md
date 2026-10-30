@@ -15,6 +15,8 @@ The sync process that uses this file is in [`.agents/upstream-sync.md`](.agents/
 | `skills/engineering/setup-matt-pocock-skills/` | `skills/engineering/setup-keelwork/` | The command carried the author's name. ADR 0005. |
 | `docs/engineering/ask-matt.md` | `docs/engineering/ask-keelwork.md` | Follows the skill. |
 | `docs/engineering/setup-matt-pocock-skills.md` | `docs/engineering/setup-keelwork.md` | Follows the skill. |
+| `skills/engineering/pr/` | `skills/engineering/finishing-a-dev-branch/` | `pr` collided with ordinary chat about pull requests. ADR 0006. |
+| `docs/engineering/pr.md` | `docs/engineering/finishing-a-dev-branch.md` | Follows the skill. |
 
 Every reference to the old names across the repo was updated in the same change. `scripts/upstream-sync.sh` rewrites these paths when it applies an upstream patch.
 
@@ -33,9 +35,11 @@ Every reference to the old names across the repo was updated in the same change.
 | `skills/engineering/implement-spec/SKILL.md` | New **Execution mode** and **The per-ticket loop** sections; step 4 split into inline and subagent modes; step 5 merges only after both reviews; step 7 notes inline fixing. | SRD A3: ask the mode, never default to subagents silently; spec review before quality review; fix rounds capped. |
 | `skills/productivity/grilling/SKILL.md` | One closing paragraph pointing at `AUTONOMY-PREP.md` when the caller says it's a `/ship` run. | SRD S5: autonomy prep under `/ship` only; supervised sessions unchanged. |
 | `skills/engineering/code-review/SKILL.md` | Step 3 calls `stack-review` for the diff's stacks; the Standards sub-agent gets the stack checklists and reports item (c). | SRD Q1: `code-review` loads the matching stack checklist. |
-| `skills/engineering/pr/SKILL.md` | Description extended; new **Finishing a branch** section (full suite, whole-branch review, open a PR or keep the branch, cleanup; never merges). | SRD Q5: name kept, behaviour extended. |
-| `skills/engineering/ask-keelwork/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `pr` descriptions updated; the precondition mentions the test baseline; local tickets may live where the tracker file says, such as the Superpowers layout. | CLAUDE.md: the router must map every user-reachable skill. |
-| `skills/engineering/README.md` | Voice changed from first person; new skills listed; `to-spec` and `to-tickets` moved to Model-invoked; updated entries for setup, `implement-spec`, `code-review`, `pr`. | Rebrand, and CLAUDE.md's bucket README rule. |
+| `skills/engineering/finishing-a-dev-branch/SKILL.md` | Renamed from `pr`; description now leads with finishing a branch and no longer matches any PR mention; new **Finishing a branch** section (full suite, whole-branch review, open a PR or keep the branch, cleanup; never merges). | SRD Q5: behaviour extended. ADR 0006: renamed. |
+| `skills/engineering/finishing-a-dev-branch/agents/openai.yaml` | Display name and short description updated for the rename. | ADR 0006. |
+| `skills/engineering/finishing-a-dev-branch/CREDITS.md` | Skill name updated for the rename. | ADR 0006. |
+| `skills/engineering/ask-keelwork/SKILL.md` | New **The unattended flow: `/ship`** and **Gates underneath** sections; on-ramps for `/onboard-repo` and the discovery skills; `implement-spec` and `finishing-a-dev-branch` descriptions updated, `quick-finishing-a-dev-branch` routed; the precondition mentions the test baseline; local tickets may live where the tracker file says, such as the Superpowers layout. | CLAUDE.md: the router must map every user-reachable skill. |
+| `skills/engineering/README.md` | Voice changed from first person; new skills listed; `to-spec` and `to-tickets` moved to Model-invoked; updated entries for setup, `implement-spec`, `code-review`, `finishing-a-dev-branch`; `quick-finishing-a-dev-branch` listed. | Rebrand, and CLAUDE.md's bucket README rule. |
 | `skills/productivity/README.md` | Discovery skills listed; `grilling` entry mentions autonomy prep. | CLAUDE.md's bucket README rule. |
 | `skills/misc/README.md` | Voice changed from first person. | Rebrand. |
 | `skills/deprecated/README.md` | Voice changed from first person. | Rebrand. |
@@ -49,7 +53,7 @@ Every reference to the old names across the repo was updated in the same change.
 | `docs/engineering/to-spec.md` | Invocation line rewritten (agent-callable, narrow); `/ship` in Where it fits. | Re-sync for SRD A1. |
 | `docs/engineering/to-tickets.md` | Invocation line rewritten; new **Each ticket is a detailed plan** section; an It's-working-if bullet replaced; `/ship` in Where it fits; the local-markdown row names the tracker file's path. | Re-sync for SRD A1 and A2, and the Superpowers layout option. |
 | `docs/engineering/implement-spec.md` | Execution mode in What it does; new **The per-ticket loop** section; It's-working-if bullets updated. | Re-sync for SRD A3. |
-| `docs/engineering/pr.md` | What it does, When to reach for it and two questions rewritten; new **Finishing a branch** section; one It's-working-if bullet added. | Re-sync for SRD Q5 and Q4. |
+| `docs/engineering/finishing-a-dev-branch.md` | Renamed from `pr`; a **Where did `/pr` go?** question and a pointer to the quick sibling added; What it does, When to reach for it and two questions rewritten; new **Finishing a branch** section; one It's-working-if bullet added. | Re-sync for SRD Q5 and Q4. |
 | `docs/engineering/code-review.md` | New **Stack checklists** section; one bullet each in It's working if and Where it fits. | Re-sync for SRD Q1. |
 | `docs/productivity/grilling.md` | New **Autonomy prep, under `/ship` only** section; `ship` in Where it fits. | Re-sync for SRD S5. |
 | `docs/engineering/codebase-design.md` | Author attribution removed ("Matt's answer", "He has separately called"). | Rebrand: `.agents/writing-docs.md` forbids naming the author. |
@@ -64,6 +68,7 @@ Every reference to the old names across the repo was updated in the same change.
 | `.agents/adr/0001-explicit-setup-pointer-only-for-hard-dependencies.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
 | `.out-of-scope/mainstream-issue-trackers-only.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
 | `.out-of-scope/setup-skill-verify-mode.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
+| `docs/engineering/implement.md`, `docs/engineering/code-review.md` | Links to `pr` changed to `finishing-a-dev-branch`. | Rename, ADR 0006. |
 | `docs/engineering/diagnosing-bugs.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
 | `docs/engineering/domain-modeling.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
 | `docs/engineering/grill-with-docs.md` | Links and mentions of `ask-matt` / `setup-matt-pocock-skills` changed to `ask-keelwork` / `setup-keelwork`. | Rename, ADR 0005. |
@@ -111,6 +116,7 @@ These skills are Keelwork's, not upstream's. They never conflict on a sync; thei
 | `security-audit` | engineering | Adapted from pm-skills `security-audit-static` |
 | `performance-audit` | engineering | Adapted from pm-skills `performance-audit-static` |
 | `review-feedback` | engineering | Ported from Superpowers `receiving-code-review` |
+| `quick-finishing-a-dev-branch` | engineering | Keelwork |
 | `brainstorm-ideas-new` | productivity | Ported from pm-skills |
 | `brainstorm-ideas-existing` | productivity | Ported from pm-skills |
 | `strategy-red-team` | productivity | Ported from pm-skills |

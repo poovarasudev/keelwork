@@ -1,6 +1,6 @@
 ---
-name: pr
-description: "Use when writing a PR body, or finishing a branch: full suite, whole-branch review, then open a PR or keep the branch."
+name: finishing-a-dev-branch
+description: "Use when the work on a branch is done and it is time to hand it over: full suite, whole-branch review, then open a PR or keep the branch. Also the template for the PR body it writes."
 metadata:
   credits:
     skill: show-me
@@ -9,7 +9,7 @@ metadata:
     url: "https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
 
-Use this template for writing the PR body. When the job is to finish a branch, not just to write a body, follow **Finishing a branch** at the end.
+Finishing a branch means a full-suite run, a whole-branch review, then opening a PR or keeping the branch (see **Finishing a branch** at the end). Use the template below for the PR body when one gets written.
 
 ```markdown
 ## Summary
