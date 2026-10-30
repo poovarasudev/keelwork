@@ -1,6 +1,6 @@
 {
   "name": "keelwork",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "private": true,
   "description": "Disciplined agent workflows for Claude Code: grill the plan, ship overnight, review at dawn.",
   "repository": {
