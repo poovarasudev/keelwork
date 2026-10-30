@@ -174,6 +174,8 @@ const RENAMES = [
   ["skills/engineering/setup-matt-pocock-skills", "skills/engineering/setup-keelwork"],
   ["docs/engineering/ask-matt.md", "docs/engineering/ask-keelwork.md"],
   ["docs/engineering/setup-matt-pocock-skills.md", "docs/engineering/setup-keelwork.md"],
+  ["skills/engineering/pr", "skills/engineering/finishing-a-dev-branch"],
+  ["docs/engineering/pr.md", "docs/engineering/finishing-a-dev-branch.md"],
 ];
 const renamed = (p) => {
   for (const [from, to] of RENAMES) if (p === from || p.startsWith(`${from}/`)) return to + p.slice(from.length);

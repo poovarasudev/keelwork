@@ -111,6 +111,6 @@ When no ticket is `ready` or `in-progress`, set `Phase: finish` and run, in orde
 3. **Security audit**: call the Skill tool with "security-audit" over the branch diff, writing its report to `.ship/<run-id>/security-audit.md`.
 4. **Performance audit**: call the Skill tool with "performance-audit" over the branch diff, writing its report to `.ship/<run-id>/performance-audit.md`.
 5. **Critical findings block the PR.** Give each critical audit finding one fix wave and one re-audit. If any critical finding survives, downgrade the finish action from `open-pr` to `push-branch`, and say why in the report.
-6. **PR**: call the Skill tool with "pr", passing the finish action, the spec and ticket references, and the fact that the full suite and the whole-branch review already ran at this commit (with the ledger as evidence), so it doesn't repeat them.
+6. **PR**: call the Skill tool with "finishing-a-dev-branch", passing the finish action, the spec and ticket references, and the fact that the full suite and the whole-branch review already ran at this commit (with the ledger as evidence), so it doesn't repeat them.
 
 Record each result in the ledger's *Finish* section, then go to step 10.

@@ -6,7 +6,7 @@ The command comes from the ticket or from `docs/agents/commands.md`, never guess
 
 ## When to reach for it
 
-Type `/verify-before-done`, or the agent reaches for it automatically before marking a ticket done, committing, opening a PR, or reporting that tests, lint, typecheck or a build pass. [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md), [implement-spec](https://aihero.dev/skills-implement-spec) and [pr](https://aihero.dev/skills-pr) call it at every "done".
+Type `/verify-before-done`, or the agent reaches for it automatically before marking a ticket done, committing, opening a PR, or reporting that tests, lint, typecheck or a build pass. [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md), [implement-spec](https://aihero.dev/skills-implement-spec) and [finishing-a-dev-branch](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/finishing-a-dev-branch.md) call it at every "done".
 
 ## Prerequisites
 
@@ -39,4 +39,4 @@ Not if it's on the known-failure list in `docs/agents/commands.md`. Setup record
 
 ## Where it fits
 
-A **gate** that the build skills call at every claim of completion: [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) per ticket and at the finish, [implement-spec](https://aihero.dev/skills-implement-spec) per ticket, and [pr](https://aihero.dev/skills-pr) before handing a branch over. Its baseline comes from [setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.
+A **gate** that the build skills call at every claim of completion: [ship](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ship.md) per ticket and at the finish, [implement-spec](https://aihero.dev/skills-implement-spec) per ticket, and [finishing-a-dev-branch](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/finishing-a-dev-branch.md) before handing a branch over. Its baseline comes from [setup-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/setup-keelwork.md). [ask-keelwork](https://github.com/poovarasudev/keelwork/blob/main/docs/engineering/ask-keelwork.md) routes you over the whole set.

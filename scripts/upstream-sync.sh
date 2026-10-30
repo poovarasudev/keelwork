@@ -49,13 +49,15 @@ git switch --quiet -c "$BRANCH" main
 echo "On $BRANCH. Applying upstream ${BASELINE:0:7}..${TARGET_SHA:0:7}."
 
 PATCH="$(mktemp)"
-# Keelwork renamed two upstream skills (FORK-CHANGES.md, "Renamed"); rewrite their
+# Keelwork renamed three upstream skills (FORK-CHANGES.md, "Renamed"); rewrite their
 # paths in the patch so upstream's changes land on the renamed files.
 git diff --binary "$BASELINE" "$TARGET_SHA" \
   | sed -e 's#skills/engineering/ask-matt#skills/engineering/ask-keelwork#g' \
         -e 's#skills/engineering/setup-matt-pocock-skills#skills/engineering/setup-keelwork#g' \
         -e 's#docs/engineering/ask-matt\.md#docs/engineering/ask-keelwork.md#g' \
-        -e 's#docs/engineering/setup-matt-pocock-skills\.md#docs/engineering/setup-keelwork.md#g' > "$PATCH"
+        -e 's#docs/engineering/setup-matt-pocock-skills\.md#docs/engineering/setup-keelwork.md#g' \
+        -e 's#skills/engineering/pr/#skills/engineering/finishing-a-dev-branch/#g' \
+        -e 's#docs/engineering/pr\.md#docs/engineering/finishing-a-dev-branch.md#g' > "$PATCH"
 if git apply -3 --index "$PATCH"; then
   echo "Applied cleanly."
 else

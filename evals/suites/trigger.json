@@ -166,17 +166,17 @@
     "query": "I want to build a new feature that lets users export their data."
   },
   {
-    "skill": "pr",
+    "skill": "finishing-a-dev-branch",
     "should_trigger": true,
     "query": "Write the PR description for this branch."
   },
   {
-    "skill": "pr",
+    "skill": "finishing-a-dev-branch",
     "should_trigger": true,
     "query": "The work on this branch is finished. Wrap it up and hand it over as a pull request."
   },
   {
-    "skill": "pr",
+    "skill": "finishing-a-dev-branch",
     "should_trigger": false,
     "query": "What does PR stand for in our team's process docs?"
   },

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Quick Finishing a Dev Branch"
+  short_description: "Test, commit everything, push, then ask about a PR"
+policy:
+  allow_implicit_invocation: false

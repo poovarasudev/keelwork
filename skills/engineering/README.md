@@ -16,6 +16,7 @@ Reachable only when you type them (Claude Code: `disable-model-invocation: true`
 - **[implement](./implement/SKILL.md)**: Build the work described by a spec or set of tickets, driving `/tdd` at pre-agreed seams and closing out with `/code-review` before committing.
 - **[implement-spec](./implement-spec/SKILL.md)**: Implement a whole spec on one integration branch. Asks whether to run a subagent per ticket or work inline, then puts every ticket through implement, spec review, quality review, fix, verify and commit, and closes out with `/code-review`.
 - **[wayfinder](./wayfinder/SKILL.md)**: Plan a huge chunk of work (more than one agent session can hold) as a shared map of decision tickets on the issue tracker, resolved one at a time until the way to the destination is clear.
+- **[quick-finishing-a-dev-branch](./quick-finishing-a-dev-branch/SKILL.md)**: The quick hand-over: run the tests, commit everything pending, push the branch, then ask whether to open a PR. No review; for that use `/finishing-a-dev-branch`.
 - **[retro](./retro/SKILL.md)**: Suggest improvements to the coding agent's environment (navigation, automated checks, coding standards, steering files, tooling) after a session, most severe first.
 
 ## Model-invoked
@@ -32,7 +33,7 @@ Model- or user-reachable (rich trigger phrasing so the model can reach for them)
 - **[domain-modeling](./domain-modeling/SKILL.md)**: Actively build and sharpen a project's domain model by challenging terms, stress-testing with scenarios, and updating `GLOSSARY.md` and ADRs inline.
 - **[codebase-design](./codebase-design/SKILL.md)**: Shared discipline and vocabulary for designing deep modules: small interfaces, clean seams, testable through the interface.
 - **[code-review](./code-review/SKILL.md)**: Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline and the matching stack checklists?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents.
-- **[pr](./pr/SKILL.md)**: The shape a pull request body should take (a summary as the smallest visual, before/after evidence, a merge-danger call), plus finishing a branch: a final full-suite run, a whole-branch review, then open a PR or keep the branch, and clean up. Never merges.
+- **[finishing-a-dev-branch](./finishing-a-dev-branch/SKILL.md)**: Finish a branch: a final full-suite run, a whole-branch review, then open a PR or keep the branch, and clean up. Also the shape a pull request body should take (a summary as the smallest visual, before/after evidence, a merge-danger call). Never merges.
 - **[verify-before-done](./verify-before-done/SKILL.md)**: Run the verify command and show its output before any claim that work is done, fixed or passing; failures on the known-failure list don't block, new ones do.
 - **[brainstorm](./brainstorm/SKILL.md)**: The design step of `/ship`: two or three approaches with trade-offs and the YAGNI cuts listed, then a design draft for grilling. Never fires on its own.
 - **[stack-review](./stack-review/SKILL.md)**: Stack-specific review checklists (TypeScript, React, Node.js, Python, Go, SQL), loaded only for the stacks a diff touches. `/code-review` pulls it in.

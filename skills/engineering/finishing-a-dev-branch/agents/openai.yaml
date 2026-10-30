@@ -1,0 +1,3 @@
+interface:
+  display_name: "Finishing a Dev Branch"
+  short_description: "Finish a branch: full suite, review, then a PR or keep it"
